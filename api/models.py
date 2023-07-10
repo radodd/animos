@@ -1,6 +1,6 @@
 from bson.objectid import ObjectId
 from pydantic import BaseModel
-
+from typing import List
 
 class PydanticObjectId(ObjectId):
     @classmethod
@@ -41,3 +41,7 @@ class EventIn(BaseModel):
 
 class EventOut(EventIn):
     id: str
+
+
+class EventsList(BaseModel):
+    events: List[EventOut]

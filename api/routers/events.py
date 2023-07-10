@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from models import EventIn, EventOut
+from models import EventIn, EventOut, EventsList
 from queries.events import EventQueries
 from bson import ObjectId
 
@@ -22,3 +22,9 @@ def get_event(
 ):
     event = repo.get({"_id": ObjectId(id)})
     return event
+
+@router.get("/api/events", response_model=EventsList)
+def get_events(
+    repo: EventQueries = Depends()
+):
+    return EventsList(events=repo.get_list())

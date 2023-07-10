@@ -1,5 +1,6 @@
 from .client import Queries
 from models import EventIn, EventOut
+from typing import List
 
 
 class EventQueries(Queries):
@@ -19,5 +20,9 @@ class EventQueries(Queries):
         result["id"] = str(result["_id"])
         return EventOut(**result)
 
-    def get_list(self):
-        pass
+    def get_list(self) -> List[EventOut]:
+        result = self.collection.find()
+        result_list = list(result)
+        for result in result_list:
+            result["id"] = str(result["_id"])
+        return [EventOut(**result) for result in result_list]
