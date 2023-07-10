@@ -10,5 +10,5 @@ def create_event(
   event: EventIn,
   repo: EventQueries = Depends()
 ):
-  event = repo.create()
+  event = repo.create(event)
   return event
