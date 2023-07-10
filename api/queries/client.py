@@ -1,8 +1,14 @@
-from pymongo import MongoClient
 import os
+import pymongo
 
-DATABASE_URL = os.environ.get("mongodb://animos:password@mongo")
-DB_NAME = os.environ.get("animos-db")
+DATABASE_URL = os.environ["DATABASE_URL"]
+client = pymongo.MongoClient(DATABASE_URL)
 
-client = MongoClient(DATABASE_URL)
-db = client[DB_NAME]
+# DB_NAME = os.environ.get("animos-db")
+# db = client[DB_NAME]
+
+class Queries:
+    @property
+    def collection(self):
+        db = client[self.DB_NAME]
+        return db[self.COLLECTION]
