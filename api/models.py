@@ -30,3 +30,14 @@ class AccountOut(BaseModel):
     id: str
     email: str
     full_name: str
+
+
+class EventIn(BaseModel):
+    name: str
+    description: str
+    capacity: int
+    picture_url: str
+
+
+class EventOut(EventIn):
+    id: str
