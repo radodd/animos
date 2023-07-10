@@ -4,7 +4,7 @@ from models import EventIn, EventOut
 
 class EventQueries(Queries):
     DB_NAME = "animos-db"
-    COLLECTION = "accounts"
+    COLLECTION = "events"
 
     def create(self, event: EventIn) -> EventOut:
         props = event.dict()
@@ -18,3 +18,6 @@ class EventQueries(Queries):
             raise Exception("Event Not Found")
         result["id"] = str(result["_id"])
         return EventOut(**result)
+
+    def get_list(self):
+        pass
