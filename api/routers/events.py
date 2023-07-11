@@ -28,3 +28,10 @@ def get_events(
     repo: EventQueries = Depends()
 ):
     return EventsList(events=repo.get_list())
+
+@router.delete("/api/events/{id}", response_model=bool)
+def delete_event(
+    id: str,
+    repo: EventQueries = Depends()
+):
+    return repo.delete({"_id": ObjectId(id)})

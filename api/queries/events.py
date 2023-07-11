@@ -26,3 +26,9 @@ class EventQueries(Queries):
         for result in result_list:
             result["id"] = str(result["_id"])
         return [EventOut(**result) for result in result_list]
+
+    def delete(self, id) -> bool:
+        result = self.collection.delete_one(id)
+        if result.deleted_count > 0:
+            return True
+        return False
