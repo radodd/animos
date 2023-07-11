@@ -1,3 +1,4 @@
+from pydantic import BaseModel
 from bson.objectid import ObjectId
 from pydantic import BaseModel
 from typing import List
@@ -16,6 +17,7 @@ class PydanticObjectId(ObjectId):
             except:
                 raise ValueError(f"Not a valid object id: {value}")
         return value
+
 
 class AccountIn(BaseModel):
     email: str
@@ -51,3 +53,37 @@ class EventOut(EventIn):
 
 class EventsList(BaseModel):
     events: List[EventOut]
+
+
+class User(BaseModel):
+    username: str
+    first_name: str
+    last_name: str
+    email: str
+    zipcode: str
+    picture_url: str
+
+
+class LocationIn(BaseModel):
+    name: str
+    zipcode: str
+    description: str
+    capacity: str
+    picture_url: str
+
+
+class Location(LocationIn):
+    id: PydanticObjectId
+
+
+class LocationOut(BaseModel):
+    id: str
+    name: str
+    zipcode: str
+    description: str
+    capacity: str
+    picture_url: str
+
+
+class LocationList(BaseModel):
+    locations: List[LocationOut]

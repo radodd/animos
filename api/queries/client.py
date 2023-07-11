@@ -3,9 +3,9 @@ import pymongo
 
 DATABASE_URL = os.environ["DATABASE_URL"]
 client = pymongo.MongoClient(DATABASE_URL)
+db = client["animos-db"]
+user_collection = db["users"]
 
-# DB_NAME = os.environ.get("animos-db")
-# db = client[DB_NAME]
 
 class Queries:
     @property
