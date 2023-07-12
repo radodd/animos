@@ -1,6 +1,8 @@
+
 from .client import Queries
 from models import Account, AccountIn
 from pymongo.errors import DuplicateKeyError
+from typing import List
 
 class DuplicateAccountError(ValueError):
     pass
@@ -12,10 +14,12 @@ class AccountQueries(Queries):
 
     def get(self, email: str) -> Account:
         props = self.collection.find_one({"email": email})
+        print("props from GET:", props)
         if not props:
             return None
         props["id"] = str(props["_id"])
         return Account(**props)
+
 
     def create(self, info: AccountIn, hashed_password: str) -> Account:
         props = info.dict()
@@ -24,5 +28,57 @@ class AccountQueries(Queries):
             self.collection.insert_one(props)
         except DuplicateKeyError:
             raise DuplicateAccountError()
+        props["id"] = str(props["_id"])
+        return Account(**props)
+
+
+    def update(self, email: str, info: AccountIn) -> Account:
+        # Find the account with the specified email
+        account = self.get(email)
+        print("account from UPDATE:", account)
+        if not account:
+            return None
+        # Update the account with the new information
+        update_result = self.collection.update_one(
+            {"email": email},
+            {"$set": info.dict(exclude_unset=True)}
+        )
+        print("update_result from UPDATE:", update_result)
+        # Check if the update was successful
+        if update_result.modified_count == 1:
+            print("email modified_count from UPDATE:", email)
+            # Get the updated account from the database
+            updated_account = self.get(info.email)
+            return updated_account
+        else:
+            return None
+
+
+    def delete(self, email: str) -> bool:
+        # Find the account with the specified email
+        account = self.get(email)
+        if not account:
+            return False
+        # Delete the account from the database
+        delete_result = self.collection.delete_one({"email": email})
+        if delete_result.deleted_count == 1:
+            return True
+        else:
+            return False
+
+
+    def get_all(self) -> List[Account]:
+        accounts = self.collection.find()
+        account_list = []
+        for account in accounts:
+            account["id"] = str(account["_id"])
+            account_list.append(Account(**account))
+        return account_list
+
+
+    def get_by_email(self, email: str) -> Account:
+        props = self.collection.find_one({"email": email})
+        if not props:
+            return None
         props["id"] = str(props["_id"])
         return Account(**props)
