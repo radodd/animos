@@ -20,6 +20,8 @@ class AccountIn(BaseModel):
     email: str
     password: str
     full_name: str
+    def __str__(self):
+        return self.email + " " + self.password + " " + self.full_name
 
 
 class Account(AccountIn):
