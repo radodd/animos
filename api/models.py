@@ -87,3 +87,20 @@ class LocationOut(BaseModel):
 
 class LocationList(BaseModel):
     locations: List[LocationOut]
+
+class PetIn(BaseModel):
+  pet_name: str
+  birth_adoption_date: str
+  breed: str
+  dietary_restrictions: str
+  vibe: str
+  size: str
+  pet_picture_url: str
+  user_id: str
+
+class PetOut(PetIn):
+    id: str
+
+
+class PetsList(BaseModel):
+    pets: List[PetOut]

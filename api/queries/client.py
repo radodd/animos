@@ -7,6 +7,8 @@ db = client["animos-db"]
 user_collection = db["users"]
 
 
+
+
 class Queries:
     @property
     def collection(self):
