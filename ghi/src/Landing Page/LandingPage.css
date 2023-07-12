@@ -22,7 +22,7 @@
 }
 
 .button {
-  background-color: #A5CBC0;
+  background-color: #b3d0c8;
   border: none;
   border-radius: 12px;
   color: white;
@@ -65,7 +65,7 @@
 
 .navbar-nav .nav-link-login:hover,
 .navbar-nav .nav-link-signup:hover {
-  color: #3B9C7D;
+  color: #43967c;
   font-weight: 700;
 }
 
