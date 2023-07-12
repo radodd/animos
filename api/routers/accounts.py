@@ -1,3 +1,7 @@
+from jwtdown_fastapi.authentication import Token
+from .auth import authenticator
+from typing import List
+from pydantic import BaseModel
 from fastapi import (
     Depends,
     HTTPException,
@@ -6,11 +10,6 @@ from fastapi import (
     APIRouter,
     Request,
 )
-from jwtdown_fastapi.authentication import Token
-from .auth import authenticator
-
-from pydantic import BaseModel
-
 from queries.accounts import (
     AccountQueries,
     DuplicateAccountError,
@@ -21,6 +20,15 @@ from models import (
     AccountOut,
 )
 
+router = APIRouter()
+
+not_authorized = HTTPException(
+    status_code=status.HTTP_401_UNAUTHORIZED,
+    detail="Invalid authentication credentials",
+    headers={"WWW-Authenticate": "Bearer"},
+)
+class HttpError(BaseModel):
+    detail: str
 class AccountForm(BaseModel):
     username: str
     password: str
@@ -28,17 +36,6 @@ class AccountForm(BaseModel):
 class AccountToken(Token):
     account: AccountOut
 
-class HttpError(BaseModel):
-    detail: str
-
-router = APIRouter()
-
-
-not_authorized = HTTPException(
-    status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="Invalid authentication credentials",
-    headers={"WWW-Authenticate": "Bearer"},
-)
 
 @router.get("/api/protected", response_model=bool)
 async def get_protected(#
@@ -70,6 +67,7 @@ async def create_account(
     repo: AccountQueries = Depends(),
 ):
     hashed_password = authenticator.hash_password(info.password)
+    print("hashed_password from ROUTER:", hashed_password)
     try:
         account = repo.create(info, hashed_password)
     except DuplicateAccountError:
@@ -80,3 +78,66 @@ async def create_account(
     form = AccountForm(username=info.email, password=info.password)
     token = await authenticator.login(response, request, form, repo)
     return AccountToken(account=account, **token.dict())
+
+
+@router.put("/api/accounts/{email}", response_model=AccountToken | HttpError)
+async def update_account(
+    email: str,
+    info: AccountIn,
+    request: Request,
+    response: Response,
+    repo: AccountQueries = Depends(),
+):
+    # Update the account with the new information
+    original_password = info.password
+    hashed_password = authenticator.hash_password(info.password)
+    info.password = hashed_password
+    updated_account = repo.update(email, info)
+    if not updated_account:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Account not found or update failed",
+        )
+    print("updated_account from ROUTER:", updated_account)
+    # Create a new token for the updated account
+    form = AccountForm(username=updated_account.email, password=original_password)
+    token = await authenticator.login(response, request, form, repo)
+
+    # Return the updated account and token
+    return AccountToken(account=updated_account, **token.dict())
+
+
+@router.delete("/api/accounts/{email}", response_model=bool)
+async def delete_account(
+    email: str,
+    repo: AccountQueries = Depends(),
+):
+    deleted = repo.delete(email)
+    if not deleted:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Account not found or delete failed",
+        )
+    return True
+
+
+@router.get("/api/accounts", response_model=List[AccountOut])
+async def get_all_accounts(
+    repo: AccountQueries = Depends(),
+):
+    accounts = repo.get_all()
+    return [AccountOut(**account.dict()) for account in accounts]
+
+
+@router.get("/api/accounts/{email}", response_model=AccountOut | None)
+async def get_account_by_email(
+    email: str,
+    repo: AccountQueries = Depends(),
+):
+    account = repo.get_by_email(email)
+    if not account:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Account not found",
+        )
+    return AccountOut(**account.dict())
