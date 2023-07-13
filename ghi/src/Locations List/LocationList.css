@@ -1,0 +1,36 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 16rem));
+  gap: 2rem;
+  justify-content: center;
+}
+
+.location-card {
+  overflow: hidden;
+  box-shadow: 0 2px 20px rgb(232, 232, 232);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: 200ms ease-in;
+}
+
+.card-title {
+  padding: 1rem;
+  font-size: 800;
+}
+
+.card-des {
+  padding: 1rem;
+  font-size: 800;
+}
+
+.card-button {
+  padding: 1rem;
+  font-size: 1rem;
+  margin: 1rem;
+  border: 2px solid;
+  font-weight: bold;
+  border-radius: 12px;
+}

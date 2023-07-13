@@ -1,32 +1,34 @@
 import { useEffect, useState } from 'react';
+import './LocationList.css';
 
-
-
-function LocationsList({locations}) {
-
-    function Card() {
-
+function LocationsList({ locations }) {
+  function Card() {
     return (
-        <>
-        <div className="location-card">
-            {locations.map((location) => (
+      <>
+        {locations.map((location) => (
+          <div className="location-card">
             <div className="card-body">
-                <img width="200px" src={location.picture_url} />
-                <h2 className="card-title">{location.name}</h2>
-                <p className="card-description">{location.description}</p>
+              <img
+                className="card-image"
+                width="100%"
+                src={location.picture_url}
+              />
+              <h4 className="card-title">{location.name}</h4>
+              {/* <p className="card-description">{location.description}</p> */}
+              <button className="card-button">View details</button>
             </div>
-            ))}
-            <button className="card-button">View details</button>
-        </div>
-        </>
+          </div>
+        ))}
+      </>
     );
-    }
+  }
 
-    return (
+  return (
     <>
       <h1> Pet Furiendly Locations</h1>
-      <Card />
-
+      <div className="wrapper">
+        <Card />
+      </div>
     </>
   );
 }
