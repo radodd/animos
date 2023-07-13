@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LandingPage from './Landing Page/LandingPage.js';
 import CreateEvent from './Create Event/createEvent.js';
+import LocationsList from './Locations List/LocationsList.js';
 // import Construct from "./Construct.js";
 // import ErrorNotification from "./ErrorNotification";
 import './App.css';
@@ -50,10 +51,10 @@ function App() {
                 <div className="container">
                     <Routes>
                         <Route path="/" element={<LandingPage />} />
-                        <Route
-                            path="events/create"
-                            element={<CreateEvent locations={locations} />}
-                        />
+                        <Route path="events/create" element={<CreateEvent locations={locations} />}/>
+                        <Route path="locations">
+                          <Route index element={<LocationsList locations={locations}/>}/>
+                        </Route>
                     </Routes>
                 </div>
                 {/* <ErrorNotification error={error} />
