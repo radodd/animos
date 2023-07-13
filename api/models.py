@@ -1,8 +1,7 @@
 from pydantic import BaseModel
 from bson.objectid import ObjectId
-from pydantic import BaseModel
 from typing import List
-import datetime
+
 
 class PydanticObjectId(ObjectId):
     @classmethod
@@ -55,8 +54,8 @@ class EventIn(BaseModel):
     description: str
     capacity: int
     picture_url: str
-    date_start: datetime.datetime
-    date_end: datetime.datetime
+    date_start: str
+    date_end: str
     location_id: str
     account_id: str
     attendees: list
@@ -103,15 +102,17 @@ class LocationOut(BaseModel):
 class LocationList(BaseModel):
     locations: List[LocationOut]
 
+
 class PetIn(BaseModel):
-  pet_name: str
-  birth_adoption_date: str
-  breed: str
-  dietary_restrictions: str
-  vibe: str
-  size: str
-  pet_picture_url: str
-  user_id: str
+    pet_name: str
+    birth_adoption_date: str
+    breed: str
+    dietary_restrictions: str
+    vibe: str
+    size: str
+    pet_picture_url: str
+    user_id: str
+
 
 class PetOut(PetIn):
     id: str
@@ -119,8 +120,6 @@ class PetOut(PetIn):
 
 class PetsList(BaseModel):
     pets: List[PetOut]
-from bson.objectid import ObjectId
-from pydantic import BaseModel
 
 
 class PydanticObjectId(ObjectId):
