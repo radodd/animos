@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LandingPage from "./Landing Page/LandingPage.js";
 // import Construct from "./Construct.js";
 // import ErrorNotification from "./ErrorNotification";
 import "./App.css";
+import PetsList from './PetsList';
 
-function App() {
+function App(props) {
   // const [launchInfo, setLaunchInfo] = useState([]);
   // const [error, setError] = useState(null);
 
@@ -35,6 +36,7 @@ function App() {
         <div className="container">
           <Routes>
             <Route path="/" element={<LandingPage />} />
+            <Route path="/pets" element={<PetsList models={props.pets} />} />
 
           </Routes>
         </div>

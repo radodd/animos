@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './LandingPage.css';
 
 function LandingPageNav() {
@@ -25,6 +25,11 @@ function LandingPageNav() {
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav ms-auto">
+                <li className="nav-item">
+                  <a className="nav-link" aria-current="page" href="/pets">
+                    Pet List
+                  </a>
+                </li>
                 <li className="nav-item">
                   <a className="nav-link" aria-current="page" href="/about">
                     About
