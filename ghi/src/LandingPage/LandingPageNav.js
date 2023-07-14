@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
-import './LandingPage.css';
+import React, { useState } from "react";
+import "./LandingPage.css";
 
 function LandingPageNav() {
-
   return (
     <>
-      <div class="container-nav">
+      <div className="container-nav">
         <header className="header">
           <nav className="navbar navbar-expand navbar-light">
             <button
@@ -36,13 +35,21 @@ function LandingPageNav() {
                   </a>
                 </li>
                 <li className="nav-item-login">
-                  <a className="nav-link nav-link-login" aria-current="page" href="/login">
+                  <a
+                    className="nav-link nav-link-login"
+                    aria-current="page"
+                    href="/login"
+                  >
                     Login
                   </a>
                 </li>
                 <li className="nav-item-signup">
                   <button className="button button4">
-                    <a className="nav-link nav-link-signup" aria-current="page" href="/signup">
+                    <a
+                      className="nav-link nav-link-signup"
+                      aria-current="page"
+                      href="/signup"
+                    >
                       Sign Up
                     </a>
                   </button>
