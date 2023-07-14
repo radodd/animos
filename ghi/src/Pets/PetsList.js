@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 
-function PetsList() {
-    const [pets, setPets] = useState([]);
+
+function PetsList({pets}) {
+    const [pet, setPet] = useState([]);
+    const [pictureSource, setPictureSource] = useState(null);
 
     const fetchData = async () => {
       const url = 'http://localhost:8000/api/pets'
@@ -9,7 +11,7 @@ function PetsList() {
 
       if (response.ok) {
         const data = await response.json();
-        setPets(data.pets);
+        setPet(data.pets);
         console.log(data);
       }
     }
@@ -18,16 +20,29 @@ function PetsList() {
     }, []);
 
     const handleDelete = async (event) => {
-      const automobilesUrl = `http://localhost:8100/api/automobiles/${event}/`
+      const petsUrl = `http://localhost:8000/api/pets/${event}/`
       const fetchConfig = {
         method: "delete",
       }
-      const response = await fetch(automobilesUrl, fetchConfig);
+      const response = await fetch(petsUrl, fetchConfig);
       if (response.ok) {
         console.log(response.deleted, response.breakdown)
         fetchData();
       }
     }
+
+    const convertBase64ToImage = (base64String) => {
+      const blob = new Blob([base64String], { type: 'image/jpeg' });
+      const imageUrl = URL.createObjectURL(blob);
+      setPictureSource(imageUrl);
+    };
+
+    useEffect(() => {
+      const base64String = pets.pet_picture_url;
+      console.log(base64String)
+      convertBase64ToImage(base64String);
+    }, []);
+
 
     return (
       <>
@@ -45,7 +60,7 @@ function PetsList() {
             </tr>
           </thead>
           <tbody>
-          {pets.map((pet) => {
+          {pet.map((pet) => {
             return (
               <tr key={pet.id}>
                 <td className="fs-3">{ pet.pet_name }</td>
@@ -54,7 +69,10 @@ function PetsList() {
                 <td className="fs-3">{ pet.dietary_restrictions }</td>
                 <td className="fs-3">{ pet.vibe }</td>
                 <td className="fs-3">{ pet.size }</td>
-                <td className="fs-3">{ pet.pet_picture_url }</td>
+                {/* <td className="fs-3">{ pet.pet_picture_url }</td> */}
+                <td>
+                  <img src={pictureSource} alt="Converted Image" style={{ width: 200, height: 200 }} />
+                </td>
                 <td className="fs-3">{ pet.user_id }</td>
                 <td>
                     <button onClick={() => handleDelete(pet.id)} className="btn btn-danger">Delete</button>
