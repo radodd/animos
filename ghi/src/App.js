@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
-import LandingPage from "./Landing Page/LandingPage.js";
 import EventsList from "./EventsList/EventsList.js";
-import CreateEvent from "./Create Event/createEvent.js";
-import "./App.css";
+import LandingPage from './LandingPage/LandingPage.js';
+import CreateEvent from './Create Event/createEvent.js';
+import LocationsListDetail from './LocationsListDetail/LocationsListDetail.js';
+// import Construct from "./Construct.js";
+// import ErrorNotification from "./ErrorNotification";
+import './App.css';
 
 function App() {
   const [events, setEvents] = useState([]);
@@ -42,11 +45,12 @@ function App() {
         <div className="container">
           <Routes>
             <Route path="/" element={<LandingPage />} />
+            <Route path="locations">
+              <Route index element={<LocationsListDetail locations={locations} />}/>
+            </Route>
             <Route path="events">
               <Route index element={<EventsList events={events} />} />
-              <Route
-                path="create"
-                element={<CreateEvent locations={locations} />}
+              <Route path="create" element={<CreateEvent locations={locations} />}
               />
               {/* <Route path=":id" element={<EventDetail id={id} />} /> */}
             </Route>

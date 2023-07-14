@@ -69,10 +69,76 @@
   font-weight: 700;
 }
 
+.landingpage__container {
+  padding-top: 150px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 5rem;
+}
+
+.logo {
+  width: 400px;
+}
+
+.photo {
+    width: 700px;
+    justify-self:center;
+}
+
 .container {
   padding-top: 56px;
 }
 
-/* body {
-    background-image: url("../assets/images/landingpage_background.png") no-repeat center center fixed;
-} */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.get_started_button:hover,
+.get_started_button {
+  background-color: #FEBE3F;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  padding: 10px 30px 10px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  font-weight:700;
+  margin: 24px 6px;
+  transition: .15s;
+}
+
+.get_started_button:hover {
+  background-color: #FFDC99;
+  color: #FEBE3F;
+}
+
+.login_button:hover,
+.login_button {
+  background-color:#ffdb9994;
+  border: none;
+  border-radius: 12px;
+  color: #FEBE3F;
+  padding: 10px 55px 10px 55px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  font-weight:700;
+  margin: 24px 6px;
+  transition: .15s;
+}
+
+.login_button:hover {
+  background-color: #FFDC99;
+  color: white;
+  padding: 10px 55px 10px 55px;
+
+}
