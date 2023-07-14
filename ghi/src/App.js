@@ -7,9 +7,6 @@ import CreateEvent from "./Create Event/createEvent.js";
 import LocationsListDetail from "./LocationsListDetail/LocationsListDetail.js";
 import "./App.css";
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
-// import { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LandingPage from "./Landing Page/LandingPage.js";
 import SignupForm from "./auth_forms/SignupForm.jsx";
 import LoginForm from "./auth_forms/LoginForm.jsx";
 
