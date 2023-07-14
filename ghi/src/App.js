@@ -1,11 +1,18 @@
-import { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
+// import { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./Landing Page/LandingPage.js";
+import SignupForm from "./auth_forms/SignupForm.jsx";
+import LoginForm from "./auth_forms/LoginForm.jsx";
+
 // import Construct from "./Construct.js";
 // import ErrorNotification from "./ErrorNotification";
 import "./App.css";
 
 function App() {
+  const domain = /https:\/\/[^/]+/;
+  const basename = process.env.PUBLIC_URL.replace(domain, "");
+
   // const [launchInfo, setLaunchInfo] = useState([]);
   // const [error, setError] = useState(null);
 
@@ -30,17 +37,20 @@ function App() {
 
   return (
     <div>
-      <BrowserRouter>
-        {/* <Nav /> */}
-        <div className="container">
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-
-          </Routes>
-        </div>
-        {/* <ErrorNotification error={error} />
+      <AuthProvider baseUrl="http://localhost:8000">
+        <BrowserRouter>
+          {/* <Nav /> */}
+          <div className="container">
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route exact path="/signup" element={<SignupForm />}></Route>
+              <Route exact path="/login" element={<LoginForm />}></Route>
+            </Routes>
+          </div>
+          {/* <ErrorNotification error={error} />
         <Construct info={launchInfo} /> */}
-      </BrowserRouter>
+        </BrowserRouter>
+      </AuthProvider>
     </div>
   );
 }
