@@ -15,7 +15,7 @@ function EventsList(props) {
           return (
             <div className="event" key={event.id}>
               <div className="event-name">{event.name}</div>
-              <div className="picture-url">{event.picture_url}</div>
+              <img className="picture-url" src={event.picture_url}></img>
               <div className="event-date-start">date: {date}</div>
               <div className="event-date-start">start time: {time}</div>
               <div className="event-location">location {event.location_id}</div>
