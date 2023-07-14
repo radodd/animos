@@ -30,14 +30,20 @@ function App() {
             setLocation(data.location);
         }
     }
+        useEffect(() => {
+        loadEvent();
+        }, []);
 
-  useEffect(() => {
     async function getData() {
       let url = `${process.env.REACT_APP_API_HOST}/api/launch-details`;
       console.log("fastapi url: ", url);
       let response = await fetch(url);
       console.log("------- hello? -------");
       let data = await response.json();
+    }
+     useEffect(() => {
+        getData();
+        }, []);
 
     async function loadLocations() {
         const response = await fetch('http://localhost:8000/api/locations/');
@@ -48,6 +54,9 @@ function App() {
             console.error(response);
         }
     }
+        useEffect(() => {
+        loadLocations();
+        }, []);
 
        async function loadPets() {
         const response = await fetch('http://localhost:8000/api/pets/');
@@ -56,18 +65,21 @@ function App() {
             setPets(data.pets);
         } else {
             console.error(response);
-              useEffect(() => {
-        loadPets();
-    }, []);
-    async function getEvents() {
-        const response = await fetch('http://localhost:8000/api/events');
-        if (response.ok) {
-            const data = await response.json();
-            setEvents(data.events);
         }
-    }
-    getData();
-  }, []);
+        useEffect(() => {
+        loadPets();
+        }, []);
+
+        async function getEvents() {
+            const response = await fetch('http://localhost:8000/api/events');
+            if (response.ok) {
+                const data = await response.json();
+                setEvents(data.events);
+            }
+        }
+        useEffect(() => {
+        getEvents();
+        }, []);
 
     return (
         <div>
@@ -118,5 +130,7 @@ function App() {
         </div>
     );
 }
+}
+
 
 export default App;
