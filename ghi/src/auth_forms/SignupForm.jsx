@@ -7,21 +7,30 @@ const SignupForm = () => {
   const [first, setFirst] = useState("");
   const [last, setLast] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState(""); // New state for confirming password
   const { register } = useToken();
   const navigate = useNavigate();
 
   const handleRegistration = (e) => {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      console.log("Passwords do not match");
+      return;
+    }
+
     const accountData = {
       email: email,
       first_name: first,
       last_name: last,
       password: password,
     };
+
     console.log("API Host:", process.env.REACT_APP_API_HOST);
     console.log("accountData:", accountData);
     register(accountData, `${process.env.REACT_APP_API_HOST}/api/accounts`);
     e.target.reset();
+
     navigate("/signup");
   };
 
@@ -49,6 +58,17 @@ const SignupForm = () => {
               className="form-control"
               onChange={(e) => {
                 setPassword(e.target.value);
+              }}
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">confirm password</label>
+            <input
+              name="confirmPassword"
+              type="password"
+              className="form-control"
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
               }}
             />
           </div>
