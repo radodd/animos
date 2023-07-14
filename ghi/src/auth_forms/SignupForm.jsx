@@ -7,7 +7,7 @@ const SignupForm = () => {
   const [first, setFirst] = useState("");
   const [last, setLast] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState(""); // New state for confirming password
+  const [confirmPassword, setConfirmPassword] = useState("");
   const { register } = useToken();
   const navigate = useNavigate();
 
