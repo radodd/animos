@@ -11,7 +11,8 @@ function LocationsList({ locations }) {
     return (
       <>
         {locations.map((location, index) => (
-          <div className="location-card">
+          <div className="location-card"
+            key={location.id}>
             <div className="card-body">
               <img
                 className="card-image"
