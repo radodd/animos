@@ -37,8 +37,8 @@ function App() {
 
   return (
     <div>
-      <AuthProvider baseUrl="http://localhost:8000">
-        <BrowserRouter>
+      <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
+        <BrowserRouter basename={basename}>
           {/* <Nav /> */}
           <div className="container">
             <Routes>
