@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import LandingPage from './Landing Page/LandingPage.js';
+import LandingPage from './LandingPage/LandingPage.js';
 import CreateEvent from './Create Event/createEvent.js';
-import LocationsList from './Locations List/LocationsList.js';
+import LocationsList from './LocationsListDetail/LocationsListDetail.js';
 // import Construct from "./Construct.js";
 // import ErrorNotification from "./ErrorNotification";
 import './App.css';
