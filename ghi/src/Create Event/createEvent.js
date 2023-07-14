@@ -6,8 +6,9 @@ function CreateEvent({ locations }) {
     const [end, setEnd] = useState('');
     const [description, setDescription] = useState('');
     const [location, setLocation] = useState('');
-    const [capacity, setCapacity] = useState(0);
+    const [capacity, setCapacity] = useState('');
     const [picture, setPicture] = useState('');
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     const handleNameChange = (e) => {
         const value = e.target.value;
@@ -65,10 +66,8 @@ function CreateEvent({ locations }) {
                 'Content-Type': 'application/json',
             },
         };
-        console.log(fetchOptions.body);
         const response = await fetch(url, fetchOptions);
         if (response.ok) {
-            console.log('response is good');
             setName('');
             setStart('');
             setEnd('');
@@ -76,6 +75,7 @@ function CreateEvent({ locations }) {
             setLocation('');
             setCapacity('');
             setPicture('');
+            setIsSubmitted(true);
         }
     };
 
@@ -169,7 +169,14 @@ function CreateEvent({ locations }) {
                             value={picture}
                         />
                     </div>
-
+                    {isSubmitted === true && (
+                        <div
+                            className="alert alert-success mb-0"
+                            id="success-message"
+                        >
+                            <h3>You successfully created a new event!.</h3>
+                        </div>
+                    )}
                     <button>Submit</button>
                 </form>
             </div>
