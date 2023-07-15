@@ -9,6 +9,7 @@ import "./App.css";
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import SignupForm from "./auth_forms/SignupForm.jsx";
 import LoginForm from "./auth_forms/LoginForm.jsx";
+import PetsList from "./Pets/PetsList.js"
 
 // import Construct from "./Construct.js";
 // import ErrorNotification from "./ErrorNotification";
@@ -24,6 +25,7 @@ function App() {
   const [events, setEvents] = useState([]);
   const [event, setEvent] = useState({});
   const [location, setLocation] = useState({});
+  const [pets, setPets] = useState({})
 
   async function loadEvent(id) {
     const response = await fetch(`http://localhost:8000/api/events/${id}`);
@@ -73,6 +75,17 @@ function App() {
     getEvents();
   }, []);
 
+  async function getPets() {
+    const response = await fetch("http://localhost:8000/api/pets");
+    if (response.of) {
+        const data = await response.json();
+        setPets(data.pets);
+    }
+  }
+  useEffect(() => {
+    getPets();
+  }, []);
+
   return (
     <div>
       <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
@@ -90,6 +103,9 @@ function App() {
                   element={<LocationsListDetail locations={locations} />}
                 />
               </Route>
+              <Route path="pets">
+                <Route index element={<PetsList pets={pets} />} />
+              </Route>
               <Route path="events">
                 <Route index element={<EventsList events={events} />} />
                 <Route
@@ -104,6 +120,7 @@ function App() {
                       event={event}
                       location={location}
                     />
+
                   }
                 />
               </Route>
