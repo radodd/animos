@@ -1,6 +1,12 @@
+## 7/15/23
+
+I'm investigating a cors error. "Access to fetch at 'http://localhost:8000/api/events' from origin 'http://localhost:3000' has been blocked by CORS". It turns out no to be a cors error, and that an event saved in the database was saved as a string instead of a datetime obj. Once that event was deleted everything worked again. I've updated the EventsList component to display the locations name instead of id for each event.
+
+I've started to make the events into cards to be displayed. I created a EventsList.css file and copied Sam's styling from her Location's styling. I figured it would be good to be consistant, plus sam's eye for display's is far better than mine. I may tweek some sizes as there are more detials in the events.
+
 ## 7/14/23
 
-Not sure how but most of my journal entries have not made it into the most recent version of main. I will also keep a seperate log of these entries just in case. Today we merged many different components. I'm also worreid about my speed to make things... All my group mates are very fast at making and learning new things. But with the new merges, I'm back to working on the EventsList component and am planning on making the cards and eventually the modal to pop up when the event is clicked from the event list. Also, I realized that I was not correctly displaying the image of the event, that has been fixed.
+Not sure how but most of my journal entries have not made it into the most recent version of main. I will also keep a seperate log of these entries just in case. Today we merged many different components. With the new merges, I'm back to working on the EventsList component and am planning on making the cards and eventually the modal to pop up when the event is clicked from the event list. Also, I realized that I was not correctly displaying the image of the event, that has been fixed.
 
 ## 7/13/23
 

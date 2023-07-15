@@ -17,9 +17,6 @@ import "./App.css";
 function App() {
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, "");
-
-  // const [launchInfo, setLaunchInfo] = useState([]);
-  // const [error, setError] = useState(null);
   const [locations, setLocations] = useState([]);
   const [events, setEvents] = useState([]);
   const [event, setEvent] = useState({});
@@ -61,7 +58,7 @@ function App() {
   }
 
   async function getEvents() {
-    const response = await fetch("http://localhost:8000/api/events");
+    const response = await fetch("http://localhost:8000/api/events/");
     if (response.ok) {
       const data = await response.json();
       setEvents(data.events);
@@ -91,7 +88,10 @@ function App() {
                 />
               </Route>
               <Route path="events">
-                <Route index element={<EventsList events={events} />} />
+                <Route
+                  index
+                  element={<EventsList events={events} locations={locations} />}
+                />
                 <Route
                   path="create"
                   element={<CreateEvent locations={locations} />}
