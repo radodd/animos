@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./LandingPage/LandingPage.js";
 import EventsList from "./EventsList/EventsList.js";
 import EventDetail from "./Event Detail/eventDetail.js";
 import CreateEvent from "./Create Event/createEvent.js";
 import LocationsListDetail from "./LocationsListDetail/LocationsListDetail.js";
+import ProfilePage from "./user_profile/ProfilePage.js";
+import UserAccounts from "./user_profile/UserAccounts.jsx";
 import "./App.css";
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import SignupForm from "./auth_forms/SignupForm.jsx";
@@ -24,6 +26,8 @@ function App() {
   const [events, setEvents] = useState([]);
   const [event, setEvent] = useState({});
   const [location, setLocation] = useState({});
+  // const [userProfile, setUserProfile] = useState({});
+  const [userDataTest, setUserDataTest] = useState([]);
 
   async function loadEvent(id) {
     const response = await fetch(`http://localhost:8000/api/events/${id}`);
@@ -68,9 +72,39 @@ function App() {
     }
   }
 
+  // async function getUserProfile(email) {
+  //   const encodedEmail = encodeURIComponent(email);
+  //   const response = await fetch(
+  //     `http://localhost:8000/api/accounts?email=${encodedEmail}`
+  //   );
+  //   if (response.ok) {
+  //     const data = await response.json();
+  //     if (data.length > 0) {
+  //       console.log("User profile data:", data);
+  //       return data;
+  //     }
+  //   }
+  //   throw new Error("Failed to fetch user profile");
+  // }
+
+  async function getUserDataTest() {
+    const url = `${process.env.REACT_APP_API_HOST}/api/accounts`;
+
+    const response = await fetch(url, {
+      credentials: "include",
+      method: "get",
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      setUserDataTest(data);
+    }
+  }
+
   useEffect(() => {
     loadLocations();
     getEvents();
+    getUserDataTest();
   }, []);
 
   return (
@@ -106,6 +140,13 @@ function App() {
                     />
                   }
                 />
+              </Route>
+              <Route path="profile">
+                <Route
+                  path="all"
+                  element={<UserAccounts userDataTest={userDataTest} />}
+                />
+                <Route path="" element={<ProfilePage />} />
               </Route>
             </Routes>
           </div>
