@@ -8,6 +8,7 @@ export default function ProfilePage() {
 
   const getUserData = async () => {
     const url = `${process.env.REACT_APP_API_HOST}/token`;
+    console.log("Initial userData:");
 
     const response = await fetch(url, {
       credentials: "include",
@@ -22,11 +23,23 @@ export default function ProfilePage() {
       setUserData(data);
     }
   };
+  // const getUserData = async () => {
+  //   console.log("getUserData:");
+  //   const url = `${process.env.REACT_APP_API_HOST}/token`;
+  //   fetch(url, {
+  //     credentials: "include",
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log(data.account);
+  //       setUserData(data);
+  //     })
+  //     .catch((error) => console.error(error));
+  // };
 
   useEffect(() => {
-    if (token) {
-      getUserData();
-    }
+    console.log("Inside useEffect:");
+    getUserData();
   }, [token]);
 
   return (
@@ -44,10 +57,10 @@ export default function ProfilePage() {
           </thead>
           <tbody>
             <tr>
-              <td>{userData.last_name}</td>
-              <td>{userData.first_name}</td>
-              <td>{userData.id}</td>
-              <td>{userData.email}</td>
+              <td>{userData && userData.account.last_name}</td>
+              <td>{userData && userData.account.first_name}</td>
+              <td>{userData && userData.account.id}</td>
+              <td>{userData && userData.account.email}</td>
             </tr>
           </tbody>
         </table>
