@@ -6,6 +6,8 @@ I've started to make the events into cards to be displayed. I created a EventsLi
 
 I think I may need to start working in rooms by my self. With out my teamates chiming in for there on thing, and not having someone immediatly available to ask question will help me be faster over all.
 
+I'm stuck on getting the cards to be wider. I've created an event with a lot of text in case the issue was all the example data was just too small.
+
 ## 7/14/23
 
 Not sure how but most of my journal entries have not made it into the most recent version of main. I will also keep a seperate log of these entries just in case. Today we merged many different components. With the new merges, I'm back to working on the EventsList component and am planning on making the cards and eventually the modal to pop up when the event is clicked from the event list. Also, I realized that I was not correctly displaying the image of the event, that has been fixed. I'm also getting concerned at my pacing compared to my team mates. They all work very fast.
