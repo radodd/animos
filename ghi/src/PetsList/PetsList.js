@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 
 function PetsList({pets}) {
     const [pet, setPet] = useState([]);
-    const [pictureSource, setPictureSource] = useState(null);
 
     const fetchData = async () => {
       const url = 'http://localhost:8000/api/pets'
@@ -30,18 +29,6 @@ function PetsList({pets}) {
         fetchData();
       }
     }
-
-    const convertBase64ToImage = (base64String) => {
-      const blob = new Blob([base64String], { type: 'image/jpeg' });
-      const imageUrl = URL.createObjectURL(blob);
-      setPictureSource(imageUrl);
-    };
-
-    useEffect(() => {
-      const base64String = pets.pet_picture_url;
-      console.log(base64String)
-      convertBase64ToImage(base64String);
-    }, []);
 
 
     return (
@@ -71,7 +58,7 @@ function PetsList({pets}) {
                 <td className="fs-3">{ pet.size }</td>
                 {/* <td className="fs-3">{ pet.pet_picture_url }</td> */}
                 <td>
-                  <img src={pictureSource} alt="Converted Image" style={{ width: 200, height: 200 }} />
+                  <img className="img-thumbnail" height="20px" width="200px" src={ pet.pet_picture_url } />
                 </td>
                 <td className="fs-3">{ pet.user_id }</td>
                 <td>
