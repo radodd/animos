@@ -9,7 +9,7 @@ import "./App.css";
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import SignupForm from "./auth_forms/SignupForm.jsx";
 import LoginForm from "./auth_forms/LoginForm.jsx";
-import PetsList from "./Pets/PetsList.js"
+import PetsList from "./PetsList/PetsList.js"
 
 // import Construct from "./Construct.js";
 // import ErrorNotification from "./ErrorNotification";
@@ -85,6 +85,8 @@ function App() {
   useEffect(() => {
     getPets();
   }, []);
+
+
 
   return (
     <div>
