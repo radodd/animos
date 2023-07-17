@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import "./EventsList.css";
+import EventDetail from "../Event Detail/eventDetail.js";
 
 function EventsList(props) {
   const [activeModal, setActiveModal] = useState(null);
@@ -53,8 +54,8 @@ function EventsList(props) {
                 key={event.id}
                 className={`${
                   activeModal === index
-                    ? "active-modal location_modal"
-                    : "location_modal"
+                    ? "active-modal event_modal"
+                    : "event_modal"
                 }`}
               >
                 <div className="modal-title">{event.name}</div>
@@ -64,7 +65,7 @@ function EventsList(props) {
                 <div className="modal-location">
                   This event is happening at {locationName}
                 </div>
-                <div className="card-description">{event.description}</div>
+                <div className="modal-description">{event.description}</div>
                 <button
                   className="modal-button"
                   onClick={() => toggleModal(index)}

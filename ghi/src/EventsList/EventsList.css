@@ -1,6 +1,6 @@
 .wrapper {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 16rem));
   gap: 2rem;
   justify-content: center;
   padding-top: 50px;
@@ -45,12 +45,12 @@
   transition: 20ms ease-in;
 }
 
-/* .card-button:hover {
+.card-button:hover {
   color: purple;
   background-color: rgba(128, 0, 128, 0.143);
 }
 
-.location_modal-close-button {
+.event_modal-close-button {
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;
@@ -58,7 +58,7 @@
   cursor: pointer;
 }
 
-.location_modal {
+.event_modal {
   display: flex;
   position: fixed;
   top: 0;
@@ -78,7 +78,7 @@
   border-radius: 12px;
 }
 
-.location_modal-content {
+.event_modal-content {
   width: 500px;
   position: relative;
   padding: 3.5rem 2.5rem 2.5rem;
@@ -86,7 +86,7 @@
   background-color: beige;
 }
 
-.location_modal-close-button {
+.event_modal-close-button {
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;
@@ -135,8 +135,9 @@
   font-size: 25px;
 }
 
-// Active modal
+/* Active modal */
 .active-modal {
   opacity: 1;
-  visibility: visible;
-} */
+  /* visibility: visible; */
+  /* height: 200%; */
+}

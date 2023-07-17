@@ -1,3 +1,7 @@
+## 7/17/23
+
+Working on the EventsList component, the modal pops up when event details button is clicked. I have a hard coded modal portion, but I'm going to pass Anthony's event detail component to display as the modal as he made that last week and has some functionality in it.
+
 ## 7/15/23 Catching up and Making cards for events in EventsList
 
 I'm investigating a cors error. "Access to fetch at 'http://localhost:8000/api/events' from origin 'http://localhost:3000' has been blocked by CORS". It turns out no to be a cors error, and that an event saved in the database was saved as a string instead of a datetime obj. Once that event was deleted everything worked again. I've updated the EventsList component to display the locations name instead of id for each event.
