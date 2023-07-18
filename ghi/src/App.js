@@ -12,12 +12,12 @@ import SignupForm from "./auth_forms/SignupForm.jsx";
 import LoginForm from "./auth_forms/LoginForm.jsx";
 import PetsList from "./PetsList/PetsList.js";
 import CreatePet from "./CreatePet/CreatePet.js";
+import MainPage from "./MainPage/MainPage.js";
 import ProfilePage from "./user_profile/ProfilePage.js";
 
 function App() {
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, "");
-
   const [locations, setLocations] = useState([]);
   const [events, setEvents] = useState([]);
   const [event, setEvent] = useState({});
@@ -119,10 +119,10 @@ function App() {
     <div>
       <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
         <BrowserRouter basename={basename}>
-          {/* <Nav /> */}
           <div className="container">
             <Routes>
-              <Route path="/" element={<LandingPage users={users} />} />
+              <Route path="/" element={<LandingPage />} />
+              <Route path="home" element={<MainPage events={events} />} />
               <Route exact path="/signup" element={<SignupForm />}></Route>
               <Route exact path="/login" element={<LoginForm />}></Route>
               <Route path="/" element={<LandingPage />} />
@@ -148,6 +148,7 @@ function App() {
                     />
                   }
                 />
+
                 <Route
                   path=":id"
                   element={
@@ -179,5 +180,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
