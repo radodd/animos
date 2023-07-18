@@ -1,0 +1,1562 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "FastAPI",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/locations/": {
+      "get": {
+        "summary": "List Locations",
+        "operationId": "list_locations_api_locations__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/locations/{id}": {
+      "get": {
+        "summary": "Get Location",
+        "operationId": "get_location_api_locations__id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Location",
+        "operationId": "update_location_api_locations__id__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LocationIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Location",
+        "operationId": "delete_location_api_locations__id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/locations": {
+      "post": {
+        "summary": "Create Location",
+        "operationId": "create_location_api_locations_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LocationIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/token": {
+      "get": {
+        "summary": "Get Token",
+        "operationId": "get_token_token_get",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "title": "Session Getter"
+            },
+            "name": "session_getter",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Fastapi Token",
+              "type": "string"
+            },
+            "name": "fastapi_token",
+            "in": "cookie"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountToken"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Login",
+        "operationId": "login_token_post",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "title": "Session Getter"
+            },
+            "name": "session_getter",
+            "in": "query"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_login_token_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Token"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Logout",
+        "operationId": "logout_token_delete",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "title": "Session Getter"
+            },
+            "name": "session_getter",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Fastapi Token",
+              "type": "string"
+            },
+            "name": "fastapi_token",
+            "in": "cookie"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Logout Token Delete",
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/protected": {
+      "get": {
+        "summary": "Get Protected",
+        "operationId": "get_protected_api_protected_get",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "title": "Session Getter"
+            },
+            "name": "session_getter",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Fastapi Token",
+              "type": "string"
+            },
+            "name": "fastapi_token",
+            "in": "cookie"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get Protected Api Protected Get",
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/accounts": {
+      "get": {
+        "summary": "Get All Accounts",
+        "operationId": "get_all_accounts_api_accounts_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get All Accounts Api Accounts Get",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AccountOut"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Account",
+        "operationId": "create_account_api_accounts_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccountIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Create Account Api Accounts Post",
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/AccountToken"
+                    },
+                    {
+                      "$ref": "#/components/schemas/HttpError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/accounts/{email}": {
+      "get": {
+        "summary": "Get Account By Email",
+        "operationId": "get_account_by_email_api_accounts__email__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Email",
+              "type": "string"
+            },
+            "name": "email",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Account",
+        "operationId": "update_account_api_accounts__email__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Email",
+              "type": "string"
+            },
+            "name": "email",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccountIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Update Account Api Accounts  Email  Put",
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/AccountToken"
+                    },
+                    {
+                      "$ref": "#/components/schemas/HttpError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Account",
+        "operationId": "delete_account_api_accounts__email__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Email",
+              "type": "string"
+            },
+            "name": "email",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Delete Account Api Accounts  Email  Delete",
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/events": {
+      "get": {
+        "summary": "Get Events",
+        "operationId": "get_events_api_events_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventsList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Event",
+        "operationId": "create_event_api_events_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/events/{id}": {
+      "get": {
+        "summary": "Get Event",
+        "operationId": "get_event_api_events__id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Event",
+        "operationId": "update_event_api_events__id__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Event",
+        "operationId": "delete_event_api_events__id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Delete Event Api Events  Id  Delete",
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pets": {
+      "get": {
+        "summary": "Get Pets",
+        "operationId": "get_pets_api_pets_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PetsList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Pet",
+        "operationId": "create_pet_api_pets_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PetIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PetOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pets/{id}": {
+      "get": {
+        "summary": "Get Pet",
+        "operationId": "get_pet_api_pets__id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PetOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Pet",
+        "operationId": "update_pet_api_pets__id__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PetIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PetOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Pet",
+        "operationId": "delete_pet_api_pets__id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Delete Pet Api Pets  Id  Delete",
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AccountIn": {
+        "title": "AccountIn",
+        "required": [
+          "email",
+          "first_name",
+          "last_name",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "title": "Email",
+            "type": "string"
+          },
+          "first_name": {
+            "title": "First Name",
+            "type": "string"
+          },
+          "last_name": {
+            "title": "Last Name",
+            "type": "string"
+          },
+          "password": {
+            "title": "Password",
+            "type": "string"
+          },
+          "zipcode": {
+            "title": "Zipcode",
+            "type": "string"
+          },
+          "picture_url": {
+            "title": "Picture Url",
+            "type": "string"
+          },
+          "friend_list": {
+            "title": "Friend List",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "pets": {
+            "title": "Pets",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "hosted_events": {
+            "title": "Hosted Events",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "attending_events": {
+            "title": "Attending Events",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "AccountOut": {
+        "title": "AccountOut",
+        "required": [
+          "id",
+          "first_name",
+          "last_name",
+          "email",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "first_name": {
+            "title": "First Name",
+            "type": "string"
+          },
+          "last_name": {
+            "title": "Last Name",
+            "type": "string"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string"
+          },
+          "password": {
+            "title": "Password",
+            "type": "string"
+          },
+          "zipcode": {
+            "title": "Zipcode",
+            "type": "string"
+          },
+          "picture_url": {
+            "title": "Picture Url",
+            "type": "string"
+          },
+          "friend_list": {
+            "title": "Friend List",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "pets": {
+            "title": "Pets",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "hosted_events": {
+            "title": "Hosted Events",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "attending_events": {
+            "title": "Attending Events",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "AccountToken": {
+        "title": "AccountToken",
+        "required": [
+          "access_token",
+          "account"
+        ],
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "title": "Access Token",
+            "type": "string"
+          },
+          "token_type": {
+            "title": "Token Type",
+            "type": "string",
+            "default": "Bearer"
+          },
+          "account": {
+            "$ref": "#/components/schemas/AccountOut"
+          }
+        },
+        "description": "Represents a bearer token."
+      },
+      "Body_login_token_post": {
+        "title": "Body_login_token_post",
+        "required": [
+          "username",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "grant_type": {
+            "title": "Grant Type",
+            "pattern": "password",
+            "type": "string"
+          },
+          "username": {
+            "title": "Username",
+            "type": "string"
+          },
+          "password": {
+            "title": "Password",
+            "type": "string"
+          },
+          "scope": {
+            "title": "Scope",
+            "type": "string",
+            "default": ""
+          },
+          "client_id": {
+            "title": "Client Id",
+            "type": "string"
+          },
+          "client_secret": {
+            "title": "Client Secret",
+            "type": "string"
+          }
+        }
+      },
+      "EventIn": {
+        "title": "EventIn",
+        "required": [
+          "name",
+          "description",
+          "capacity",
+          "picture_url",
+          "date_start",
+          "date_end",
+          "location_id",
+          "account_id",
+          "attendees"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "capacity": {
+            "title": "Capacity",
+            "type": "integer"
+          },
+          "picture_url": {
+            "title": "Picture Url",
+            "type": "string"
+          },
+          "date_start": {
+            "title": "Date Start",
+            "type": "string",
+            "format": "date-time"
+          },
+          "date_end": {
+            "title": "Date End",
+            "type": "string",
+            "format": "date-time"
+          },
+          "location_id": {
+            "title": "Location Id",
+            "type": "string"
+          },
+          "account_id": {
+            "title": "Account Id",
+            "type": "string"
+          },
+          "attendees": {
+            "title": "Attendees",
+            "type": "array",
+            "items": {}
+          }
+        }
+      },
+      "EventOut": {
+        "title": "EventOut",
+        "required": [
+          "name",
+          "description",
+          "capacity",
+          "picture_url",
+          "date_start",
+          "date_end",
+          "location_id",
+          "account_id",
+          "attendees",
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "capacity": {
+            "title": "Capacity",
+            "type": "integer"
+          },
+          "picture_url": {
+            "title": "Picture Url",
+            "type": "string"
+          },
+          "date_start": {
+            "title": "Date Start",
+            "type": "string",
+            "format": "date-time"
+          },
+          "date_end": {
+            "title": "Date End",
+            "type": "string",
+            "format": "date-time"
+          },
+          "location_id": {
+            "title": "Location Id",
+            "type": "string"
+          },
+          "account_id": {
+            "title": "Account Id",
+            "type": "string"
+          },
+          "attendees": {
+            "title": "Attendees",
+            "type": "array",
+            "items": {}
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          }
+        }
+      },
+      "EventsList": {
+        "title": "EventsList",
+        "required": [
+          "events"
+        ],
+        "type": "object",
+        "properties": {
+          "events": {
+            "title": "Events",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventOut"
+            }
+          }
+        }
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "HttpError": {
+        "title": "HttpError",
+        "required": [
+          "detail"
+        ],
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "string"
+          }
+        }
+      },
+      "LocationIn": {
+        "title": "LocationIn",
+        "required": [
+          "name",
+          "zipcode",
+          "description",
+          "capacity",
+          "picture_url"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "zipcode": {
+            "title": "Zipcode",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "capacity": {
+            "title": "Capacity",
+            "type": "string"
+          },
+          "picture_url": {
+            "title": "Picture Url",
+            "type": "string"
+          }
+        }
+      },
+      "LocationList": {
+        "title": "LocationList",
+        "required": [
+          "locations"
+        ],
+        "type": "object",
+        "properties": {
+          "locations": {
+            "title": "Locations",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LocationOut"
+            }
+          }
+        }
+      },
+      "LocationOut": {
+        "title": "LocationOut",
+        "required": [
+          "id",
+          "name",
+          "zipcode",
+          "description",
+          "capacity",
+          "picture_url"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "zipcode": {
+            "title": "Zipcode",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "capacity": {
+            "title": "Capacity",
+            "type": "string"
+          },
+          "picture_url": {
+            "title": "Picture Url",
+            "type": "string"
+          }
+        }
+      },
+      "PetIn": {
+        "title": "PetIn",
+        "required": [
+          "pet_name",
+          "birth_adoption_date",
+          "breed",
+          "dietary_restrictions",
+          "vibe",
+          "size",
+          "pet_picture_url",
+          "user_id"
+        ],
+        "type": "object",
+        "properties": {
+          "pet_name": {
+            "title": "Pet Name",
+            "type": "string"
+          },
+          "birth_adoption_date": {
+            "title": "Birth Adoption Date",
+            "type": "string"
+          },
+          "breed": {
+            "title": "Breed",
+            "type": "string"
+          },
+          "dietary_restrictions": {
+            "title": "Dietary Restrictions",
+            "type": "string"
+          },
+          "vibe": {
+            "title": "Vibe",
+            "type": "string"
+          },
+          "size": {
+            "title": "Size",
+            "type": "string"
+          },
+          "pet_picture_url": {
+            "title": "Pet Picture Url",
+            "type": "string"
+          },
+          "user_id": {
+            "title": "User Id",
+            "type": "string"
+          }
+        }
+      },
+      "PetOut": {
+        "title": "PetOut",
+        "required": [
+          "pet_name",
+          "birth_adoption_date",
+          "breed",
+          "dietary_restrictions",
+          "vibe",
+          "size",
+          "pet_picture_url",
+          "user_id",
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "pet_name": {
+            "title": "Pet Name",
+            "type": "string"
+          },
+          "birth_adoption_date": {
+            "title": "Birth Adoption Date",
+            "type": "string"
+          },
+          "breed": {
+            "title": "Breed",
+            "type": "string"
+          },
+          "dietary_restrictions": {
+            "title": "Dietary Restrictions",
+            "type": "string"
+          },
+          "vibe": {
+            "title": "Vibe",
+            "type": "string"
+          },
+          "size": {
+            "title": "Size",
+            "type": "string"
+          },
+          "pet_picture_url": {
+            "title": "Pet Picture Url",
+            "type": "string"
+          },
+          "user_id": {
+            "title": "User Id",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          }
+        }
+      },
+      "PetsList": {
+        "title": "PetsList",
+        "required": [
+          "pets"
+        ],
+        "type": "object",
+        "properties": {
+          "pets": {
+            "title": "Pets",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PetOut"
+            }
+          }
+        }
+      },
+      "Token": {
+        "title": "Token",
+        "required": [
+          "access_token"
+        ],
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "title": "Access Token",
+            "type": "string"
+          },
+          "token_type": {
+            "title": "Token Type",
+            "type": "string",
+            "default": "Bearer"
+          }
+        },
+        "description": "Represents a bearer token."
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "OAuth2PasswordBearer": {
+        "type": "oauth2",
+        "flows": {
+          "password": {
+            "scopes": {},
+            "tokenUrl": "token"
+          }
+        }
+      }
+    }
+  }
+}
