@@ -40,7 +40,7 @@ function LeftProfileCard () {
           <div className="card-body">
             {user && (
               <img
-                src="https://wegotthiscovered.com/wp-content/uploads/2022/05/Spy-x-Family-anya.png"
+                src={user.pictureUrl}
                 alt=""
                 className="rounded-circle"
                 width="150"
@@ -321,7 +321,6 @@ function UpcomingEventsCard() {
       </>
     );
 }
-
 
 
 

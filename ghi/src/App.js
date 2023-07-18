@@ -11,7 +11,7 @@ import SignupForm from './auth_forms/SignupForm.jsx';
 import LoginForm from './auth_forms/LoginForm.jsx';
 import PetsList from './PetsList/PetsList.js';
 import MainPage from './MainPage/MainPage.js';
-import MainPage from './MainPage/MainPage.js';
+
 
 function App() {
     const domain = /https:\/\/[^/]+/;
