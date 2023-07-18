@@ -22,51 +22,66 @@ function EventFeedCard() {
 
     return (
       <>
-        {events.map((event) => (
-          <div className="card gedf-card" key={event.id}>
-            <div className="card-header">
-              <div className="d-flex justify-content-between align-items-center">
+        {events.map((event) => {
+          const start_datetime = new Date(event.date_start).toLocaleTimeString([], {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+          const end_datetime = new Date(event.date_end).toLocaleTimeString([], {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            });
+
+
+          return (
+            <div className="card gedf-card" key={event.id}>
+              <div className="card-header">
                 <div className="d-flex justify-content-between align-items-center">
-                  <div className="mr-2">
-                    <img
-                      className="rounded-circle"
-                      width="45"
-                      src="https://picsum.photos/50/50"
-                      alt=""
-                    />
-                  </div>
-                  <div className="ml-2">
-                    <div className="h5 m-0">@{event.account_id}</div>
-                    <div className="h7 text-muted">Miracles Lee Cross</div>
+                  <div className="d-flex justify-content-between align-items-center">
+                    <div className="mr-2">
+                      <img
+                        className="rounded-circle"
+                        width="45"
+                        src="https://picsum.photos/50/50"
+                        alt=""
+                      />
+                    </div>
+                    <div className="ml-2">
+                      <div className="h5 m-0">@{event.account_id}</div>
+                      <div className="h7 text-muted">Miracles Lee Cross</div>
+                    </div>
                   </div>
                 </div>
               </div>
+              <div className="card-body">
+                <img src={event.picture_url} width="100px" />
+                <h5>{event.name}</h5>
+                <h6>{start_datetime} - {end_datetime}</h6>
+                <h6>{event.location_id}</h6>
+                <p className="card-text">{event.description}</p>
+              </div>
+              <div className="card-footer">
+                <a href="#" className="card-link">
+                  <i className="fa fa-gittip"></i>Like
+                </a>
+                <a href="#" className="card-link">
+                  <i className="fa fa-comment"></i>Comment
+                </a>
+                <a href="#" className="card-link">
+                  <i className="fa fa-mail-forward"></i>Share
+                </a>
+              </div>
             </div>
-            <div className="card-body">
-              <img src={event.picture_url} width="100px" />
-              <h5>{event.name}</h5>
-              <h6>{event.date_start}</h6>
-              <h6>{event.location_id}</h6>
-              <p className="card-text">{event.description}</p>
-            </div>
-            <div className="card-footer">
-              <a href="#" className="card-link">
-                <i className="fa fa-gittip"></i>Like
-              </a>
-              <a href="#" className="card-link">
-                <i className="fa fa-comment"></i>Comment
-              </a>
-              <a href="#" className="card-link">
-                <i className="fa fa-mail-forward"></i>Share
-              </a>
-            </div>
-          </div>
-        ))}
+          );})}
       </>
     );
 }
-
-
 
 
 function MainPage() {
@@ -81,24 +96,28 @@ function MainPage() {
             <div className="card">
               <div className="card-body">
                 <img
-                  src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                  src="https://cdn.dribbble.com/users/1452333/screenshots/16345536/media/6054461fc01fb0d3400ecb9091510274.png"
                   alt=""
                   className="rounded-circle"
                   width="150"
+                  height="150"
                 />
                 <div className="h5">FirstName LastName</div>
-                <div className="h7 text-muted">
-                  Fullname : Miracles Lee Cross
+                <div className="h6 text-muted">
+                  Username : @
                 </div>
-                <div className="h7">
-                  Developer of web applications, JavaScript, PHP, Java, Python,
-                  Ruby, Java, Node.js, etc.
-                </div>
+                <div className="h7">Profile Page | Edit Profile</div>
               </div>
               <ul className="list-group list-group-flush">
                 <li className="list-group-item">
                   <div className="h6 text-muted">My pets</div>
-                  <div className="h5">5.2342</div>
+                  <img
+                    src="https://cdn.dribbble.com/userupload/3983353/file/original-3766d806df4ef69750d471f6fef25184.gif"
+                    alt=""
+                    className="rounded-circle"
+                    width="100"
+                    height="100"
+                  />
                 </li>
               </ul>
             </div>
@@ -148,7 +167,6 @@ function MainPage() {
             </div>
 
             <EventFeedCard />
-
           </div>
 
           {/* MAIN PAGE - RIGHT SIDE: ADS / ADD USERS / EVENTS */}
