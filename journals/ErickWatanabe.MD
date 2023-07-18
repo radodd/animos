@@ -1,6 +1,8 @@
-## 7/17/23
+## 7/17/23 Integrating EventsDetail into EventsList & About us Back end points
 
-Working on the EventsList component, the modal pops up when event details button is clicked. I have a hard coded modal portion, but I'm going to pass Anthony's event detail component to display as the modal as he made that last week and has some functionality in it.
+Working on the EventsList component, the modal pops up when event details button is clicked. I have a hard coded modal portion, but I'm going to pass Anthony's event detail component to display as the modal as he made that last week and has some functionality in it. I've run into many scoping issue in trying to integrate the eventDetails component. Anthony and I will try to tackle this again tomorrow.
+
+I've also made a POST, and GET FastAPI backend points for our about us page. Those are working correctly in the docs site.
 
 ## 7/15/23 Catching up and Making cards for events in EventsList
 

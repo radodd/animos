@@ -1,7 +1,7 @@
 from .client import Queries
 from models import CreatorIn, CreatorOut
 from typing import List
-from bson.objectid import ObjectId
+
 
 class AboutQueries(Queries):
     DB_NAME = "animos-db"
