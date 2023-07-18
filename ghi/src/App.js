@@ -11,23 +11,41 @@ import "./App.css";
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import SignupForm from "./auth_forms/SignupForm.jsx";
 import LoginForm from "./auth_forms/LoginForm.jsx";
-
-// import Construct from "./Construct.js";
-// import ErrorNotification from "./ErrorNotification";
-import "./App.css";
+import PetsList from "./PetsList/PetsList.js";
+import CreatePet from "./CreatePet/CreatePet.js";
 
 function App() {
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, "");
 
-  // const [launchInfo, setLaunchInfo] = useState([]);
-  // const [error, setError] = useState(null);
   const [locations, setLocations] = useState([]);
   const [events, setEvents] = useState([]);
   const [event, setEvent] = useState({});
   const [location, setLocation] = useState({});
-  // const [userProfile, setUserProfile] = useState({});
+  const [pets, setPets] = useState({});
+  const [user, setUser] = useState(null);
+  const [users, setUsers] = useState([]);
   const [userDataTest, setUserDataTest] = useState([]);
+
+  async function loadAccount() {
+    const response = await fetch("http://localhost:8000/token", {
+      credentials: "include",
+    });
+    const data = await response.json();
+    setUser(data.account);
+  }
+
+  async function loadAccounts() {
+    const url = `${process.env.REACT_APP_API_HOST}/api/accounts`;
+    const response = await fetch(url, {
+      credentials: "include",
+      method: "get",
+    });
+    if (response.ok) {
+      const data = await response.json();
+      setUsers(data);
+    }
+  }
 
   async function loadEvent(id) {
     const response = await fetch(`http://localhost:8000/api/events/${id}`);
@@ -35,12 +53,6 @@ function App() {
       const data = await response.json();
       const location_data = await loadLocation(data.location_id);
       data.location = location_data;
-      const user_id = "test account";
-      if (data.account_id === user_id) {
-        data.is_owner = true;
-      } else {
-        data.is_owner = false;
-      }
       setEvent(data);
       setLocation(data.location);
     }
@@ -72,20 +84,13 @@ function App() {
     }
   }
 
-  // async function getUserProfile(email) {
-  //   const encodedEmail = encodeURIComponent(email);
-  //   const response = await fetch(
-  //     `http://localhost:8000/api/accounts?email=${encodedEmail}`
-  //   );
-  //   if (response.ok) {
-  //     const data = await response.json();
-  //     if (data.length > 0) {
-  //       console.log("User profile data:", data);
-  //       return data;
-  //     }
-  //   }
-  //   throw new Error("Failed to fetch user profile");
-  // }
+  async function getPets() {
+    const response = await fetch("http://localhost:8000/api/pets");
+    if (response.of) {
+      const data = await response.json();
+      setPets(data.pets);
+    }
+  }
 
   async function getUserDataTest() {
     const url = `${process.env.REACT_APP_API_HOST}/api/accounts`;
@@ -104,6 +109,9 @@ function App() {
   useEffect(() => {
     loadLocations();
     getEvents();
+    getPets();
+    loadAccounts();
+    loadAccount();
     getUserDataTest();
   }, []);
 
@@ -114,7 +122,7 @@ function App() {
           {/* <Nav /> */}
           <div className="container">
             <Routes>
-              <Route path="/" element={<LandingPage />} />
+              <Route path="/" element={<LandingPage users={users} />} />
               <Route exact path="/signup" element={<SignupForm />}></Route>
               <Route exact path="/login" element={<LoginForm />}></Route>
               <Route path="/" element={<LandingPage />} />
@@ -124,11 +132,21 @@ function App() {
                   element={<LocationsListDetail locations={locations} />}
                 />
               </Route>
+              <Route path="pets">
+                <Route index element={<PetsList pets={pets} />} />
+                <Route path="create" element={<CreatePet pets={pets} />} />
+              </Route>
               <Route path="events">
                 <Route index element={<EventsList events={events} />} />
                 <Route
                   path="create"
-                  element={<CreateEvent locations={locations} />}
+                  element={
+                    <CreateEvent
+                      locations={locations}
+                      user={user}
+                      users={users}
+                    />
+                  }
                 />
                 <Route
                   path=":id"
@@ -137,6 +155,7 @@ function App() {
                       loadEvent={loadEvent}
                       event={event}
                       location={location}
+                      user={user}
                     />
                   }
                 />

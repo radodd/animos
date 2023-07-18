@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-export default function EventDetail({ event, loadEvent, location }) {
+export default function EventDetail({ event, loadEvent, location, user }) {
     const { id } = useParams();
 
     useEffect(() => {
@@ -31,7 +31,7 @@ export default function EventDetail({ event, loadEvent, location }) {
             <p>
                 <b>Description:</b> {event.description}
             </p>
-            {event.is_owner === true && (
+            {event.account_id === user.id && (
                 <div>
                     <button type="button" className="btn btn-danger">
                         Delete Event
@@ -41,7 +41,7 @@ export default function EventDetail({ event, loadEvent, location }) {
                     </button>
                 </div>
             )}
-            {event.is_owner === false && (
+            {event.account_id != user.id && (
                 <div>
                     {' '}
                     <button type="button" className="btn btn-success">

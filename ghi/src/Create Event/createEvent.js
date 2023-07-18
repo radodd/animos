@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function CreateEvent({ locations }) {
+function CreateEvent({ locations, user, users }) {
     const [name, setName] = useState('');
     const [start, setStart] = useState('');
     const [end, setEnd] = useState('');
@@ -9,6 +9,9 @@ function CreateEvent({ locations }) {
     const [capacity, setCapacity] = useState('');
     const [picture, setPicture] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
+
+    console.log('Current USER:', user);
+    console.log('list of users:', users);
 
     const handleNameChange = (e) => {
         const value = e.target.value;
@@ -47,6 +50,15 @@ function CreateEvent({ locations }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (location === '') {
+            alert('select a location from the dropdown menu');
+            return;
+        }
+
+        if (start >= end) {
+            alert('End date and time must be after start date and time');
+            return;
+        }
         const data = {
             name: name,
             date_start: start,
@@ -55,7 +67,7 @@ function CreateEvent({ locations }) {
             location_id: location,
             picture_url: picture,
             capacity: Number(capacity),
-            account_id: 'test account',
+            account_id: user.id,
             attendees: [],
         };
         const url = 'http://localhost:8000/api/events/';
@@ -89,6 +101,7 @@ function CreateEvent({ locations }) {
                     <div className="form-floating mb-3">
                         <label htmlFor="name">Name of Event</label>
                         <input
+                            required
                             onChange={handleNameChange}
                             name="name"
                             id="name"
@@ -100,6 +113,7 @@ function CreateEvent({ locations }) {
                     <div className="form-floating mb-3">
                         <label htmlFor="start_date">Start Date</label>
                         <input
+                            required
                             onChange={handleStartChange}
                             name="start_date"
                             id="start_date"
@@ -111,6 +125,7 @@ function CreateEvent({ locations }) {
                     <div className="form-floating mb-3">
                         <label htmlFor="end_date">End Date</label>
                         <input
+                            required
                             onChange={handleEndChange}
                             name="end_date"
                             id="end_date"
@@ -122,6 +137,7 @@ function CreateEvent({ locations }) {
                     <div className="form-floating mb-3">
                         <label htmlFor="description">Description</label>
                         <input
+                            required
                             onChange={handleDescriptionChange}
                             name="description"
                             id="description"
@@ -150,6 +166,7 @@ function CreateEvent({ locations }) {
                     <div className="form-floating mb-3">
                         <label htmlFor="capacity">Capacity</label>
                         <input
+                            required
                             onChange={handleCapacityChange}
                             name="capacity"
                             id="capacity"
@@ -161,6 +178,7 @@ function CreateEvent({ locations }) {
                     <div className="form-floating mb-3">
                         <label htmlFor="picture_url">Picture URL</label>
                         <input
+                            required
                             onChange={handlePictureChange}
                             name="picture_url"
                             id="picture_url"

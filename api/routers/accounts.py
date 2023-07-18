@@ -37,11 +37,14 @@ class AccountToken(Token):
     account: AccountOut
 
 
-@router.get("/api/protected", response_model=bool)
+
+
+
+@router.get("/api/protected")
 async def get_protected(
-    account_data: dict = Depends(authenticator.get_current_account_data),
+    request: Request, account_data: dict = Depends(authenticator.get_current_account_data),
 ):
-    return True
+    return account_data
 
 
 @router.get("/token", response_model=AccountToken | None)
