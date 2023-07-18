@@ -21,6 +21,7 @@ function LeftProfileCard () {
             firstName: data.first_name,
             lastName: data.last_name,
             email: data.email,
+            pictureUrl: data.picture_url,
         };
         setUser(user);
     } else {
@@ -37,14 +38,21 @@ function LeftProfileCard () {
       <>
         <div className="card">
           <div className="card-body">
-            <img
-              src="https://cdn.dribbble.com/users/1452333/screenshots/16345536/media/6054461fc01fb0d3400ecb9091510274.png"
-              alt=""
-              className="rounded-circle"
-              width="150"
-              height="150"
-            />
-            <div className="h5">FirstName LastName</div>
+            {user && (
+              <img
+                src="https://wegotthiscovered.com/wp-content/uploads/2022/05/Spy-x-Family-anya.png"
+                alt=""
+                className="rounded-circle"
+                width="150"
+                height="150"
+                style={{ objectFit: 'cover', borderRadius: '50%' }}
+              />
+            )}
+            {user && (
+              <div className="h5">
+                {user.firstName} {user.lastName}
+              </div>
+            )}
             <div className="h6 text-muted">Username : @</div>
             <div className="h7">Profile Page | Edit Profile</div>
           </div>
@@ -106,6 +114,7 @@ function LeftProfileCard () {
 // Center Feed
 function EventFeedCard() {
     const [events, setEvents] = useState([]);
+    const [locations, setLocations] = useState([]);
 
     async function getEvents() {
       const response = await fetch('http://localhost:8000/api/events');
@@ -115,27 +124,62 @@ function EventFeedCard() {
       }
     }
 
+    async function getLocations() {
+        const response = await fetch('http://localhost:8000/api/locations/');
+        if (response.ok){
+            const data = await response.json();
+            setLocations(data.locations);
+        }
+    }
+
+
     useEffect(()=>{
         getEvents();
+        getLocations();
     }, [])
+
 
     return (
       <>
+        <div class="dropdown">
+          <button
+            class="btn btn-secondary btn-sm dropdown-toggle"
+            type="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Sort by
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">
+              Top post
+            </a>
+            <a class="dropdown-item" href="#">
+              Upcoming
+            </a>
+            <a class="dropdown-item" href="#">
+              Recent activity
+            </a>
+          </div>
+        </div>
+        <br/>
+
         {events.map((event) => {
-          const start_datetime = new Date(event.date_start).toLocaleTimeString([], {
-            year: 'numeric',
-            month: 'numeric',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-        });
-          const end_datetime = new Date(event.date_end).toLocaleTimeString([], {
-            year: 'numeric',
-            month: 'numeric',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            });
+          const start_datetime = new Date(event.date_start).toLocaleTimeString(
+            [],
+            {
+              weekday: 'long',
+              month: 'short',
+              day: 'numeric',
+              hour: 'numeric',
+              minute: 'numeric',
+              hour12: true,
+            }
+          );
+
+        const location = locations.find((loc) => event.location_id === loc.id);
+        const locationName = location ? location.name : 'Unknown Location';
 
 
           return (
@@ -161,8 +205,10 @@ function EventFeedCard() {
               <div className="card-body">
                 <img src={event.picture_url} width="100px" />
                 <h5>{event.name}</h5>
-                <h6>{start_datetime} - {end_datetime}</h6>
-                <h6>{event.location_id}</h6>
+                <h6>
+                  {start_datetime}
+                </h6>
+                <h6>{locationName}</h6>
                 <p className="card-text">{event.description}</p>
               </div>
               <div className="card-footer">
@@ -177,7 +223,8 @@ function EventFeedCard() {
                 </a>
               </div>
             </div>
-          );})}
+          );
+        })}
       </>
     );
 }
@@ -212,19 +259,18 @@ function NewFriendsCard() {
       <div className="card gedf-card right-card">
         <div className="card-body">
           <h5 className="card-subtitle">Sniff out new friends</h5>
-          <br/>
+          <br />
           <img
-            src="https://cdn.dribbble.com/userupload/3983353/file/original-3766d806df4ef69750d471f6fef25184.gif"
+            src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExZW5rZDZudDk4cnQ2NjhrbTNmNmVwMzRmZXYxNzl3eXBqdDVwM3lkayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/ICOgUNjpvO0PC/giphy.gif"
             alt=""
             className="rounded-circle"
             width="50"
             height="50"
           />
-          <br/>
+          <br />
           <a href="/users" className="card-link float-right">
             View more
           </a>
-
         </div>
       </div>
     );
@@ -254,13 +300,12 @@ function UpcomingEventsCard() {
               Check out events near you
             </p>
             <br />
-{/* NEED TO CODE TO SHOW ONLY 4-5 EVENTS */}
-            {events.map((event) => {
+            {events.slice(0,3).map((event) => {
               return (
                 <img
-                  className="rounded mx-auto"
-                  width="45"
-                  height="45"
+                  className="rounded mx-1"
+                  width="auto"
+                  height="75"
                   src={event.picture_url}
                   alt=""
                 />
@@ -308,7 +353,6 @@ function MainPage() {
               </div>
               <hr />
             </div>
-
             <EventFeedCard />
           </div>
 
