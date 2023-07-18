@@ -4,7 +4,106 @@ import AdoptionAd from '../assets/images/animal-adoption-ad.png';
 import CreateEventButton from '../assets/images/create_event_button.png'
 import CalendarIcon from '../assets/icons/calendar.png'
 import FriendsIcon from '../assets/icons/friends.png';
+import LocationsIcon from '../assets/icons/locations.png'
 
+// Left Feed
+function LeftProfileCard () {
+    const [user, setUser] = useState();
+
+    async function loadCurrentUser() {
+    const response = await fetch('http://localhost:8000/api/protected', {
+        credentials: 'include',
+    });
+    if (response.ok) {
+        const data = await response.json();
+        const user = {
+            id: data.id,
+            firstName: data.first_name,
+            lastName: data.last_name,
+            email: data.email,
+        };
+        setUser(user);
+    } else {
+        console.error('user not logged in');
+    }
+    }
+
+    useEffect(()=>{
+        loadCurrentUser();
+    },[])
+
+
+    return (
+      <>
+        <div className="card">
+          <div className="card-body">
+            <img
+              src="https://cdn.dribbble.com/users/1452333/screenshots/16345536/media/6054461fc01fb0d3400ecb9091510274.png"
+              alt=""
+              className="rounded-circle"
+              width="150"
+              height="150"
+            />
+            <div className="h5">FirstName LastName</div>
+            <div className="h6 text-muted">Username : @</div>
+            <div className="h7">Profile Page | Edit Profile</div>
+          </div>
+          <ul className="list-group list-group-flush">
+            <li className="list-group-item">
+              <div className="h6 text-muted">My pets</div>
+              <img
+                src="https://cdn.dribbble.com/userupload/3983353/file/original-3766d806df4ef69750d471f6fef25184.gif"
+                alt=""
+                className="rounded-circle"
+                width="100"
+                height="100"
+              />
+            </li>
+          </ul>
+        </div>
+        <br />
+
+        <div className="card">
+          <div className="card-body">
+            <ul className="list-group events-friends list-group-flush">
+              <li className="list-group-item">
+                <a href="/events">
+                  <img
+                    className="left-main-icon"
+                    src={CalendarIcon}
+                    width="35px"
+                  />
+                  My Events
+                </a>
+              </li>
+              <li className="list-group-item">
+                <a href="/friends">
+                  <img
+                    className="left-main-icon"
+                    src={FriendsIcon}
+                    width="35px"
+                  />
+                  Friends
+                </a>
+              </li>
+              <li className="list-group-item">
+                <a href="/locations">
+                  <img
+                    className="left-main-icon"
+                    src={LocationsIcon}
+                    width="35px"
+                  />
+                  Locations
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </>
+    );
+}
+
+// Center Feed
 function EventFeedCard() {
     const [events, setEvents] = useState([]);
 
@@ -18,7 +117,7 @@ function EventFeedCard() {
 
     useEffect(()=>{
         getEvents();
-    })
+    }, [])
 
     return (
       <>
@@ -54,7 +153,7 @@ function EventFeedCard() {
                     </div>
                     <div className="ml-2">
                       <div className="h5 m-0">@{event.account_id}</div>
-                      <div className="h7 text-muted">Miracles Lee Cross</div>
+                      <div className="h7 text-muted">FirstName LastName</div>
                     </div>
                   </div>
                 </div>
@@ -83,73 +182,116 @@ function EventFeedCard() {
     );
 }
 
+// Right Feed
+function NewFriendsCard() {
+    const [user, setUser] = useState(null);
+
+    async function loadCurrentUser() {
+        const response = await fetch('http://localhost:8000/api/protected', {
+        credentials: 'include',
+        });
+        if (response.ok) {
+        const data = await response.json();
+        const user = {
+            id: data.id,
+            firstName: data.first_name,
+            lastName: data.last_name,
+            email: data.email,
+        };
+        setUser(user);
+        } else {
+        console.error('user not logged in');
+        }
+    }
+
+    useEffect(()=> {
+        loadCurrentUser();
+    }, [])
+
+    return (
+      <div className="card gedf-card right-card">
+        <div className="card-body">
+          <h5 className="card-subtitle">Sniff out new friends</h5>
+          <br/>
+          <img
+            src="https://cdn.dribbble.com/userupload/3983353/file/original-3766d806df4ef69750d471f6fef25184.gif"
+            alt=""
+            className="rounded-circle"
+            width="50"
+            height="50"
+          />
+          <br/>
+          <a href="/users" className="card-link float-right">
+            View more
+          </a>
+
+        </div>
+      </div>
+    );
+}
+
+function UpcomingEventsCard() {
+    const [events, setEvents] = useState([]);
+
+    async function getEvents() {
+      const response = await fetch('http://localhost:8000/api/events');
+      if (response.ok) {
+        const data = await response.json();
+        setEvents(data.events);
+      }
+    }
+
+    useEffect(() => {
+      getEvents();
+    }, []);
+
+    return (
+      <>
+        <div className="card gedf-card right-card">
+          <div className="card-body">
+            <h5 className="card-subtitle">Upcoming Events</h5>
+            <p className="card-subtitle text-muted">
+              Check out events near you
+            </p>
+            <br />
+{/* NEED TO CODE TO SHOW ONLY 4-5 EVENTS */}
+            {events.map((event) => {
+              return (
+                <img
+                  className="rounded mx-auto"
+                  width="45"
+                  height="45"
+                  src={event.picture_url}
+                  alt=""
+                />
+              );
+            })}
+            <br />
+
+            <a href="/events" className="card-link">
+              View more
+            </a>
+          </div>
+        </div>
+      </>
+    );
+}
+
+
+
+
+
+
 
 function MainPage() {
   return (
     <>
       <h3>NavBar Placeholder</h3>
-
       <div className="container gedf-wrapper">
         <div className="row">
           {/* MAIN PAGE - LEFT SIDE: PROFILE / FRIENDS LIST / LOCATIONS */}
           <div className="col-md-3">
-            <div className="card">
-              <div className="card-body">
-                <img
-                  src="https://cdn.dribbble.com/users/1452333/screenshots/16345536/media/6054461fc01fb0d3400ecb9091510274.png"
-                  alt=""
-                  className="rounded-circle"
-                  width="150"
-                  height="150"
-                />
-                <div className="h5">FirstName LastName</div>
-                <div className="h6 text-muted">
-                  Username : @
-                </div>
-                <div className="h7">Profile Page | Edit Profile</div>
-              </div>
-              <ul className="list-group list-group-flush">
-                <li className="list-group-item">
-                  <div className="h6 text-muted">My pets</div>
-                  <img
-                    src="https://cdn.dribbble.com/userupload/3983353/file/original-3766d806df4ef69750d471f6fef25184.gif"
-                    alt=""
-                    className="rounded-circle"
-                    width="100"
-                    height="100"
-                  />
-                </li>
-              </ul>
-            </div>
-
-            <br />
-
-            <div className="card">
-              <div className="card-body">
-                <ul className="list-group events-friends list-group-flush">
-                  <li className="list-group-item">
-                    <a href="/events">
-                      <img
-                        className="left-main-icon"
-                        src={CalendarIcon}
-                        width="35px"
-                      />
-                      My Events
-                    </a>
-                  </li>
-                  <li className="list-group-item">
-                    <a href="/events">
-                      <img
-                        className="left-main-icon"
-                        src={FriendsIcon}
-                        width="35px"
-                      />
-                      Friends
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <LeftProfileCard />
           </div>
 
           {/* MAIN PAGE - CENTER: CREATE EVENT & EVENT FEED */}
@@ -164,6 +306,7 @@ function MainPage() {
                   <img src={CreateEventButton} alt="" width="100%" />
                 </a>
               </div>
+              <hr />
             </div>
 
             <EventFeedCard />
@@ -171,6 +314,9 @@ function MainPage() {
 
           {/* MAIN PAGE - RIGHT SIDE: ADS / ADD USERS / EVENTS */}
           <div className="col-md-3">
+            <NewFriendsCard />
+            <UpcomingEventsCard />
+
             <div className="gedf-card">
               <div className="card-body">
                 <a
@@ -184,34 +330,6 @@ function MainPage() {
                     alt=""
                     width="100%"
                   />
-                </a>
-              </div>
-            </div>
-
-            <div className="card gedf-card right-card">
-              <div className="card-body">
-                <h5 className="card-title">Make a new furiend</h5>
-                <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                <p className="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                <a href="/users" className="card-link">
-                  View More
-                </a>
-              </div>
-            </div>
-
-            <div className="card gedf-card right-card">
-              <div className="card-body">
-                <h5 className="card-title">Events happening</h5>
-                <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                <p className="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                <a href="/events" className="card-link">
-                  View more events
                 </a>
               </div>
             </div>
