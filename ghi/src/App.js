@@ -5,7 +5,6 @@ import EventsList from "./EventsList/EventsList.js";
 import EventDetail from "./Event Detail/eventDetail.js";
 import CreateEvent from "./Create Event/createEvent.js";
 import LocationsListDetail from "./LocationsListDetail/LocationsListDetail.js";
-import ProfilePage from "./user_profile/ProfilePage.js";
 import UserAccounts from "./user_profile/UserAccounts.jsx";
 import "./App.css";
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
@@ -13,6 +12,8 @@ import SignupForm from "./auth_forms/SignupForm.jsx";
 import LoginForm from "./auth_forms/LoginForm.jsx";
 import PetsList from "./PetsList/PetsList.js";
 import CreatePet from "./CreatePet/CreatePet.js";
+import ProfilePageTest from "./user_profile/ProfilePageTest.js";
+import ProfilePage from "./user_profile/ProfilePage.js";
 
 function App() {
   const domain = /https:\/\/[^/]+/;
@@ -165,7 +166,13 @@ function App() {
                   path="all"
                   element={<UserAccounts userDataTest={userDataTest} />}
                 />
-                <Route path="" element={<ProfilePage />} />
+                <Route
+                  path=""
+                  element={
+                    <ProfilePage user={user} loadAccount={loadAccount} />
+                  }
+                />
+                <Route path="1" element={<ProfilePageTest />} />
               </Route>
             </Routes>
           </div>
