@@ -29,7 +29,6 @@ function EventsList(props) {
                 <div className="card-date-start">Date: {date}</div>
                 <div className="card-time-start">Start time: {time}</div>
                 <div className="card-location">Where: {locationName}</div>
-                <div className="card-description">{event.description}</div>
                 <button
                   className="card-button"
                   onClick={() => toggleModal(index)}
@@ -65,8 +64,27 @@ function EventsList(props) {
                 <div className="modal-location">
                   This event is happening at {locationName}
                 </div>
-                <div className="modal-description">{event.description}</div>
+                <p className="modal-description">{event.description}</p>
+                {event.is_owner === true && (
+                  <div>
+                    <button type="button" className="btn btn-danger">
+                      Delete Event
+                    </button>
+                    <button type="button" className="btn btn-warning">
+                      Edit Event
+                    </button>
+                  </div>
+                )}
+                {event.is_owner === false && (
+                  <div>
+                    {" "}
+                    <button type="button" className="btn btn-success">
+                      Attend Event
+                    </button>
+                  </div>
+                )}
                 <button
+                  type="button"
                   className="modal-button"
                   onClick={() => toggleModal(index)}
                 >

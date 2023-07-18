@@ -121,8 +121,19 @@ class PetOut(PetIn):
 
 class PetsList(BaseModel):
     pets: List[PetOut]
-from bson.objectid import ObjectId
-from pydantic import BaseModel
+
+
+class CreatorIn(BaseModel):
+    name: str
+    picture: str
+
+
+class CreatorOut(CreatorIn):
+    id: str
+
+
+class CreatorList(BaseModel):
+    creators: List[CreatorOut]
 
 
 class PydanticObjectId(ObjectId):
