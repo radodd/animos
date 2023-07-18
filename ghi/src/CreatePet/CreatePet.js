@@ -94,7 +94,6 @@ function CreatePet({ pets }) {
             {
                 label: 'No',
                 onClick: () => {
-
                 }
             }
             ]

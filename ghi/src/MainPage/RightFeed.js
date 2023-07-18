@@ -82,6 +82,7 @@ function RightFeed() {
                     height="75"
                     src={event.picture_url}
                     alt=""
+                    key={event.id}
                     />
                 );
                 })}

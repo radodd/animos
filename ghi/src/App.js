@@ -42,26 +42,27 @@ function App() {
       const data = await response.json();
       setUsers(data);
     }
-  }
 
-  async function loadEvent(id) {
-    const response = await fetch(`http://localhost:8000/api/events/${id}`);
-    if (response.ok) {
-      const data = await response.json();
-      const location_data = await loadLocation(data.location_id);
-      data.location = location_data;
-      setEvent(data);
-      setLocation(data.location);
+    async function loadEvent(id) {
+        const response = await fetch(`http://localhost:8000/api/events/${id}`);
+        if (response.ok) {
+            const data = await response.json();
+            const location_data = await loadLocation(data.location_id);
+            data.location = location_data;
+            setEvent(data);
+            setLocation(data.location);
+        }
     }
-  }
 
-  async function loadLocation(id) {
-    const response = await fetch(`http://localhost:8000/api/locations/${id}`);
-    if (response.ok) {
-      const data = await response.json();
-      return data;
+    async function loadLocation(id) {
+        const response = await fetch(
+            `http://localhost:8000/api/locations/${id}`
+        );
+        if (response.ok) {
+            const data = await response.json();
+            return data;
+        }
     }
-  }
 
   async function loadLocations() {
     const response = await fetch('http://localhost:8000/api/locations/');
@@ -71,7 +72,6 @@ function App() {
     } else {
       console.error(response);
     }
-  }
 
   async function getEvents() {
     const response = await fetch('http://localhost:8000/api/events');
@@ -79,7 +79,6 @@ function App() {
       const data = await response.json();
       setEvents(data.events);
     }
-  }
 
   async function getPets() {
     const response = await fetch('http://localhost:8000/api/pets');
@@ -87,15 +86,13 @@ function App() {
       const data = await response.json();
       setPets(data.pets);
     }
-  }
 
-  useEffect(() => {
-    loadLocations();
-    getEvents();
-    getPets();
-    loadAccounts();
-    loadAccount();
-  }, []);
+    useEffect(() => {
+        loadLocations();
+        getEvents();
+        getPets();
+        loadCurrentUser();
+    }, []);
 
   return (
     <div>
