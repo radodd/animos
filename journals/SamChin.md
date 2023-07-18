@@ -1,5 +1,6 @@
 ## Sam Chin Journal Entries
 
+
 ## Monday, July 17, 2023
 Today I came across another blocker with Docker (again..) after completing Ethan's merge request for Pets List. Thankfully I had noted the steps to take when I experienced this issue last week - pruning all containers, networks, images, volumes, restarting laptop, removing package-lock.json/node_modules, rebuilding.
 Once I was all set, I embarked on building out the newsfeed/main page view. Although I was quite intimidated at first, I was able to find a template via Bootstrap and implemented that. It has been fun working with Bootstrap & CSS styling to get things to look like how we sketched it out in our wireframe, and bring it to life!
