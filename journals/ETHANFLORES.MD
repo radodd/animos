@@ -2,7 +2,7 @@
 
 ## 7/17/2023
 
-Worked on branch management on my end. I ended up setting up two features (pet list and create pet) on one branch. Working to separate features into individual working branches to be commited one after the other.
+Worked on branch management on my end. I ended up setting up two features (pet list and create pet) on one branch. Working to separate features into individual working branches to be committed one after the other. Sent merge request to approve create pet form. As it is now, the code does not connect with a given user via user id. Later I will connect user information once the user profile is created.
 
 ## 7/13/2023
 

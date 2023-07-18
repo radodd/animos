@@ -26,10 +26,10 @@ function App() {
   const [events, setEvents] = useState([]);
   const [event, setEvent] = useState({});
   const [location, setLocation] = useState({});
-    const [pets, setPets] = useState({});
-    const [user, setUser] = useState(null);
+  const [pets, setPets] = useState({})
+  const [user, setUser] = useState(null);
 
-    async function loadCurrentUser() {
+     async function loadCurrentUser() {
         const response = await fetch('http://localhost:8000/api/protected', {
             credentials: 'include',
         });

@@ -81,7 +81,6 @@ function CreatePet({ pets }) {
             {
                 label: 'Yes',
                 onClick: () => {
-                // Logic to handle 'Yes' button click
                 alert('Click Yes');
                 setName('');
                 setBirthday('');
@@ -95,8 +94,6 @@ function CreatePet({ pets }) {
             {
                 label: 'No',
                 onClick: () => {
-                // Logic to handle 'No' button click
-                // You can leave this empty if you don't need any action
                 }
             }
             ]
@@ -152,7 +149,7 @@ function CreatePet({ pets }) {
                         <label htmlFor="size">Size</label>
                     </div>
                     <div className="form-floating mb-3">
-                        <input onChange={handlePictureChange} placeholder="Picture" value={picture} required type="text" name="picture" id="picture" className="form-control" />
+                        <input onChange={handlePictureChange} placeholder="Picture" value={picture} required name="picture" id="picture" className="form-control" />
                         <label htmlFor="picture">Upload a picture of your pet</label>
                         <input accept="image/*" type="file" onChange={ covertToBase64 } />
                         {picture===""|| picture===null?"": <img width={140} height={100} src={picture}/>}
