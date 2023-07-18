@@ -3,11 +3,11 @@ import LandingPageNav from './LandingPageNav.js';
 import Logo from '../assets/images/animoslogo.png';
 import Photo from '../assets/images/landingpage_photo.png';
 
-function LandingPage(loadCurrentUser) {
+function LandingPage({ users }) {
     return (
         <>
             <LandingPageNav />
-            <div className="landingpage__container">
+            <div className="landingpage_container">
                 <div className="grid">
                     <div>
                         <div className="logo_subtitle">
