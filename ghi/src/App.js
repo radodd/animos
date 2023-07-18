@@ -12,7 +12,6 @@ import SignupForm from "./auth_forms/SignupForm.jsx";
 import LoginForm from "./auth_forms/LoginForm.jsx";
 import PetsList from "./PetsList/PetsList.js";
 import CreatePet from "./CreatePet/CreatePet.js";
-import ProfilePageTest from "./user_profile/ProfilePageTest.js";
 import ProfilePage from "./user_profile/ProfilePage.js";
 
 function App() {
@@ -172,7 +171,6 @@ function App() {
                     <ProfilePage user={user} loadAccount={loadAccount} />
                   }
                 />
-                <Route path="1" element={<ProfilePageTest />} />
               </Route>
             </Routes>
           </div>
