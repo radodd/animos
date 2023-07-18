@@ -28,9 +28,9 @@ function EventFeedCard() {
 
   return (
     <>
-      <div className="dropdown">
+      <div class="dropdown">
         <button
-          className="btn btn-secondary btn-sm dropdown-toggle"
+          class="btn btn-secondary btn-sm dropdown-toggle"
           type="button"
           data-toggle="dropdown"
           aria-haspopup="true"
@@ -38,14 +38,14 @@ function EventFeedCard() {
         >
           Sort by
         </button>
-        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a className="dropdown-item" href="#">
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">
             Top post
           </a>
-          <a className="dropdown-item" href="#">
+          <a class="dropdown-item" href="#">
             Upcoming
           </a>
-          <a className="dropdown-item" href="#">
+          <a class="dropdown-item" href="#">
             Recent activity
           </a>
         </div>
