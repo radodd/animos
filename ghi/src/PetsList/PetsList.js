@@ -31,8 +31,6 @@ function PetsList({pets}) {
     }
 
 
-
-
     return (
       <>
         <table className="table table-striped">
