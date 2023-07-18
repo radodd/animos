@@ -14,6 +14,14 @@ body {
   border-color: black;
 }
 
+.events-friends,
+.left-main-icon {
+  margin-right: 15px;
+  /* align-items: center; */
+  align-content: center;
+}
+
+
 
 @media (min-width: 992px) {
   .gedf-main {

@@ -103,7 +103,7 @@ function App() {
                     <div className="container">
                         <Routes>
                             <Route path="/" element={<LandingPage />} />
-                            <Route path="home" element={<MainPage />}/>
+                            <Route path="home" element={<MainPage events={events} />}/>
                             <Route
                                 exact
                                 path="/signup"
