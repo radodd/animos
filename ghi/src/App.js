@@ -10,6 +10,7 @@ import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import SignupForm from "./auth_forms/SignupForm.jsx";
 import LoginForm from "./auth_forms/LoginForm.jsx";
 import PetsList from "./PetsList/PetsList.js"
+import CreatePet from "./CreatePet/CreatePet.js";
 
 // import Construct from "./Construct.js";
 // import ErrorNotification from "./ErrorNotification";
@@ -107,6 +108,10 @@ function App() {
               </Route>
               <Route path="pets">
                 <Route index element={<PetsList pets={pets} />} />
+
+              </Route>
+              <Route path="pets/create">
+                <Route index element={<CreatePet pets={pets} />} />
               </Route>
               <Route path="events">
                 <Route index element={<EventsList events={events} />} />

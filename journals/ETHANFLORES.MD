@@ -1,9 +1,12 @@
 # Ethan Flores JOURNAL
 
+## 7/17/2023
+
+Worked on branch management on my end. I ended up setting up two features (pet list and create pet) on one branch. Working to separate features into individual working branches to be commited one after the other.
+
 ## 7/13/2023
 
 Planned: In order to resynchronize the front end we will confirm a merge request as a group and continue to build the front end afterwards.
-
 
 
 ## 7/12/2023
