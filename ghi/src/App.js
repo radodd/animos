@@ -116,12 +116,19 @@ function App() {
               </Route>
               <Route path="pets">
                 <Route index element={<PetsList pets={pets} />} />
+                <Route path="create" element={<CreatePet pets={pets} />} />
               </Route>
               <Route path="events">
                 <Route index element={<EventsList events={events} />} />
                 <Route
                   path="create"
-                  element={<CreateEvent locations={locations} user={user} users={users}/>}
+                  element={
+                    <CreateEvent
+                      locations={locations}
+                      user={user}
+                      users={users}
+                    />
+                  }
                 />
 
                 <Route
