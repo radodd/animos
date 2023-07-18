@@ -1,29 +1,35 @@
-import { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
-import LandingPage from './LandingPage/LandingPage.js';
-import EventsList from './EventsList/EventsList.js';
-import EventDetail from './Event Detail/eventDetail.js';
-import CreateEvent from './Create Event/createEvent.js';
-import LocationsListDetail from './LocationsListDetail/LocationsListDetail.js';
-import './App.css';
-import { AuthProvider } from '@galvanize-inc/jwtdown-for-react';
-import SignupForm from './auth_forms/SignupForm.jsx';
-import LoginForm from './auth_forms/LoginForm.jsx';
-import PetsList from './PetsList/PetsList.js';
-import './App.css';
+import { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
+import LandingPage from "./LandingPage/LandingPage.js";
+import EventsList from "./EventsList/EventsList.js";
+import EventDetail from "./Event Detail/eventDetail.js";
+import CreateEvent from "./Create Event/createEvent.js";
+import LocationsListDetail from "./LocationsListDetail/LocationsListDetail.js";
+import "./App.css";
+import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
+import SignupForm from "./auth_forms/SignupForm.jsx";
+import LoginForm from "./auth_forms/LoginForm.jsx";
+import PetsList from "./PetsList/PetsList.js"
+import CreatePet from "./CreatePet/CreatePet.js";
+
+// import Construct from "./Construct.js";
+// import ErrorNotification from "./ErrorNotification";
+import "./App.css";
 
 function App() {
     const domain = /https:\/\/[^/]+/;
     const basename = process.env.PUBLIC_URL.replace(domain, '');
 
-    const [locations, setLocations] = useState([]);
-    const [events, setEvents] = useState([]);
-    const [event, setEvent] = useState({});
-    const [location, setLocation] = useState({});
-    const [pets, setPets] = useState({});
-    const [user, setUser] = useState(null);
+  // const [launchInfo, setLaunchInfo] = useState([]);
+  // const [error, setError] = useState(null);
+  const [locations, setLocations] = useState([]);
+  const [events, setEvents] = useState([]);
+  const [event, setEvent] = useState({});
+  const [location, setLocation] = useState({});
+  const [pets, setPets] = useState({})
+  const [user, setUser] = useState(null);
 
-    async function loadCurrentUser() {
+     async function loadCurrentUser() {
         const response = await fetch('http://localhost:8000/api/protected', {
             credentials: 'include',
         });
@@ -95,73 +101,46 @@ function App() {
         loadCurrentUser();
     }, []);
 
-    return (
-        <div>
-            <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
-                <BrowserRouter basename={basename}>
-                    {/* <Nav /> */}
-                    <div className="container">
-                        <Routes>
-                            <Route path="/" element={<LandingPage />} />
-                            <Route
-                                exact
-                                path="/signup"
-                                element={<SignupForm />}
-                            ></Route>
-                            <Route
-                                exact
-                                path="/login"
-                                element={<LoginForm />}
-                            ></Route>
-                            <Route path="/" element={<LandingPage />} />
-                            <Route path="locations">
-                                <Route
-                                    index
-                                    element={
-                                        <LocationsListDetail
-                                            locations={locations}
-                                        />
-                                    }
-                                />
-                            </Route>
-                            <Route path="pets">
-                                <Route
-                                    index
-                                    element={<PetsList pets={pets} />}
-                                />
-                            </Route>
-                            <Route path="events">
-                                <Route
-                                    index
-                                    element={<EventsList events={events} />}
-                                />
-                                <Route
-                                    path="create"
-                                    element={
-                                        <CreateEvent
-                                            locations={locations}
-                                            user={user}
-                                        />
-                                    }
-                                />
-                                <Route
-                                    path=":id"
-                                    element={
-                                        <EventDetail
-                                            loadEvent={loadEvent}
-                                            event={event}
-                                            location={location}
-                                            user={user}
-                                        />
-                                    }
-                                />
-                            </Route>
-                        </Routes>
-                    </div>
-                </BrowserRouter>
-            </AuthProvider>
-        </div>
-    );
+  return (
+    <div>
+      <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
+        <BrowserRouter basename={basename}>
+          {/* <Nav /> */}
+          <div className="container">
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route exact path="/signup" element={<SignupForm />}></Route>
+              <Route exact path="/login" element={<LoginForm />}></Route>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="locations">
+              <Route index element={<LocationsListDetail locations={locations} />} /></Route>
+              <Route path="events">
+              <Route index element={<EventsList events={events} />} /></Route>
+              <Route path="create">
+              <Route index element={<CreateEvent locations={locations} />} /></Route>
+              <Route
+                  path=":id"
+                  element={
+                    <EventDetail
+                      loadEvent={loadEvent}
+                      event={event}
+                      location={location}
+                    />
+                  }
+                />
+              </Route>
+              <Route path="pets">
+                <Route index element={<PetsList pets={pets} />} />
+                <Route path="create" element={<CreatePet pets={pets} />} />
+              </Route>
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </AuthProvider>
+    </div>
+  );
 }
+
+
 
 export default App;
