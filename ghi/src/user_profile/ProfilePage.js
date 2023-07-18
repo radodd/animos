@@ -23,19 +23,6 @@ export default function ProfilePage() {
       setUserData(data);
     }
   };
-  // const getUserData = async () => {
-  //   console.log("getUserData:");
-  //   const url = `${process.env.REACT_APP_API_HOST}/token`;
-  //   fetch(url, {
-  //     credentials: "include",
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data.account);
-  //       setUserData(data);
-  //     })
-  //     .catch((error) => console.error(error));
-  // };
 
   useEffect(() => {
     console.log("Inside useEffect:");
