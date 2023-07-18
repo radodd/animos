@@ -1,6 +1,15 @@
 ## Sam Chin Journal Entries
 
-## Thursday, July 13, 2022
+## Monday, July 17, 2023
+Today I came across another blocker with Docker (again..) after completing Ethan's merge request for Pets List. Thankfully I had noted the steps to take when I experienced this issue last week - pruning all containers, networks, images, volumes, restarting laptop, removing package-lock.json/node_modules, rebuilding.
+Once I was all set, I embarked on building out the newsfeed/main page view. Although I was quite intimidated at first, I was able to find a template via Bootstrap and implemented that. It has been fun working with Bootstrap & CSS styling to get things to look like how we sketched it out in our wireframe, and bring it to life!
+
+
+## Friday, July 14, 2023
+Today was a shorter project working session due to lectures and the social hack hour; I reviewed merge requests with both Anthony & Ethan. Also, we were able to spend time with PA to ensure a token is properly grabbed for a user as they sign up (removing .sample from the .env file)
+
+
+## Thursday, July 13, 2023
 Today I worked on the Locations List & Detail view! After seeing the excitement from my teammates and their ability to create responsive front-ends through connections to the database, I wanted to tackle a page that would involve this as well (opposed to the landing page).
 I was able to follow along a helpful YouTube tutorial on how to create card views, and utilized Anthony's locations loadLocations, to pass in as props for my Locations List view.
 Since we discussed as a team that we'd want to incorporate Location Detail view as a Modal, I worked on this as well. I found documentation online to help style the modal.
