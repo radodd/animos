@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function CreateEvent({ locations, user }) {
+function CreateEvent({ locations, user, users }) {
     const [name, setName] = useState('');
     const [start, setStart] = useState('');
     const [end, setEnd] = useState('');
@@ -9,6 +9,9 @@ function CreateEvent({ locations, user }) {
     const [capacity, setCapacity] = useState('');
     const [picture, setPicture] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
+
+    console.log('Current USER:', user);
+    console.log('list of users:', users);
 
     const handleNameChange = (e) => {
         const value = e.target.value;

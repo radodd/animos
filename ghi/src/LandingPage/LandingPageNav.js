@@ -34,6 +34,16 @@ function LandingPageNav() {
                     Team
                   </a>
                 </li>
+                <li className="nav-item">
+                  <a className="nav-link" aria-current="page" href="/pets/">
+                    List of your pets
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" aria-current="page" href="/pets/create">
+                    Add your pet
+                  </a>
+                </li>
                 <li className="nav-item-login">
                   <a
                     className="nav-link nav-link-login"

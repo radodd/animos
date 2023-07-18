@@ -11,6 +11,7 @@ import SignupForm from './auth_forms/SignupForm.jsx';
 import LoginForm from './auth_forms/LoginForm.jsx';
 import PetsList from './PetsList/PetsList.js';
 import MainPage from './MainPage/MainPage.js';
+import MainPage from './MainPage/MainPage.js';
 
 function App() {
     const domain = /https:\/\/[^/]+/;
@@ -103,7 +104,7 @@ function App() {
                     <div className="container">
                         <Routes>
                             <Route path="/" element={<LandingPage />} />
-                            <Route path="home" element={<MainPage events={events} />}/>
+                            <Route path="home" element={<MainPage />}/>
                             <Route
                                 exact
                                 path="/signup"
