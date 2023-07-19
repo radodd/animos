@@ -26,11 +26,7 @@ function EventsList(props) {
               <div className="event-card" key={event.id}>
                 <div className="card-body">
                   <div className="card-title">{event.name}</div>
-                  <img
-                    className="card-image"
-                    style={{ width: "100%" }}
-                    src={event.picture_url}
-                  ></img>
+                  <img className="card-image" src={event.picture_url}></img>
                   <div className="card-date-start">Date: {date}</div>
                   <div className="card-time-start">Start time: {time}</div>
                   <div className="card-location">Where: {locationName}</div>
