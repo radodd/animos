@@ -102,6 +102,7 @@
   border-radius: 12px;
   padding: 2px;
   top: 15rem;
+  width: 100%;
 }
 .modal-title {
   text-align: center;
