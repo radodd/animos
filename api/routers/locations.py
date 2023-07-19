@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from models import Location, LocationIn, LocationOut, LocationList
+from models import LocationIn, LocationOut, LocationList
 from queries.locations import LocationQueries
 
 
@@ -23,7 +23,8 @@ async def get_location(id: str):
 @location_api_router.post("/api/locations", response_model=LocationOut)
 async def create_location(
     location: LocationIn,
-    repo: LocationQueries = Depends()):
+    repo: LocationQueries = Depends()
+):
     location = repo.create(location)
     return location
 
@@ -32,7 +33,8 @@ async def create_location(
 async def update_location(
     id: str,
     location: LocationIn,
-    repo: LocationQueries = Depends()):
+    repo: LocationQueries = Depends()
+):
     updated_location = repo.update(id, location)
     if not updated_location:
         return {"Error": "Location does not exist"}

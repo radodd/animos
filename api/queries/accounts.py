@@ -4,6 +4,7 @@ from models import Account, AccountIn
 from pymongo.errors import DuplicateKeyError
 from typing import List
 
+
 class DuplicateAccountError(ValueError):
     pass
 
@@ -20,7 +21,6 @@ class AccountQueries(Queries):
         props["id"] = str(props["_id"])
         return Account(**props)
 
-
     def create(self, info: AccountIn, hashed_password: str) -> Account:
         props = info.dict()
         props["password"] = hashed_password
@@ -30,7 +30,6 @@ class AccountQueries(Queries):
             raise DuplicateAccountError()
         props["id"] = str(props["_id"])
         return Account(**props)
-
 
     def update(self, email: str, info: AccountIn) -> Account:
         # Find the account with the specified email
@@ -53,7 +52,6 @@ class AccountQueries(Queries):
         else:
             return None
 
-
     def delete(self, email: str) -> bool:
         # Find the account with the specified email
         account = self.get(email)
@@ -66,7 +64,6 @@ class AccountQueries(Queries):
         else:
             return False
 
-
     def get_all(self) -> List[Account]:
         accounts = self.collection.find()
         account_list = []
@@ -74,7 +71,6 @@ class AccountQueries(Queries):
             account["id"] = str(account["_id"])
             account_list.append(Account(**account))
         return account_list
-
 
     def get_by_email(self, email: str) -> Account:
         props = self.collection.find_one({"email": email})

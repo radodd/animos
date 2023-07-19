@@ -1,5 +1,5 @@
 from .client import Queries
-from models import Location, LocationIn, LocationOut
+from models import LocationIn, LocationOut
 from typing import List
 from bson import ObjectId
 

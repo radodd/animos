@@ -32,7 +32,6 @@ class AccountIn(BaseModel):
     attending_events: Optional[List[str]]
 
 
-
 class Account(AccountIn):
     id: PydanticObjectId
 
@@ -95,15 +94,17 @@ class LocationOut(BaseModel):
 class LocationList(BaseModel):
     locations: List[LocationOut]
 
+
 class PetIn(BaseModel):
-  pet_name: str
-  birth_adoption_date: str
-  breed: str
-  dietary_restrictions: str
-  vibe: str
-  size: str
-  pet_picture_url: str
-  user_id: str
+    pet_name: str
+    birth_adoption_date: str
+    breed: str
+    dietary_restrictions: str
+    vibe: str
+    size: str
+    pet_picture_url: str
+    user_id: str
+
 
 class PetOut(PetIn):
     id: str
@@ -111,20 +112,3 @@ class PetOut(PetIn):
 
 class PetsList(BaseModel):
     pets: List[PetOut]
-from bson.objectid import ObjectId
-from pydantic import BaseModel
-
-
-class PydanticObjectId(ObjectId):
-    @classmethod
-    def __get_validators__(cls):
-        yield cls.validate
-
-    @classmethod
-    def validate(cls, value: ObjectId | str) -> ObjectId:
-        if value:
-            try:
-                ObjectId(value)
-            except:
-                raise ValueError(f"Not a valid object id: {value}")
-        return value

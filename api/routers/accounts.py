@@ -15,7 +15,6 @@ from queries.accounts import (
     DuplicateAccountError,
 )
 from models import (
-    Account,
     AccountIn,
     AccountOut,
 )
@@ -27,22 +26,25 @@ not_authorized = HTTPException(
     detail="Invalid authentication credentials",
     headers={"WWW-Authenticate": "Bearer"},
 )
+
+
 class HttpError(BaseModel):
     detail: str
+
+
 class AccountForm(BaseModel):
     username: str
     password: str
+
 
 class AccountToken(Token):
     account: AccountOut
 
 
-
-
-
 @router.get("/api/protected")
 async def get_protected(
-    request: Request, account_data: dict = Depends(authenticator.get_current_account_data),
+    request: Request,
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ):
     return account_data
 
@@ -101,7 +103,10 @@ async def update_account(
         )
     print("updated_account from ROUTER:", updated_account)
     # Create a new token for the updated account
-    form = AccountForm(username=updated_account.email, password=original_password)
+    form = AccountForm(
+        username=updated_account.email,
+        password=original_password
+    )
     token = await authenticator.login(response, request, form, repo)
 
     # Return the updated account and token

@@ -1,17 +1,15 @@
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import accounts, events, pets, auth
-# from routers.users import user_api_router
-from routers.locations import location_api_router
-# from authenticator import authenticator
+from routers import accounts, events, pets, auth, locations
 
 
 app = FastAPI()
-# app.include_router(user_api_router)
-app.include_router(location_api_router)
-# app.include_router(authenticator.router)
-# app.include_router(accounts.router)
+
+
+@app.get("/")
+def root():
+    return {"message": "You hit the root path!"}
 
 
 app.add_middleware(
@@ -28,3 +26,4 @@ app.include_router(auth.authenticator.router)
 app.include_router(accounts.router)
 app.include_router(events.router)
 app.include_router(pets.router)
+app.include_router(locations.location_api_router)
