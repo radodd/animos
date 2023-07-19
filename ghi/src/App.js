@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import LandingPage from "./LandingPage/LandingPage.js";
 import EventsList from "./EventsList/EventsList.js";
 import EventDetail from "./Event Detail/eventDetail.js";
@@ -14,6 +14,7 @@ import PetsList from "./PetsList/PetsList.js";
 import CreatePet from "./CreatePet/CreatePet.js";
 import MainPage from "./MainPage/MainPage.js";
 import ProfilePage from "./user_profile/ProfilePage.js";
+import NavBar from "./NavBar.js";
 
 function App() {
   const domain = /https:\/\/[^/]+/;
@@ -28,11 +29,14 @@ function App() {
   const [userDataTest, setUserDataTest] = useState([]);
 
   async function loadAccount() {
-    const response = await fetch("http://localhost:8000/token", {
+    const response = await fetch(`${process.env.REACT_APP_API_HOST}/token`, {
       credentials: "include",
     });
+
     const data = await response.json();
-    setUser(data.account);
+    if (data.account) {
+      setUser(data.account);
+    }
   }
 
   async function loadAccounts() {
@@ -48,7 +52,9 @@ function App() {
   }
 
   async function loadEvent(id) {
-    const response = await fetch(`http://localhost:8000/api/events/${id}`);
+    const response = await fetch(
+      `${process.env.REACT_APP_API_HOST}/api/events/${id}`
+    );
     if (response.ok) {
       const data = await response.json();
       const location_data = await loadLocation(data.location_id);
@@ -59,7 +65,9 @@ function App() {
   }
 
   async function loadLocation(id) {
-    const response = await fetch(`http://localhost:8000/api/locations/${id}`);
+    const response = await fetch(
+      `${process.env.REACT_APP_API_HOST}/api/locations/${id}`
+    );
     if (response.ok) {
       const data = await response.json();
       return data;
@@ -67,7 +75,9 @@ function App() {
   }
 
   async function loadLocations() {
-    const response = await fetch("http://localhost:8000/api/locations/");
+    const response = await fetch(
+      `${process.env.REACT_APP_API_HOST}/api/locations/`
+    );
     if (response.ok) {
       const data = await response.json();
       setLocations(data.locations);
@@ -77,7 +87,9 @@ function App() {
   }
 
   async function getEvents() {
-    const response = await fetch("http://localhost:8000/api/events");
+    const response = await fetch(
+      `${process.env.REACT_APP_API_HOST}/api/events`
+    );
     if (response.ok) {
       const data = await response.json();
       setEvents(data.events);
@@ -120,6 +132,7 @@ function App() {
       <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
         <BrowserRouter basename={basename}>
           <div className="container">
+            <NavBar user={user} />
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="home" element={<MainPage events={events} />} />
@@ -137,7 +150,16 @@ function App() {
                 <Route path="create" element={<CreatePet pets={pets} />} />
               </Route>
               <Route path="events">
-                <Route index element={<EventsList events={events} />} />
+                <Route
+                  index
+                  element={
+                    <EventsList
+                      events={events}
+                      locations={locations}
+                      user={user}
+                    />
+                  }
+                />
                 <Route
                   path="create"
                   element={
