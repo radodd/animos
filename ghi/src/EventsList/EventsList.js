@@ -1,31 +1,88 @@
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import "./EventsList.css";
+import EventDetail from "../Event Detail/eventDetail.js";
 
 function EventsList(props) {
+  const [activeModal, setActiveModal] = useState(null);
+  const toggleModal = (index) => {
+    setActiveModal(index === activeModal ? null : index);
+  };
+  function Card() {
+    return (
+      <>
+        <div className="events-list">
+          {props.events.map((event, index) => {
+            const date = new Date(event.date_start).toLocaleDateString();
+            const time = new Date(event.date_start).toLocaleTimeString();
+            let locationName;
+            props.locations.map((location) => {
+              if (event.location_id === location.id) {
+                locationName = location.name;
+              }
+            });
+
+            return (
+              <div className="event-card" key={event.id}>
+                <div className="card-title">{event.name}</div>
+                <img className="card-image" src={event.picture_url}></img>
+                <div className="card-date-start">Date: {date}</div>
+                <div className="card-time-start">Start time: {time}</div>
+                <div className="card-location">Where: {locationName}</div>
+                <div className="card-description">{event.description}</div>
+                <button
+                  className="card-button"
+                  onClick={() => toggleModal(index)}
+                >
+                  Event Details
+                </button>
+              </div>
+            );
+          })}
+          {props.events.map((event, index) => {
+            let curLocation;
+            props.locations.map((location) => {
+              if (event.location_id === location.id) {
+                curLocation = location;
+              }
+            });
+
+            return (
+              <div
+                key={event.id}
+                className={`${
+                  activeModal === index
+                    ? "active-modal event_modal"
+                    : "event_modal"
+                }`}
+              >
+                <EventDetail
+                  event={event}
+                  location={curLocation}
+                  user={props.user}
+                />
+                <button
+                  className="modal-button"
+                  onClick={() => toggleModal(index)}
+                >
+                  Close
+                </button>
+              </div>
+            );
+          })}
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <h1>Events Happening</h1>
       <NavLink type="button" to="/events/create">
         Create Event
       </NavLink>
-      <div className="events-List">
-        {props.events.map((event) => {
-          const date = new Date(event.date_start).toLocaleDateString();
-          const time = new Date(event.date_start).toLocaleTimeString();
-
-          return (
-            <div className="event" key={event.id}>
-              <div className="event-name">{event.name}</div>
-              <div className="picture-url">{event.picture_url}</div>
-              <div className="event-date-start">date: {date}</div>
-              <div className="event-date-start">start time: {time}</div>
-              <div className="event-location">location {event.location_id}</div>
-              <div className="event-description">{event.description}</div>
-              <NavLink type="button" to={`/events/${event.id}`}>
-                Event Details
-              </NavLink>
-            </div>
-          );
-        })}
+      <div className="wrapper">
+        <Card />
       </div>
     </>
   );
