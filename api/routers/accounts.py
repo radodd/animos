@@ -45,7 +45,7 @@ async def get_protected(
     request: Request, account_data: dict = Depends(authenticator.get_current_account_data),
 ):
     return account_data
-   
+
 
 @router.get("/token", response_model=AccountToken | None)
 async def get_token(

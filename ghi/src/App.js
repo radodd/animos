@@ -1,21 +1,23 @@
-import { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
-import LandingPage from './LandingPage/LandingPage.js';
-import EventsList from './EventsList/EventsList.js';
-import EventDetail from './Event Detail/eventDetail.js';
-import CreateEvent from './Create Event/createEvent.js';
-import LocationsListDetail from './LocationsListDetail/LocationsListDetail.js';
-import './App.css';
-import { AuthProvider } from '@galvanize-inc/jwtdown-for-react';
-import SignupForm from './auth_forms/SignupForm.jsx';
-import LoginForm from './auth_forms/LoginForm.jsx';
-import PetsList from './PetsList/PetsList.js';
-import CreatePet from './CreatePet/CreatePet.js';
-import MainPage from './MainPage/MainPage.js'
+import { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LandingPage from "./LandingPage/LandingPage.js";
+import EventsList from "./EventsList/EventsList.js";
+import EventDetail from "./Event Detail/eventDetail.js";
+import CreateEvent from "./Create Event/createEvent.js";
+import LocationsListDetail from "./LocationsListDetail/LocationsListDetail.js";
+import UserAccounts from "./user_profile/UserAccounts.jsx";
+import "./App.css";
+import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
+import SignupForm from "./auth_forms/SignupForm.jsx";
+import LoginForm from "./auth_forms/LoginForm.jsx";
+import PetsList from "./PetsList/PetsList.js";
+import CreatePet from "./CreatePet/CreatePet.js";
+import MainPage from "./MainPage/MainPage.js";
+import ProfilePage from "./user_profile/ProfilePage.js";
 
 function App() {
   const domain = /https:\/\/[^/]+/;
-  const basename = process.env.PUBLIC_URL.replace(domain, '');
+  const basename = process.env.PUBLIC_URL.replace(domain, "");
   const [locations, setLocations] = useState([]);
   const [events, setEvents] = useState([]);
   const [event, setEvent] = useState({});
@@ -23,10 +25,11 @@ function App() {
   const [pets, setPets] = useState({});
   const [user, setUser] = useState(null);
   const [users, setUsers] = useState([]);
+  const [userDataTest, setUserDataTest] = useState([]);
 
   async function loadAccount() {
-    const response = await fetch('http://localhost:8000/token', {
-      credentials: 'include',
+    const response = await fetch("http://localhost:8000/token", {
+      credentials: "include",
     });
     const data = await response.json();
     setUser(data.account);
@@ -35,64 +38,82 @@ function App() {
   async function loadAccounts() {
     const url = `${process.env.REACT_APP_API_HOST}/api/accounts`;
     const response = await fetch(url, {
-      credentials: 'include',
-      method: 'get',
+      credentials: "include",
+      method: "get",
     });
     if (response.ok) {
       const data = await response.json();
       setUsers(data);
     }
+  }
 
-    async function loadEvent(id) {
-        const response = await fetch(`http://localhost:8000/api/events/${id}`);
-        if (response.ok) {
-            const data = await response.json();
-            const location_data = await loadLocation(data.location_id);
-            data.location = location_data;
-            setEvent(data);
-            setLocation(data.location);
-        }
+  async function loadEvent(id) {
+    const response = await fetch(`http://localhost:8000/api/events/${id}`);
+    if (response.ok) {
+      const data = await response.json();
+      const location_data = await loadLocation(data.location_id);
+      data.location = location_data;
+      setEvent(data);
+      setLocation(data.location);
     }
+  }
 
-    async function loadLocation(id) {
-        const response = await fetch(
-            `http://localhost:8000/api/locations/${id}`
-        );
-        if (response.ok) {
-            const data = await response.json();
-            return data;
-        }
+  async function loadLocation(id) {
+    const response = await fetch(`http://localhost:8000/api/locations/${id}`);
+    if (response.ok) {
+      const data = await response.json();
+      return data;
     }
+  }
 
   async function loadLocations() {
-    const response = await fetch('http://localhost:8000/api/locations/');
+    const response = await fetch("http://localhost:8000/api/locations/");
     if (response.ok) {
       const data = await response.json();
       setLocations(data.locations);
     } else {
       console.error(response);
     }
+  }
 
   async function getEvents() {
-    const response = await fetch('http://localhost:8000/api/events');
+    const response = await fetch("http://localhost:8000/api/events");
     if (response.ok) {
       const data = await response.json();
       setEvents(data.events);
     }
+  }
 
   async function getPets() {
-    const response = await fetch('http://localhost:8000/api/pets');
+    const response = await fetch("http://localhost:8000/api/pets");
     if (response.of) {
       const data = await response.json();
       setPets(data.pets);
     }
+  }
 
-    useEffect(() => {
-        loadLocations();
-        getEvents();
-        getPets();
-        loadCurrentUser();
-    }, []);
+  async function getUserDataTest() {
+    const url = `${process.env.REACT_APP_API_HOST}/api/accounts`;
+
+    const response = await fetch(url, {
+      credentials: "include",
+      method: "get",
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      setUserDataTest(data);
+    }
+  }
+
+  useEffect(() => {
+    loadLocations();
+    getEvents();
+    getPets();
+    loadAccounts();
+    loadAccount();
+    getUserDataTest();
+  }, []);
 
   return (
     <div>
@@ -137,6 +158,18 @@ function App() {
                       location={location}
                       user={user}
                     />
+                  }
+                />
+              </Route>
+              <Route path="profile">
+                <Route
+                  path="all"
+                  element={<UserAccounts userDataTest={userDataTest} />}
+                />
+                <Route
+                  path=""
+                  element={
+                    <ProfilePage user={user} loadAccount={loadAccount} />
                   }
                 />
               </Route>
