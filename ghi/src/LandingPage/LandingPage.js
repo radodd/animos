@@ -1,12 +1,10 @@
 import './LandingPage.css';
-import LandingPageNav from './LandingPageNav.js';
 import Logo from '../assets/images/animoslogo.png';
 import Photo from '../assets/images/landingpage_photo.png';
 
-function LandingPage({ users }) {
+function LandingPage() {
     return (
         <>
-            <LandingPageNav />
             <div className="landingpage_container">
                 <div className="grid">
                     <div>

@@ -1,13 +1,4 @@
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-
-export default function EventDetail({ event, loadEvent, location, user }) {
-    const { id } = useParams();
-
-    useEffect(() => {
-        loadEvent(id);
-    }, []);
-
+export default function EventDetail({ event, location, user }) {
     return (
         <>
             <h1>{event.name}</h1>
