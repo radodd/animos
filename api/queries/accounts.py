@@ -8,7 +8,7 @@ class DuplicateAccountError(ValueError):
     pass
 
 
-class AccountQueries(Queries):
+
     DB_NAME = "animos-db"
     COLLECTION = "accounts"
 
