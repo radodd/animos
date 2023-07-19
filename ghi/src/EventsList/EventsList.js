@@ -24,18 +24,26 @@ function EventsList(props) {
 
             return (
               <div className="event-card" key={event.id}>
-                <div className="card-title">{event.name}</div>
-                <img className="card-image" src={event.picture_url}></img>
-                <div className="card-date-start">Date: {date}</div>
-                <div className="card-time-start">Start time: {time}</div>
-                <div className="card-location">Where: {locationName}</div>
-                <div className="card-description">{event.description}</div>
-                <button
-                  className="card-button"
-                  onClick={() => toggleModal(index)}
-                >
-                  Event Details
-                </button>
+                <div className="card-body">
+                  <div className="card-title">{event.name}</div>
+                  <img
+                    className="card-image"
+                    style={{ width: "100%" }}
+                    src={event.picture_url}
+                  ></img>
+                  <div className="card-date-start">Date: {date}</div>
+                  <div className="card-time-start">Start time: {time}</div>
+                  <div className="card-location">Where: {locationName}</div>
+                  <div className="card-description">{event.description}</div>
+                  <button
+                    className="card-button"
+                    onClick={() => {
+                      toggleModal(index);
+                    }}
+                  >
+                    Event Details
+                  </button>
+                </div>
               </div>
             );
           })}
@@ -56,17 +64,19 @@ function EventsList(props) {
                     : "event_modal"
                 }`}
               >
-                <EventDetail
-                  event={event}
-                  location={curLocation}
-                  user={props.user}
-                />
-                <button
-                  className="modal-button"
-                  onClick={() => toggleModal(index)}
-                >
-                  Close
-                </button>
+                <div className="card_modal-content">
+                  <EventDetail
+                    event={event}
+                    location={curLocation}
+                    user={props.user}
+                  />
+                  <button
+                    className="modal-button"
+                    onClick={() => toggleModal(index)}
+                  >
+                    Close
+                  </button>
+                </div>
               </div>
             );
           })}
