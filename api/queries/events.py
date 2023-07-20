@@ -1,5 +1,5 @@
 from .client import Queries
-from models import EventIn, EventOut
+from models import EventIn, EventOut, AttendEvent
 from typing import List
 from bson.objectid import ObjectId
 
@@ -16,6 +16,7 @@ class EventQueries(Queries):
 
     def get(self, id) -> EventOut:
         result = self.collection.find_one(id)
+        print("here it is right here", result)
         if result is None:
             raise Exception("Event Not Found")
         result["id"] = str(result["_id"])
@@ -42,6 +43,19 @@ class EventQueries(Queries):
             filter,
             new_values,
             return_document=True
+        )
+        if result is None:
+            return Exception("Event Not Found")
+        result["id"] = str(result["_id"])
+        return EventOut(**result)
+
+    def add_attendee(self, attend: AttendEvent) -> EventOut:
+        props = attend.dict()
+        filter = {"_id": ObjectId(props["event_id"])}
+        new_values = {"$push": {"attendees": props["user_id"]}}
+        result = self.collection.find_one_and_update(
+            filter,
+            new_values, return_document=True
         )
         if result is None:
             return Exception("Event Not Found")
