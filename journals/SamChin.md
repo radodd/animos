@@ -1,7 +1,13 @@
 
 ## Sam Chin Journal Entries
 
+
+## Thursday, July 20, 2023
+
+Today I submitted a merge request, as I finished working on the overall Main Page / Center Feed (create event button modal and also the event cards displayed). I finally got the event detail modal to appear properly - if the logged in user created the event, they will see delete/update buttons, and if they did not create the event, they should see the option to select the attend button. I was able to resolve this bug with the help of my teammates and ensuring that the proper "user" props was passed.
+
 ## Wednesday, July 19, 2023
+Today I worked on the Create Event button in the Main Page / Center Feed, so that when clicked, it would display the Create Event form that Anthony had initially created. It was easy to import his component into my MainPage file and adjust with CSS styling to have it appear as a modal. I also began working on the event cards that are also displayed on the main page, center. I initially had placeholders, but was then able to display the event creator's first and last name, as well as bring in the EventDetail component that Erick had created in the form of a modal as well. The event detail modal is set to appear when the corresponding event card body is clicked.
 
 ## Tuesday, July 18, 2023
 
