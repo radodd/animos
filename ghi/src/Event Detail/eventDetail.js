@@ -5,8 +5,13 @@ export default function EventDetail({ event, location, user }) {
 
   async function deleteEvent(id) {
     const url = `${process.env.REACT_APP_API_HOST}/api/events/${id}`;
+    const data = {
+      event_id: event.id,
+      user_id: user.id,
+    };
     const response = await fetch(url, {
       method: "DELETE",
+      body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
       },
@@ -15,9 +20,6 @@ export default function EventDetail({ event, location, user }) {
       setIsDeleted(true);
     }
   }
-
-  // async function deleteHostedEvent(id) {
-  // }
 
   const handleAttend = async (e) => {
     const url = `${process.env.REACT_APP_API_HOST}/api/events/attend/`;
