@@ -10,9 +10,11 @@ router = APIRouter()
 @router.post("/api/events", response_model=EventOut)
 def create_event(
     event: EventIn,
-    repo: EventQueries = Depends()
+    repo: EventQueries = Depends(),
+    account_repo: AccountQueries = Depends()
 ):
     event = repo.create(event)
+    account_repo.add_hosting(event)
     return event
 
 

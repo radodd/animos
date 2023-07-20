@@ -1,6 +1,6 @@
 
 from .client import Queries
-from models import Account, AccountIn, AttendEvent
+from models import Account, AccountIn, AttendEvent, EventIn
 from pymongo.errors import DuplicateKeyError
 from typing import List
 from bson.objectid import ObjectId
@@ -84,6 +84,19 @@ class AccountQueries(Queries):
         props = attend.dict()
         filter = {"_id": ObjectId(props["user_id"])}
         new_values = {"$push": {"attending_events": props["event_id"]}}
+        result = self.collection.find_one_and_update(
+            filter,
+            new_values, return_document=True
+        )
+        if result is None:
+            return Exception("User Not Found")
+        result["id"] = str(result["_id"])
+        return Account(**result)
+
+    def add_hosting(self, event: EventIn) -> Account:
+        props = event.dict()
+        filter = {"_id": ObjectId(props["account_id"])}
+        new_values = {"$push": {"hosted_events": props["id"]}}
         result = self.collection.find_one_and_update(
             filter,
             new_values, return_document=True

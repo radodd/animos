@@ -19,7 +19,7 @@ function MainPage({ locations, user, users }) {
           <div className="col-md-6 gedf-main">
             <EventButtonModal />
             <hr />
-            <EventFeedCard />
+            <EventFeedCard loggedInUser={user} />
           </div>
 
           {/* MAIN PAGE - RIGHT SIDE: ADS / ADD USERS / EVENTS */}
