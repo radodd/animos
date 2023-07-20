@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-export default function EventDetail({ event, location, user }) {
+export default function EventDetail({ event, location, user, getEvents }) {
   const [isDeleted, setIsDeleted] = useState(false);
 
   async function deleteEvent(id) {
-    const url = `http://localhost:8000/api/events/${id}`;
+    const url = `${process.env.REACT_APP_API_HOST}/api/events/${id}`;
     const response = await fetch(url, {
       method: "DELETE",
       headers: {
@@ -32,6 +32,7 @@ export default function EventDetail({ event, location, user }) {
     };
     await fetch(url, fetchOptions);
   };
+
   return (
     <>
       <h1>{event.name}</h1>

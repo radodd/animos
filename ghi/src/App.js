@@ -179,6 +179,7 @@ function App() {
                       event={event}
                       location={location}
                       user={user}
+                      getEvents={getEvents}
                     />
                   }
                 />
