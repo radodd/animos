@@ -135,7 +135,7 @@ function App() {
             <NavBar user={user} />
             <Routes>
               <Route path="/" element={<LandingPage />} />
-              <Route path="home" element={<MainPage events={events} />} />
+              <Route path="home" element={<MainPage events={events} user={user} />} />
               <Route exact path="/signup" element={<SignupForm />}></Route>
               <Route exact path="/login" element={<LoginForm />}></Route>
               <Route path="/" element={<LandingPage />} />
