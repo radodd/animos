@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends
-from models import EventIn, EventOut, EventsList
+from models import EventIn, EventOut, EventsList, AttendEvent
 from queries.events import EventQueries
+from queries.accounts import AccountQueries
 from bson.objectid import ObjectId
 
 router = APIRouter()
@@ -46,4 +47,15 @@ async def update_event(
     repo: EventQueries = Depends()
 ):
     updated_event = repo.update(id, event)
+    return updated_event
+
+
+@router.put("/api/events/attend/", response_model=EventOut)
+async def attend_event(
+    attend: AttendEvent,
+    event_repo: EventQueries = Depends(),
+    account_repo: AccountQueries = Depends()
+):
+    updated_event = event_repo.add_attendee(attend)
+    account_repo.add_attending(attend)
     return updated_event

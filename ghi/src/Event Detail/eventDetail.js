@@ -16,6 +16,22 @@ export default function EventDetail({ event, location, user }) {
     }
   }
 
+  const handleAttend = async (e) => {
+    const url = `${process.env.REACT_APP_API_HOST}/api/events/attend/`;
+    const data = {
+      event_id: event.id,
+      user_id: user.id,
+    };
+
+    const fetchOptions = {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    await fetch(url, fetchOptions);
+  };
   return (
     <>
       <h1>{event.name}</h1>
@@ -37,16 +53,16 @@ export default function EventDetail({ event, location, user }) {
       </p>
       {event.account_id === user.id && (
         <div>
-          <button type="button" className="btn btn-danger">
-            Delete Event
-          </button>
           <button
             type="button"
-            className="btn btn-warning"
+            className="btn btn-danger"
             onClick={() => {
               deleteEvent(event.id);
             }}
           >
+            Delete Event
+          </button>
+          <button type="button" className="btn btn-warning">
             Edit Event
           </button>
         </div>
@@ -54,7 +70,11 @@ export default function EventDetail({ event, location, user }) {
       {event.account_id != user.id && (
         <div>
           {" "}
-          <button type="button" className="btn btn-success">
+          <button
+            type="button"
+            className="btn btn-success"
+            onClick={handleAttend}
+          >
             Attend Event
           </button>
         </div>

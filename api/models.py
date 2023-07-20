@@ -66,6 +66,11 @@ class EventOut(EventIn):
     id: str
 
 
+class AttendEvent(BaseModel):
+    event_id: str
+    user_id: str
+
+
 class EventsList(BaseModel):
     events: List[EventOut]
 
