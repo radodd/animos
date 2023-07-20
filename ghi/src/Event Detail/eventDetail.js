@@ -9,7 +9,6 @@ export default function EventDetail({ event, location, user }) {
       event_id: event.id,
       user_id: user.id,
     };
-    console.log("+++++++REACT++++++", data);
     const response = await fetch(url, {
       method: "DELETE",
       body: JSON.stringify(data),
