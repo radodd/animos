@@ -98,10 +98,11 @@
   padding: 0px 0px 20px 0px;
 }
 
-.modal-image {
+.card-image {
   border-radius: 12px;
   padding: 2px;
   top: 15rem;
+  width: 100%;
 }
 .modal-title {
   text-align: center;

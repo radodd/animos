@@ -157,6 +157,7 @@ function App() {
                       events={events}
                       locations={locations}
                       user={user}
+                      getEvents={getEvents}
                     />
                   }
                 />
