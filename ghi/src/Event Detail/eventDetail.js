@@ -16,6 +16,9 @@ export default function EventDetail({ event, location, user }) {
     }
   }
 
+  // async function deleteHostedEvent(id) {
+  // }
+
   const handleAttend = async (e) => {
     const url = `${process.env.REACT_APP_API_HOST}/api/events/attend/`;
     const data = {

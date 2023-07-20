@@ -51,8 +51,12 @@ class EventQueries(Queries):
 
     def add_attendee(self, attend: AttendEvent) -> EventOut:
         props = attend.dict()
+        # event_id passed from JSON obj
+        # turning event_id to bson
         filter = {"_id": ObjectId(props["event_id"])}
         new_values = {"$push": {"attendees": props["user_id"]}}
+        # filter, some condition to find target event list?
+        # look up filter
         result = self.collection.find_one_and_update(
             filter,
             new_values, return_document=True
@@ -60,4 +64,6 @@ class EventQueries(Queries):
         if result is None:
             return Exception("Event Not Found")
         result["id"] = str(result["_id"])
+        # confused on why this isnt a list out?
+        # why just the single event out?
         return EventOut(**result)
