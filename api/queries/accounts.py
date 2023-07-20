@@ -106,15 +106,23 @@ class AccountQueries(Queries):
         result["id"] = str(result["_id"])
         return Account(**result)
 
-    def remove_hosted_event(self, event: EventIn) -> Account:
+    # should be in account db
+    # find acc_obj based on account_id for the user
+    # drop into hosted_events
+    # delete event by event_id
+    def remove_hosted_event(self, event: AttendEvent) -> Account:
         props = event.dict()
-        print("???????????????? props: ", props)
-        find_by = {"_id": ObjectId(props["account_id"])}
-        new_values = {"$pull": {"hosted_events": props["id"]}}
+        print("???????????????? event_id ::: ", props["event_id"])
+        # user_is !== _id
+        find_by = {"_id": ObjectId(props["user_id"])}
+        # !!! props["event_id"] is the correct event_id
+        remove_value = {"$pull": {"hosted_events": props["event_id"]}}
         result = self.collection.find_one_and_update(
             find_by,
-            new_values, return_document=True
+            remove_value
         )
+        print("?????+++++????? delete_one did not error")
         if result is None:
             return Exception("User Not Found")
+        result["id"] = str(result["_id"])
         return Account(**result)
