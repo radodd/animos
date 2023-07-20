@@ -1,4 +1,21 @@
+import { useState } from "react";
+
 export default function EventDetail({ event, location, user }) {
+  const [isDeleted, setIsDeleted] = useState(false);
+
+  async function deleteEvent(id) {
+    const url = `http://localhost:8000/api/events/${id}`;
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.ok) {
+      setIsDeleted(true);
+    }
+  }
+
   return (
     <>
       <h1>{event.name}</h1>
@@ -23,7 +40,13 @@ export default function EventDetail({ event, location, user }) {
           <button type="button" className="btn btn-danger">
             Delete Event
           </button>
-          <button type="button" className="btn btn-warning">
+          <button
+            type="button"
+            className="btn btn-warning"
+            onClick={() => {
+              deleteEvent(event.id);
+            }}
+          >
             Edit Event
           </button>
         </div>
