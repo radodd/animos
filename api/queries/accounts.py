@@ -1,6 +1,6 @@
 
 from .client import Queries
-from models import Account, AccountIn, AttendEvent, EventIn
+from models import Account, AccountIn, AttendEvent, EventIn, AddFriend, AccountOut
 from pymongo.errors import DuplicateKeyError
 from typing import List
 from bson.objectid import ObjectId
@@ -117,5 +117,35 @@ class AccountQueries(Queries):
         )
         if result is None:
             return Exception("User Not Found")
+        result["id"] = str(result["_id"])
+        return Account(**result)
+
+
+    def follow_user(self, friend: AddFriend) -> AccountOut:
+        props = friend.dict()
+        requesting_user = self.collection.find_one({"_id": ObjectId(props["requesting_user_id"])})
+        if not requesting_user:
+            return Exception("Requesting User Not Found")
+        receiving_user = self.collection.find_one({"_id": ObjectId(props["user_id"])})
+        if not receiving_user:
+            return Exception("Requested Friend Not Found")
+        # add receiving user's id to requesting user's following
+        requesting_user_filter = {"_id": ObjectId(props["requesting_user_id"])}
+        requesting_user_new_values = {"$push": {"following_list": props["user_id"]}}
+        self.collection.find_one_and_update(
+            requesting_user_filter,
+            requesting_user_new_values,
+            return_document=True
+        )
+        # add requesting user's ID to receiving user's follower's list
+        receiving_user_filter = {"_id": ObjectId(props["user_id"])}
+        receiving_user_new_values = {"$push": {"follower_list": props["requesting_user_id"]}}
+        result = self.collection.find_one_and_update(
+            receiving_user_filter,
+            receiving_user_new_values,
+            return_document=True
+        )
+        if result is None:
+            return Exception("Requesting User Not Found")
         result["id"] = str(result["_id"])
         return Account(**result)
