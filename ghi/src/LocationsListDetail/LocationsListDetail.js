@@ -29,7 +29,7 @@ function LocationsList({ locations }) {
                     </div>
                 ))}
                 {locations.map((location, index) => (
-                    <div
+                    <   div
                         className={` ${
                             activeModal === index
                                 ? 'active-modal location_modal'

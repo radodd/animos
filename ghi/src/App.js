@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./LandingPage/LandingPage.js";
 import EventsList from "./EventsList/EventsList.js";
 import EventDetail from "./Event Detail/eventDetail.js";
-import CreateEvent from "./Create Event/createEvent.js";
+import CreateEvent from "./CreateEvent/createEvent.js";
 import LocationsListDetail from "./LocationsListDetail/LocationsListDetail.js";
 import UserAccounts from "./user_profile/UserAccounts.jsx";
 import "./App.css";
