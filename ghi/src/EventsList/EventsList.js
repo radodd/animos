@@ -68,7 +68,10 @@ function EventsList(props) {
                   />
                   <button
                     className="modal-button"
-                    onClick={() => toggleModal(index)}
+                    onClick={() => {
+                      toggleModal(index);
+                      props.getEvents();
+                    }}
                   >
                     Close
                   </button>

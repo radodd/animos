@@ -157,6 +157,7 @@ function App() {
                       events={events}
                       locations={locations}
                       user={user}
+                      getEvents={getEvents}
                     />
                   }
                 />
@@ -179,7 +180,6 @@ function App() {
                       event={event}
                       location={location}
                       user={user}
-                      getEvents={getEvents}
                     />
                   }
                 />
