@@ -15,7 +15,7 @@ const LoginForm = () => {
     console.log(`email: ${email} password: ${password}`);
     login(email, password);
     e.target.reset();
-    navigate("/");
+    navigate("/home");
   };
 
   return (
