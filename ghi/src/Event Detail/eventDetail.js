@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function EventDetail({ event, location, user, getEvents }) {
+export default function EventDetail({ event, location, user }) {
   const [isDeleted, setIsDeleted] = useState(false);
 
   async function deleteEvent(id) {
@@ -66,6 +66,11 @@ export default function EventDetail({ event, location, user, getEvents }) {
           <button type="button" className="btn btn-warning">
             Edit Event
           </button>
+          {isDeleted === true && (
+            <div className="alert alert-success" id="success-message">
+              You've deleted your event
+            </div>
+          )}
         </div>
       )}
       {event.account_id != user.id && (
