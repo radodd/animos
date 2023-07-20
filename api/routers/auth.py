@@ -4,6 +4,7 @@ from jwtdown_fastapi.authentication import Authenticator
 from models import AccountOut, Account
 from queries.accounts import AccountQueries
 
+
 class Auth(Authenticator):
     async def get_account_data(
         self,

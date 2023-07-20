@@ -19,7 +19,7 @@
   flex: 1;
 }
 
-.location-card:hover {
+.event-card:hover {
   transform: scale(1.02);
 }
 
@@ -78,7 +78,7 @@
   border-radius: 12px;
 }
 
-.event_modal-content {
+.card_modal-content {
   width: 500px;
   position: relative;
   padding: 3.5rem 2.5rem 2.5rem;

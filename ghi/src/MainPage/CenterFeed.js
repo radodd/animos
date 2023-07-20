@@ -4,6 +4,7 @@ import './MainPage.css';
 function EventFeedCard() {
   const [events, setEvents] = useState([]);
   const [locations, setLocations] = useState([]);
+  const [user, setUser] = useState(null);
 
   async function getEvents() {
     const response = await fetch('http://localhost:8000/api/events');
@@ -21,9 +22,21 @@ function EventFeedCard() {
     }
   }
 
+  async function loadAccount() {
+    const response = await fetch(`${process.env.REACT_APP_API_HOST}/token`, {
+      credentials: 'include',
+    });
+
+    const data = await response.json();
+    if (data.account) {
+      setUser(data.account);
+    }
+  }
+
   useEffect(() => {
     getEvents();
     getLocations();
+    loadAccount();
   }, []);
 
   return (

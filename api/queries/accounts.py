@@ -1,8 +1,10 @@
 
 from .client import Queries
-from models import Account, AccountIn
+from models import Account, AccountIn, AttendEvent
 from pymongo.errors import DuplicateKeyError
 from typing import List
+from bson.objectid import ObjectId
+
 
 class DuplicateAccountError(ValueError):
     pass
@@ -20,7 +22,6 @@ class AccountQueries(Queries):
         props["id"] = str(props["_id"])
         return Account(**props)
 
-
     def create(self, info: AccountIn, hashed_password: str) -> Account:
         props = info.dict()
         props["password"] = hashed_password
@@ -30,7 +31,6 @@ class AccountQueries(Queries):
             raise DuplicateAccountError()
         props["id"] = str(props["_id"])
         return Account(**props)
-
 
     def update(self, email: str, info: AccountIn) -> Account:
         # Find the account with the specified email
@@ -53,7 +53,6 @@ class AccountQueries(Queries):
         else:
             return None
 
-
     def delete(self, email: str) -> bool:
         # Find the account with the specified email
         account = self.get(email)
@@ -66,7 +65,6 @@ class AccountQueries(Queries):
         else:
             return False
 
-
     def get_all(self) -> List[Account]:
         accounts = self.collection.find()
         account_list = []
@@ -75,10 +73,22 @@ class AccountQueries(Queries):
             account_list.append(Account(**account))
         return account_list
 
-
     def get_by_email(self, email: str) -> Account:
         props = self.collection.find_one({"email": email})
         if not props:
             return None
         props["id"] = str(props["_id"])
         return Account(**props)
+
+    def add_attending(self, attend: AttendEvent) -> Account:
+        props = attend.dict()
+        filter = {"_id": ObjectId(props["user_id"])}
+        new_values = {"$push": {"attending_events": props["event_id"]}}
+        result = self.collection.find_one_and_update(
+            filter,
+            new_values, return_document=True
+        )
+        if result is None:
+            return Exception("User Not Found")
+        result["id"] = str(result["_id"])
+        return Account(**result)

@@ -1,52 +1,54 @@
 volumes:
-  animos-db:
-    external: true
+    animos-db:
+        external: true
 
 services:
-  mongo:
-    image: mongo:5
-    volumes:
-      - animos-db:/data/db
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: animos
-      MONGO_INITDB_ROOT_PASSWORD: password
-  mongo-express:
-    image: mongo-express:latest
-    depends_on:
-      - mongo
-    ports:
-      - "8081:8081"
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: animos
-      ME_CONFIG_MONGODB_ADMINPASSWORD: password
-      ME_CONFIG_MONGODB_URL: mongodb://animos:password@mongo:27017/
-    restart: always
+    mongo:
+        image: mongo:5
+        volumes:
+            - animos-db:/data/db
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: animos
+            MONGO_INITDB_ROOT_PASSWORD: password
+        ports:
+            - 27017:27017
+    mongo-express:
+        image: mongo-express:latest
+        depends_on:
+            - mongo
+        ports:
+            - '8081:8081'
+        environment:
+            ME_CONFIG_MONGODB_ADMINUSERNAME: animos
+            ME_CONFIG_MONGODB_ADMINPASSWORD: password
+            ME_CONFIG_MONGODB_URL: mongodb://animos:password@mongo:27017/
+        restart: always
 
-  fastapi:
-    environment:
-      DATABASE_URL: mongodb://animos:password@mongo/
-      DB_NAME: animos-db
-      CORS_HOST: http://localhost:3000
-      SIGNING_KEY: 87fe4a3fcfb60092dbaeb854a196bc3d9b190aed7930c734749e85245de698420c25f8e6899c421b4494e99459e01058de5daa9d49584cd62ec975da9aea33da
-    build:
-      context: api
-      dockerfile: Dockerfile.dev
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./api:/app
+    fastapi:
+        environment:
+            DATABASE_URL: mongodb://animos:password@mongo/
+            DB_NAME: animos-db
+            CORS_HOST: http://localhost:3000
+            SIGNING_KEY: 87fe4a3fcfb60092dbaeb854a196bc3d9b190aed7930c734749e85245de698420c25f8e6899c421b4494e99459e01058de5daa9d49584cd62ec975da9aea33da
+        build:
+            context: api
+            dockerfile: Dockerfile.dev
+        ports:
+            - '8000:8000'
+        volumes:
+            - ./api:/app
 
-  ghi:
-    image: node:lts-bullseye
-    command: /bin/bash run.sh
-    working_dir: /app
-    volumes:
-      - ./ghi:/app
-    ports:
-      - "3000:3000"
-    environment:
-      HOST_OS: ${OS}
-      NODE_ENV: development
-      HOST: "0.0.0.0"
-      PUBLIC_URL: http://localhost:3000
-      REACT_APP_API_HOST: ${REACT_APP_API_HOST}
+    ghi:
+        image: node:lts-bullseye
+        command: /bin/bash run.sh
+        working_dir: /app
+        volumes:
+            - ./ghi:/app
+        ports:
+            - '3000:3000'
+        environment:
+            HOST_OS: ${OS}
+            NODE_ENV: development
+            HOST: '0.0.0.0'
+            PUBLIC_URL: http://localhost:3000
+            REACT_APP_API_HOST: ${REACT_APP_API_HOST}
