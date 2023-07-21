@@ -1,9 +1,22 @@
+## 7/21/23 Finished delete event from hosted_events
+
+I also got to learn more about git and divergent branches/ Honestly still a little confused, but I know more. But I have merged, mine, Sam's, and Ethan's code. I do feel I got some extra practice at the merge editor in VS code and using the terminal together. I sent a MR (merge request) to Ethan. I've also been working with Anthony on linting errors over slack.
+
+## 7/20/23 Delete button for Event Modal
+
+The delete button is functional on the event modal. Displays a success message that the event has been deleted and updates the event list when the close button is clicked. The event is _not_ deleted off the hosted_events on that users account. Will start coding that now. I finished the functionality of the delete event button for when a user deletes an event that they created. The button successfully deletes the event off the events db and the user's hosted_events list in the accounts db. At the end of the day I merged Sam and Ethans code, and deleted my code. I got to learn more about git and found a possible way to get back my changes, but have run out of time. Will fix tomorrow.
+
+## 7/19/23 Merged EventDetail Component into EventsList
+
+Reviewed Anthony's EventDetail component, it can be integrated into my EventsList component. Successfully integrated EventDetail as a modal in the EventsList component when "view details" is clicked. Added classNames to Event modal and EventsList.css to correctly display Sam's Styling. Starting on front end functionality for the delete button in the modal in `event-list-front-delete` branch.
+
 ## 7/18/23 Merge Conflicts
+
 The whole day was spent fixing merge conflicts. But I should be up to date now. The rest of the group is also up to date.
 Things I learned today:
 I've learned to not do the commit and push stages in vs code and do them in the terminal.
 Also, to make sure to pull from main every morning.
-`git checkout -`  will bring you to the last branch you were on. So if your working on your local branch go to main and pull, you can type that and go back to your work without needing to remember the name of the branch
+`git checkout -` will bring you to the last branch you were on. So if your working on your local branch go to main and pull, you can type that and go back to your work without needing to remember the name of the branch
 
 ## 7/17/23
 
