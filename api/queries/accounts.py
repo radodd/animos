@@ -1,4 +1,3 @@
-
 from .client import Queries
 from models import (
     Account,
@@ -12,10 +11,8 @@ from pymongo.errors import DuplicateKeyError
 from typing import List
 from bson.objectid import ObjectId
 
-
 class DuplicateAccountError(ValueError):
     pass
-
 
 class AccountQueries(Queries):
     DB_NAME = "animos-db"
@@ -125,7 +122,6 @@ class AccountQueries(Queries):
             return Exception("User not found")
         result["id"] = str(result["_id"])
         return Account(**result)
-
 
     def follow_user(self, friend: AddFriend) -> AccountOut:
         props = friend.dict()
