@@ -1,22 +1,22 @@
-import { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LandingPage from "./LandingPage/LandingPage.js";
-import EventsList from "./EventsList/EventsList.js";
-import EventDetail from "./Event Detail/eventDetail.js";
-import CreateEvent from "./CreateEvent/createEvent.js";
-import LocationsListDetail from "./LocationsListDetail/LocationsListDetail.js";
-import UserAccounts from "./user_profile/UserAccounts.jsx";
-import "./App.css";
-import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
-import SignupForm from "./auth_forms/SignupForm.jsx";
-import LoginForm from "./auth_forms/LoginForm.jsx";
-import PetsList from "./PetsList/PetsList.js";
-import CreatePet from "./CreatePet/CreatePet.js";
-import MainPage from "./MainPage/MainPage.js";
-import ProfilePage from "./user_profile/ProfilePage.js";
-import NavBar from "./NavBar.js";
-import FindFriend from "./FindFriend/FindFriend.js";
-import MyFriends from "./MyFriends/MyFriends.js";
+import { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import LandingPage from './LandingPage/LandingPage.js';
+import EventsList from './EventsList/EventsList.js';
+import EventDetail from './Event Detail/eventDetail.js';
+import CreateEvent from './CreateEvent/createEvent.js';
+import LocationsListDetail from './LocationsListDetail/LocationsListDetail.js';
+import UserAccounts from './user_profile/UserAccounts.jsx';
+import './App.css';
+import { AuthProvider } from '@galvanize-inc/jwtdown-for-react';
+import SignupForm from './auth_forms/SignupForm.jsx';
+import LoginForm from './auth_forms/LoginForm.jsx';
+import PetsList from './PetsList/PetsList.js';
+import CreatePet from './CreatePet/CreatePet.js';
+import MainPage from './MainPage/MainPage.js';
+import ProfilePage from './user_profile/ProfilePage.js';
+import NavBar from './NavBar.js';
+import FindFriend from './FindFriend/FindFriend.js';
+import MyFriends from './MyFriends/MyFriends.js';
 
 function App() {
     const domain = /https:\/\/[^/]+/;
@@ -205,42 +205,42 @@ function App() {
                                     }
                                 />
 
-                <Route
-                  path=":id"
-                  element={
-                    <EventDetail
-                      loadEvent={loadEvent}
-                      event={event}
-                      location={location}
-                      user={user}
-                    />
-                  }
-                />
-              </Route>
-              <Route path="profile">
-                <Route
-                  path="all"
-                  element={<UserAccounts userDataTest={userDataTest} />}
-                />
-                <Route
-                  path=""
-                  element={
-                    <ProfilePage user={user} loadAccount={loadAccount} />
-                  }
-                />
-              </Route>
-              <Route path="friends">
-                <Route index element={<MyFriends users={users} user={user} />} />
-                <Route
-                  path="find"
-                  element={<FindFriend users={users} user={user} />}
-                />
-              </Route>
-            </Routes>
-          </div>
-        </BrowserRouter>
-      </AuthProvider>
-    </div>
-  );
+                                <Route
+                                    path=":id"
+                                    element={
+                                        <EventDetail
+                                            loadEvent={loadEvent}
+                                            event={event}
+                                            location={location}
+                                            user={user}
+                                        />
+                                    }
+                                />
+                            </Route>
+                            <Route path="profile">
+                                <Route
+                                    path="all"
+                                    element={
+                                        <UserAccounts
+                                            userDataTest={userDataTest}
+                                        />
+                                    }
+                                />
+                                <Route
+                                    path=""
+                                    element={
+                                        <ProfilePage
+                                            user={user}
+                                            loadAccount={loadAccount}
+                                        />
+                                    }
+                                />
+                            </Route>
+                        </Routes>
+                    </div>
+                </BrowserRouter>
+            </AuthProvider>
+        </div>
+    );
 }
 export default App;

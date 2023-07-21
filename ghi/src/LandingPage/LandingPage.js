@@ -9,7 +9,7 @@ function LandingPage() {
                 <div className="grid">
                     <div>
                         <div className="logo_subtitle">
-                            <img className="logo" src={Logo}></img>
+                            <img className="logo" src={Logo} alt=""></img>
                             <h4>
                                 Expand your furry friend’s social circle
                                 <br />
@@ -37,7 +37,7 @@ function LandingPage() {
                             </button>
                         </div>
                     </div>
-                    <img className="photo" src={Photo}></img>
+                    <img className="photo" src={Photo} img=""></img>
                     <div className="content"></div>
                 </div>
             </div>

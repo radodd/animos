@@ -32,6 +32,7 @@ function EventsList(props) {
                             if (event.location_id === location.id) {
                                 locationName = location.name;
                             }
+                            return locationName;
                         });
 
                         return (
@@ -43,6 +44,7 @@ function EventsList(props) {
                                     <img
                                         className="card-image"
                                         src={event.picture_url}
+                                        alt="event"
                                     ></img>
                                     <div className="card-date-start">
                                         Date: {date}
@@ -74,6 +76,7 @@ function EventsList(props) {
                             if (event.location_id === location.id) {
                                 curLocation = location;
                             }
+                            return curLocation;
                         });
 
                         return (

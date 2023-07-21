@@ -24,6 +24,7 @@ function LocationsList({ locations }) {
                                 className="card-image"
                                 width="100%"
                                 src={location.picture_url}
+                                alt="location"
                             />
                             <h5 className="card-title">{location.name}</h5>
                             <button
@@ -55,6 +56,7 @@ function LocationsList({ locations }) {
                                 className="modal-image"
                                 width="100%"
                                 src={location.picture_url}
+                                alt="modal"
                             />
                             <h5 className="modal-title">{location.name}</h5>
                             <p className="modal-zipcode">{location.zipcode}</p>
