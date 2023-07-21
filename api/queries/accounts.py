@@ -11,8 +11,10 @@ from pymongo.errors import DuplicateKeyError
 from typing import List
 from bson.objectid import ObjectId
 
+
 class DuplicateAccountError(ValueError):
     pass
+
 
 class AccountQueries(Queries):
     DB_NAME = "animos-db"
