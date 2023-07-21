@@ -49,6 +49,12 @@ class AccountOut(BaseModel):
     hosted_events: Optional[List[str]]
     attending_events: Optional[List[str]]
 
+class UpdateAccount(BaseModel):
+    first_name: str
+    last_name: str
+    zipcode: Optional[str]
+    picture_url: Optional[str]
+
 
 class EventIn(BaseModel):
     name: str

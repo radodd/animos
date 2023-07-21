@@ -5,17 +5,17 @@ import { useEffect } from "react";
 export default function ProfilePage({ user, loadAccount }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [formData, setFormData] = useState({
-    email: user?.email || (user && user.email) || "",
+    // email: user?.email || (user && user.email) || "",
     first_name: user?.first_name || (user && user.first_name) || "",
     last_name: user?.last_name || (user && user.last_name) || "",
-    password: user?.password || (user && user.password) || "",
+    // password: user?.password || (user && user.password) || "",
     zipcode: user?.zipcode || (user && user.zipcode) || "",
     picture_url: user?.picture_url || (user && user.picture_url) || "",
-    friend_list: user?.friend_list || (user && user.friend_list) || [],
-    pets: user?.pets || (user && user.pets) || [],
-    hosted_events: user?.hosted_events || (user && user.hosted_events) || [],
-    attending_events:
-      user?.attending_events || (user && user.attending_events) || [],
+    // friend_list: user?.friend_list || (user && user.friend_list) || [],
+    // pets: user?.pets || (user && user.pets) || [],
+    // hosted_events: user?.hosted_events || (user && user.hosted_events) || [],
+    // attending_events:
+    //   user?.attending_events || (user && user.attending_events) || [],
   });
 
   const handleInputChange = (event) => {
@@ -50,16 +50,16 @@ export default function ProfilePage({ user, loadAccount }) {
     }
   };
 
-  // console.log("formData.email:", formData.email);
-  // console.log("formData.first_name:", formData.first_name);
-  // console.log("formData.last_name:", formData.last_name);
+  console.log("formData.email:", formData.email);
+  console.log("formData.first_name:", formData.first_name);
+  console.log("formData.last_name:", formData.last_name);
   console.log("formData.password:", formData.password);
-  // console.log("formData.zipcode:", formData.zipcode);
-  // console.log("formData.zipcode:", formData.zipcode);
-  // console.log("formData.friend_list:", formData.friend_list);
-  // console.log("formData.pets:", formData.pets);
-  // console.log("formData.hosted_events:", formData.hosted_events);
-  // console.log("formData.attending_events:", formData.attending_events);
+  console.log("formData.zipcode:", formData.zipcode);
+  console.log("formData.zipcode:", formData.zipcode);
+  console.log("formData.friend_list:", formData.friend_list);
+  console.log("formData.pets:", formData.pets);
+  console.log("formData.hosted_events:", formData.hosted_events);
+  console.log("formData.attending_events:", formData.attending_events);
 
   useEffect(() => {
     setFormData((prevFormData) => ({

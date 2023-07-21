@@ -1,6 +1,6 @@
 
 from .client import Queries
-from models import Account, AccountIn, AttendEvent, EventIn
+from models import Account, AccountIn, AttendEvent, EventIn, UpdateAccount
 from pymongo.errors import DuplicateKeyError
 from typing import List
 from bson.objectid import ObjectId
@@ -32,26 +32,38 @@ class AccountQueries(Queries):
         props["id"] = str(props["_id"])
         return Account(**props)
 
-    def update(self, email: str, info: AccountIn) -> Account:
-        # Find the account with the specified email
-        account = self.get(email)
-        print("account from UPDATE:", account)
-        if not account:
-            return None
-        # Update the account with the new information
-        update_result = self.collection.update_one(
-            {"email": email},
-            {"$set": info.dict(exclude_unset=True)}
-        )
-        print("update_result from UPDATE:", update_result)
-        # Check if the update was successful
-        if update_result.modified_count == 1:
-            print("email modified_count from UPDATE:", email)
-            # Get the updated account from the database
-            updated_account = self.get(info.email)
-            return updated_account
-        else:
-            return None
+    def update(self, email: str, info: UpdateAccount) -> bool:
+        filter = {"email": email}
+        props = info.dict()
+        print("props:", props)
+        # data = {"first_name": props.first_name, "last_name": props.last_name, "zipcode": props.zipcode, "picture_url": props.picture_url}
+        new_values = {"$set": {"first_name": props["first_name"], "last_name": props["last_name"], "zipcode": props["zipcode"], "picture_url": props["picture_url"]}}
+        updated_account = self.collection.find_one_and_update(filter, new_values, return_document=True)
+        if updated_account is None:
+            return Exception("Account not found")
+        # updated_account["id"] = str(updated_account["_id"])
+        print("update_account:", updated_account)
+        return True
+        # return Account(**updated_account)
+
+
+        # if not account:
+        #     return None
+        # # Update the account with the new information
+        # update_result = self.collection.update_one(
+        #     {"email": email},
+        #     {"$set": info.dict(exclude_unset=True)}
+        # )
+        # print("update_result from UPDATE:", update_result)
+        # # Check if the update was successful
+        # if update_result.modified_count == 1:
+        #     print("email modified_count from UPDATE:", email)
+        #     # Get the updated account from the database
+        #     updated_account = self.get(info.email)
+        #     return updated_account
+        # else:
+        #     return None
+
 
     def delete(self, email: str) -> bool:
         # Find the account with the specified email
