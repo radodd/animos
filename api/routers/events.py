@@ -41,11 +41,8 @@ def delete_event(
     event_repo: EventQueries = Depends(),
     account_repo: AccountQueries = Depends()
 ):
-    print("!!!!!! BEFORE Routers deleted event !!!!!")
     deleted_event = event_repo.delete({"_id": ObjectId(id)})
-    print("!!!! Routers/events.py before !!!!!!")
     account_repo.remove_hosted_event(remove_obj)
-    print("!!!!! After remove !!!!")
     return deleted_event
 
 
