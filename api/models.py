@@ -14,7 +14,7 @@ class PydanticObjectId(ObjectId):
         if value:
             try:
                 ObjectId(value)
-            except:
+            except ValueError:
                 raise ValueError(f"Not a valid object id: {value}")
         return value
 
@@ -26,7 +26,9 @@ class AccountIn(BaseModel):
     password: str
     zipcode: Optional[str]
     picture_url: Optional[str]
-    friend_list: Optional[List[str]]
+    follower_list: Optional[List[str]]
+    following_list: Optional[List[str]]
+    # friend_list: Optional[List[str]]
     pets: Optional[List[str]]
     hosted_events: Optional[List[str]]
     attending_events: Optional[List[str]]
@@ -44,7 +46,9 @@ class AccountOut(BaseModel):
     password: str
     zipcode: Optional[str]
     picture_url: Optional[str]
-    friend_list: Optional[List[str]]
+    follower_list: Optional[List[str]]
+    following_list: Optional[List[str]]
+    # friend_list: Optional[List[str]]
     pets: Optional[List[str]]
     hosted_events: Optional[List[str]]
     attending_events: Optional[List[str]]
@@ -117,3 +121,12 @@ class PetOut(PetIn):
 
 class PetsList(BaseModel):
     pets: List[PetOut]
+
+
+class AddFriend(BaseModel):
+    user_id: str
+    requesting_user_id: str
+
+
+class FriendsList(BaseModel):
+    friends: List[AccountOut]

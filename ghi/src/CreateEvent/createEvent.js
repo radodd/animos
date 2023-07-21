@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import createEvent from '../assets/images/create_event_title.png'
+import createEvent from '../assets/images/create_event_title.png';
 
 function CreateEvent({ locations, user }) {
     const [name, setName] = useState('');
@@ -91,121 +91,131 @@ function CreateEvent({ locations, user }) {
     };
 
     return (
-      <>
-        <div>
-          <div className="modal-content">
-            <div className="modal-header">
-              {' '}
-              <img
-                className="create-event-modal-title"
-                src={createEvent}
-                width="575px"
-              ></img>
+        <>
+            <div>
+                <div className="modal-content">
+                    <div className="modal-header">
+                        {' '}
+                        <img
+                            className="create-event-modal-title"
+                            src={createEvent}
+                            width="575px"
+                            alt=""
+                        ></img>
+                    </div>
+                    <div className="row no-gutters">
+                        <form onSubmit={handleSubmit}>
+                            <div className="form-floating mb-3">
+                                <input
+                                    required
+                                    onChange={handleNameChange}
+                                    name="name"
+                                    id="name"
+                                    type="text"
+                                    className="form-control"
+                                    value={name}
+                                />
+                                <label htmlFor="name">Name of Event</label>
+                            </div>
+                            <div className="form-floating mb-3">
+                                <input
+                                    required
+                                    onChange={handleStartChange}
+                                    name="start_date"
+                                    id="start_date"
+                                    type="datetime-local"
+                                    className="form-control"
+                                    value={start}
+                                />
+                                <label htmlFor="start_date">Start Date</label>
+                            </div>
+                            <div className="form-floating mb-3">
+                                <input
+                                    required
+                                    onChange={handleEndChange}
+                                    name="end_date"
+                                    id="end_date"
+                                    type="datetime-local"
+                                    className="form-control"
+                                    value={end}
+                                />
+                                <label htmlFor="end_date">End Date</label>
+                            </div>
+                            <div className="form-floating mb-3">
+                                <input
+                                    required
+                                    onChange={handleDescriptionChange}
+                                    name="description"
+                                    id="description"
+                                    type="text"
+                                    className="form-control"
+                                    value={description}
+                                />
+                                <label htmlFor="description">Description</label>
+                            </div>
+                            <div className="form-floating mb-3">
+                                {' '}
+                                <select
+                                    onChange={handleLocationChange}
+                                    name="location"
+                                    id="location"
+                                    className="form-select"
+                                    value={location}
+                                >
+                                    <option value="">Location</option>
+                                    {locations.map((location) => (
+                                        <option
+                                            value={location.id}
+                                            key={location.id}
+                                        >
+                                            {location.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="form-floating mb-3">
+                                <input
+                                    required
+                                    onChange={handleCapacityChange}
+                                    name="capacity"
+                                    id="capacity"
+                                    type="number"
+                                    className="form-control"
+                                    value={capacity}
+                                />
+                                <label htmlFor="capacity">Capacity</label>
+                            </div>
+                            <div className="form-floating mb-3">
+                                <input
+                                    required
+                                    onChange={handlePictureChange}
+                                    name="picture_url"
+                                    id="picture_url"
+                                    type="text"
+                                    className="form-control"
+                                    value={picture}
+                                />
+                                <label htmlFor="picture_url">Picture URL</label>
+                            </div>
+                            <div
+                                className="row"
+                                style={{ justifyContent: 'center' }}
+                            >
+                                <button className="submit-btn">Create</button>
+                            </div>
+                            {isSubmitted === true && (
+                                <div
+                                    className="alert alert-success"
+                                    id="success-message"
+                                >
+                                    You successfully created a new event!
+                                </div>
+                            )}
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div className="row no-gutters">
-              <form onSubmit={handleSubmit}>
-                <div className="form-floating mb-3">
-                  <input
-                    required
-                    onChange={handleNameChange}
-                    name="name"
-                    id="name"
-                    type="text"
-                    className="form-control"
-                    value={name}
-                  />
-                  <label htmlFor="name">Name of Event</label>
-                </div>
-                <div className="form-floating mb-3">
-                  <input
-                    required
-                    onChange={handleStartChange}
-                    name="start_date"
-                    id="start_date"
-                    type="datetime-local"
-                    className="form-control"
-                    value={start}
-                  />
-                  <label htmlFor="start_date">Start Date</label>
-                </div>
-                <div className="form-floating mb-3">
-                  <input
-                    required
-                    onChange={handleEndChange}
-                    name="end_date"
-                    id="end_date"
-                    type="datetime-local"
-                    className="form-control"
-                    value={end}
-                  />
-                  <label htmlFor="end_date">End Date</label>
-                </div>
-                <div className="form-floating mb-3">
-                  <input
-                    required
-                    onChange={handleDescriptionChange}
-                    name="description"
-                    id="description"
-                    type="text"
-                    className="form-control"
-                    value={description}
-                  />
-                  <label htmlFor="description">Description</label>
-                </div>
-                <div className="form-floating mb-3">
-                  {' '}
-                  <select
-                    onChange={handleLocationChange}
-                    name="location"
-                    id="location"
-                    className="form-select"
-                    value={location}
-                  >
-                    <option value="">Location</option>
-                    {locations.map((location) => (
-                      <option value={location.id} key={location.id}>
-                        {location.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="form-floating mb-3">
-                  <input
-                    required
-                    onChange={handleCapacityChange}
-                    name="capacity"
-                    id="capacity"
-                    type="number"
-                    className="form-control"
-                    value={capacity}
-                  />
-                  <label htmlFor="capacity">Capacity</label>
-                </div>
-                <div className="form-floating mb-3">
-                  <input
-                    required
-                    onChange={handlePictureChange}
-                    name="picture_url"
-                    id="picture_url"
-                    type="text"
-                    className="form-control"
-                    value={picture}
-                  />
-                  <label htmlFor="picture_url">Picture URL</label>
-                </div>
-                <div className="row" style={{ justifyContent: 'center' }}>
-                  <button className="submit-btn">Create</button>
-                </div>
-                {isSubmitted === true && (
-                  <div className="alert alert-success" id="success-message">
-                    You successfully created a new event!
-                  </div>
-                )}
-              </form>
-            </div>
-          </div>
-        </div>
-      </>
+        </>
     );
 }
 export default CreateEvent;

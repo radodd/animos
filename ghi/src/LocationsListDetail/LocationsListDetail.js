@@ -1,7 +1,14 @@
 import { useState } from 'react';
 import './LocationListDetail.css';
+import useToken from '@galvanize-inc/jwtdown-for-react';
+import { useNavigate } from 'react-router';
 
 function LocationsList({ locations }) {
+    const { token } = useToken();
+    const navigate = useNavigate();
+    if (!token) {
+        navigate('/');
+    }
     const [activeModal, setActiveModal] = useState(null);
     const toggleModal = (index) => {
         setActiveModal(index === activeModal ? null : index);
@@ -17,6 +24,7 @@ function LocationsList({ locations }) {
                                 className="card-image"
                                 width="100%"
                                 src={location.picture_url}
+                                alt="location"
                             />
                             <h5 className="card-title">{location.name}</h5>
                             <button
@@ -29,7 +37,7 @@ function LocationsList({ locations }) {
                     </div>
                 ))}
                 {locations.map((location, index) => (
-                    <   div
+                    <div
                         className={` ${
                             activeModal === index
                                 ? 'active-modal location_modal'
@@ -48,6 +56,7 @@ function LocationsList({ locations }) {
                                 className="modal-image"
                                 width="100%"
                                 src={location.picture_url}
+                                alt="modal"
                             />
                             <h5 className="modal-title">{location.name}</h5>
                             <p className="modal-zipcode">{location.zipcode}</p>

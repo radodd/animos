@@ -15,6 +15,8 @@ import CreatePet from "./CreatePet/CreatePet.js";
 import MainPage from "./MainPage/MainPage.js";
 import ProfilePage from "./user_profile/ProfilePage.js";
 import NavBar from "./NavBar.js";
+import FindFriend from "./FindFriend/FindFriend.js";
+import MyFriends from "./MyFriends/MyFriends.js";
 
 function App() {
   const domain = /https:\/\/[^/]+/;
@@ -34,8 +36,12 @@ function App() {
     });
 
     const data = await response.json();
-    if (data.account) {
+    if (data && data.account) {
       setUser(data.account);
+    } else {
+      console.warn(
+        'No user account data found or the "account" property is null/undefined.'
+      );
     }
   }
 
@@ -135,7 +141,10 @@ function App() {
             <NavBar user={user} />
             <Routes>
               <Route path="/" element={<LandingPage />} />
-              <Route path="home" element={<MainPage events={events} user={user} />} />
+              <Route
+                path="home"
+                element={<MainPage events={events} user={user} />}
+              />
               <Route exact path="/signup" element={<SignupForm />}></Route>
               <Route exact path="/login" element={<LoginForm />}></Route>
               <Route path="/" element={<LandingPage />} />

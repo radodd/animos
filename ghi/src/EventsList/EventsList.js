@@ -2,8 +2,16 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import "./EventsList.css";
 import EventDetail from "../Event Detail/eventDetail.js";
+import useToken from "@galvanize-inc/jwtdown-for-react";
+import { useNavigate } from "react-router-dom";
 
 function EventsList(props) {
+  const { token } = useToken();
+  const navigate = useNavigate();
+  if (!token) {
+    navigate("/");
+  }
+
   const [activeModal, setActiveModal] = useState(null);
   const toggleModal = (index) => {
     setActiveModal(index === activeModal ? null : index);
@@ -20,13 +28,18 @@ function EventsList(props) {
               if (event.location_id === location.id) {
                 locationName = location.name;
               }
+              return locationName;
             });
 
             return (
               <div className="event-card" key={event.id}>
                 <div className="card-body">
                   <div className="card-title">{event.name}</div>
-                  <img className="card-image" src={event.picture_url}></img>
+                  <img
+                    className="card-image"
+                    src={event.picture_url}
+                    alt="event"
+                  ></img>
                   <div className="card-date-start">Date: {date}</div>
                   <div className="card-time-start">Start time: {time}</div>
                   <div className="card-location">Where: {locationName}</div>
@@ -49,6 +62,7 @@ function EventsList(props) {
               if (event.location_id === location.id) {
                 curLocation = location;
               }
+              return curLocation;
             });
 
             return (

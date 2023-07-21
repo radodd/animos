@@ -38,7 +38,6 @@ export default function EventDetail({ event, location, user }) {
     };
     await fetch(url, fetchOptions);
   };
-
   return (
     <>
       <h1>{event.name}</h1>
@@ -58,7 +57,7 @@ export default function EventDetail({ event, location, user }) {
       <p>
         <b>Description:</b> {event.description}
       </p>
-      {event.account_id === user.id && (
+      {user && user.id && event.account_id === user.id && (
         <div>
           <button
             type="button"
