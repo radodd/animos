@@ -37,9 +37,16 @@ def get_events(
 @router.delete("/api/events/{id}", response_model=bool)
 def delete_event(
     id: str,
-    repo: EventQueries = Depends()
+    remove_obj: AttendEvent,
+    event_repo: EventQueries = Depends(),
+    account_repo: AccountQueries = Depends()
 ):
-    return repo.delete({"_id": ObjectId(id)})
+    print("!!!!!! BEFORE Routers deleted event !!!!!")
+    deleted_event = event_repo.delete({"_id": ObjectId(id)})
+    print("!!!! Routers/events.py before !!!!!!")
+    account_repo.remove_hosted_event(remove_obj)
+    print("!!!!! After remove !!!!")
+    return deleted_event
 
 
 @router.put("/api/events/{id}", response_model=EventOut)

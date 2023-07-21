@@ -4,9 +4,15 @@ export default function EventDetail({ event, location, user }) {
   const [isDeleted, setIsDeleted] = useState(false);
 
   async function deleteEvent(id) {
+    console.log("%%%%%%%%%%%%% %%%  REACT Delete Event %%%%");
     const url = `${process.env.REACT_APP_API_HOST}/api/events/${id}`;
+    const data = {
+      event_id: event.id,
+      user_id: user.id,
+    };
     const response = await fetch(url, {
       method: "DELETE",
+      body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
       },
