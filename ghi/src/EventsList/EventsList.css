@@ -31,8 +31,8 @@
 .card-location,
 .card-date-start,
 .card-time-start {
-  font-size: 600;
   align-items: center;
+  font-size: 400;
 }
 
 .card-description {
