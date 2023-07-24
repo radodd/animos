@@ -1,6 +1,7 @@
 
 ## Sam Chin Journal Entries
 
+## Monday, July 24, 2023
 
 ## Thursday, July 20, 2023
 

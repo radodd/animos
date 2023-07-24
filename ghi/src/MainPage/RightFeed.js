@@ -108,6 +108,7 @@ function RightFeed() {
                 href="https://www.humanesociety.org/"
                 className="sponsored-ad "
                 target="_blank"
+                rel="noopener"
             >
                 <img className="rounded" src={AdoptionAd} alt="" width="100%" />
             </a>

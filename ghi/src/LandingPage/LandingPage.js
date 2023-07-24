@@ -37,7 +37,7 @@ function LandingPage() {
                             </button>
                         </div>
                     </div>
-                    <img className="photo" src={Photo} img=""></img>
+                    <img className="photo" src={Photo} img="" alt=""></img>
                     <div className="content"></div>
                 </div>
             </div>

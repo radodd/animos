@@ -47,9 +47,9 @@ function EventFeedCard({ loggedInUser }) {
 
   return (
     <>
-      <div class="dropdown">
+      <div className="dropdown">
         <button
-          class="btn btn-secondary btn-sm dropdown-toggle"
+          className="btn btn-secondary btn-sm dropdown-toggle"
           type="button"
           data-toggle="dropdown"
           aria-haspopup="true"
@@ -57,17 +57,6 @@ function EventFeedCard({ loggedInUser }) {
         >
           Sort by
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">
-            Top post
-          </a>
-          <a class="dropdown-item" href="#">
-            Upcoming
-          </a>
-          <a class="dropdown-item" href="#">
-            Recent activity
-          </a>
-        </div>
       </div>
       <br />
 
@@ -91,9 +80,6 @@ function EventFeedCard({ loggedInUser }) {
         const userPhoto = user
           ? user.picture_url
           : 'https://i.pinimg.com/75x75_RS/8b/6f/15/8b6f158af2606b7ed97718b983e04438.jpg';
-
-        const eventUser = users.find((use) => event.account_id === use.id);
-        const userViewer = eventUser ? eventUser : 'UnknownID';
 
         return (
           <div className="card gedf-card" key={event.id}>
@@ -131,6 +117,7 @@ function EventFeedCard({ loggedInUser }) {
                     src={event.picture_url}
                     height="200px"
                     width="125px"
+                    alt="event photo"
                     style={{ objectFit: 'cover', borderRadius: '10%' }}
                   />
                   <div className="event-details-card-body col-sm">
@@ -147,13 +134,13 @@ function EventFeedCard({ loggedInUser }) {
               </div>
             </div>
             <div className="event-card-footer">
-              <a href="#" className="card-link">
+              <a className="card-link">
                 <i className="fa fa-gittip"></i>Like
               </a>
-              <a href="#" className="card-link">
+              <a className="card-link">
                 <i className="fa fa-comment"></i>Comment
               </a>
-              <a href="#" className="card-link">
+              <a className="card-link">
                 <i className="fa fa-mail-forward"></i>Share
               </a>
             </div>
