@@ -28,6 +28,13 @@
   font-size: 800;
 }
 
+.card-location,
+.card-date-start,
+.card-time-start {
+  font-size: 600;
+  align-items: center;
+}
+
 .card-description {
   padding: 1rem;
   font-size: 800;
