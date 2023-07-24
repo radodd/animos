@@ -30,7 +30,6 @@ function App() {
     const events = useSelector((state) => state.events);
     const user = useSelector((state) => state.user);
     const reduxPets = useSelector((state) => state.pets);
-    console.log(reduxPets);
 
     async function getPets() {
         const response = await fetch(
@@ -57,7 +56,7 @@ function App() {
             <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
                 <BrowserRouter basename={basename}>
                     <div className="container">
-                        <NavBar user={user} />
+                        <NavBar />
                         <Routes>
                             <Route path="/" element={<LandingPage />} />
                             <Route
