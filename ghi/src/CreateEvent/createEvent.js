@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import createEvent from '../assets/images/create_event_title.png';
+import { useSelector } from 'react-redux';
 
-function CreateEvent({ locations, user }) {
+function CreateEvent() {
     const [name, setName] = useState('');
     const [start, setStart] = useState('');
     const [end, setEnd] = useState('');
@@ -10,6 +11,10 @@ function CreateEvent({ locations, user }) {
     const [capacity, setCapacity] = useState('');
     const [picture, setPicture] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
+
+    const locations = useSelector((state) => state.locations);
+    const user = useSelector((state) => state.user);
+    console.log('USER RIGHT HERE', user);
 
     const handleNameChange = (e) => {
         const value = e.target.value;

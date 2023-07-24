@@ -2,13 +2,10 @@ import { useState } from 'react';
 import './LocationListDetail.css';
 import useToken from '@galvanize-inc/jwtdown-for-react';
 import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
 
-function LocationsList({ locations }) {
-    const { token } = useToken();
-    const navigate = useNavigate();
-    if (!token) {
-        navigate('/');
-    }
+function LocationsList() {
+    const locations = useSelector((state) => state.locations);
     const [activeModal, setActiveModal] = useState(null);
     const toggleModal = (index) => {
         setActiveModal(index === activeModal ? null : index);
