@@ -98,7 +98,7 @@
   padding: 0px 0px 20px 0px;
 }
 
-.card-image {
+.modal-image {
   border-radius: 12px;
   padding: 2px;
   top: 15rem;
@@ -140,5 +140,4 @@
 .active-modal {
   opacity: 1;
   visibility: visible;
-  /* height: 200%; */
 }

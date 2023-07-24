@@ -19,81 +19,79 @@ function EventsList(props) {
   function Card() {
     return (
       <>
-        <div className="events-list">
-          {props.events.map((event, index) => {
-            const date = new Date(event.date_start).toLocaleDateString();
-            const time = new Date(event.date_start).toLocaleTimeString();
-            let locationName;
-            props.locations.map((location) => {
-              if (event.location_id === location.id) {
-                locationName = location.name;
-              }
-              return locationName;
-            });
+        {props.events.map((event, index) => {
+          const date = new Date(event.date_start).toLocaleDateString();
+          const time = new Date(event.date_start).toLocaleTimeString();
+          let locationName;
+          props.locations.map((location) => {
+            if (event.location_id === location.id) {
+              locationName = location.name;
+            }
+            return locationName;
+          });
 
-            return (
-              <div className="event-card" key={event.id}>
-                <div className="card-body">
-                  <div className="card-title">{event.name}</div>
-                  <img
-                    className="card-image"
-                    src={event.picture_url}
-                    alt="event"
-                  ></img>
-                  <div className="card-date-start">Date: {date}</div>
-                  <div className="card-time-start">Start time: {time}</div>
-                  <div className="card-location">Where: {locationName}</div>
-                  <div className="card-description">{event.description}</div>
-                  <button
-                    className="card-button"
-                    onClick={() => {
-                      toggleModal(index);
-                    }}
-                  >
-                    Event Details
-                  </button>
-                </div>
+          return (
+            <div className="event-card" key={event.id}>
+              <div className="card-body">
+                <img
+                  className="card-image"
+                  width="100%"
+                  src={event.picture_url}
+                  alt="event"
+                ></img>
+                <div className="card-title">{event.name}</div>
+                <div className="card-date-start">Date: {date}</div>
+                <div className="card-time-start">Start time: {time}</div>
+                <div className="card-location">Where: {locationName}</div>
+                <button
+                  className="card-button"
+                  onClick={() => {
+                    toggleModal(index);
+                  }}
+                >
+                  Event Details
+                </button>
               </div>
-            );
-          })}
-          {props.events.map((event, index) => {
-            let curLocation;
-            props.locations.map((location) => {
-              if (event.location_id === location.id) {
-                curLocation = location;
-              }
-              return curLocation;
-            });
+            </div>
+          );
+        })}
+        {props.events.map((event, index) => {
+          let curLocation;
+          props.locations.map((location) => {
+            if (event.location_id === location.id) {
+              curLocation = location;
+            }
+            return curLocation;
+          });
 
-            return (
-              <div
-                key={event.id}
-                className={`${
-                  activeModal === index
-                    ? "active-modal event_modal"
-                    : "event_modal"
-                }`}
-              >
-                <div className="card_modal-content">
-                  <EventDetail
-                    event={event}
-                    location={curLocation}
-                    user={props.user}
-                  />
-                  <button
-                    className="modal-button"
-                    onClick={() => {
-                      toggleModal(index);
-                      props.getEvents();
-                    }}
-                  >
-                    Close
-                  </button>
-                </div>
+          return (
+            <div
+              key={event.id}
+              className={`${
+                activeModal === index
+                  ? "active-modal event_modal"
+                  : "event_modal"
+              }`}
+            >
+              <div className="card_modal-content">
+                <EventDetail
+                  event={event}
+                  location={curLocation}
+                  user={props.user}
+                />
+                <button
+                  className="modal-button"
+                  onClick={() => {
+                    toggleModal(index);
+                    props.getEvents();
+                  }}
+                >
+                  Close
+                </button>
               </div>
-            );
-          })}
-        </div>
+            </div>
+          );
+        })}
       </>
     );
   }
