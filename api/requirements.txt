@@ -7,3 +7,4 @@ websockets
 jwtdown-fastapi>=0.3.0
 uvicorn==0.17.6
 pytest==7.1.2
+httpx==0.24.1
