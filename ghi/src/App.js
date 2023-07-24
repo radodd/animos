@@ -14,8 +14,8 @@ import CreatePet from './CreatePet/CreatePet.js';
 import MainPage from './MainPage/MainPage.js';
 import ProfilePage from './user_profile/ProfilePage.js';
 import NavBar from './NavBar.js';
-import FindFriend from './FindFriend/FindFriend.js';
-import MyFriends from './MyFriends/MyFriends.js';
+// import FindFriend from './FindFriend/FindFriend.js';
+// import MyFriends from './MyFriends/MyFriends.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLocations } from './actions/locationActions.js';
 import { fetchEvents } from './actions/eventAction.js';
@@ -29,7 +29,7 @@ function App() {
     const dispatch = useDispatch();
     const events = useSelector((state) => state.events);
     const user = useSelector((state) => state.user);
-    const reduxPets = useSelector((state) => state.pets);
+    // const reduxPets = useSelector((state) => state.pets);
 
     async function getPets() {
         const response = await fetch(
