@@ -5,13 +5,16 @@ import RightFeed from './RightFeed';
 import EventButtonModal from './CreateEventButtonModal';
 import useToken from '@galvanize-inc/jwtdown-for-react';
 import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
 
-function MainPage({ locations, user, users }) {
-    const { token } = useToken();
-    const navigate = useNavigate();
-    if (!token) {
-        navigate('/');
-    }
+
+function MainPage() {
+    const user = useSelector((state) => state.user)
+    // const { token } = useToken();
+    // const navigate = useNavigate();
+    // if (!token) {
+    //     navigate('/');
+    // }
 
     return (
         <>
@@ -19,7 +22,8 @@ function MainPage({ locations, user, users }) {
                 <div className="row">
                     {/* MAIN PAGE - LEFT SIDE: PROFILE / FRIENDS LIST / LOCATIONS */}
                     <div className="col-md-3">
-                        <LeftProfileCard />
+                        {user && (<LeftProfileCard />)}
+
                     </div>
 
                     {/* MAIN PAGE - CENTER: CREATE EVENT & EVENT FEED */}

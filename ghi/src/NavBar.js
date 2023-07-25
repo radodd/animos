@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 export default function NavBar() {
     const user = useSelector((state) => state.user);
     if (user != null) {
+        // console.log("user nav bar", user)
         return (
             <>
                 <div className="container-nav">
@@ -26,6 +27,33 @@ export default function NavBar() {
                                 id="navbarSupportedContent"
                             >
                                 <ul className="navbar-nav ms-auto">
+                                    <li className="nav-item">
+                                        <a
+                                            className="nav-link"
+                                            aria-current="page"
+                                            href="/home"
+                                        >
+                                            Home
+                                        </a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a
+                                            className="nav-link"
+                                            aria-current="page"
+                                            href="/pets"
+                                        >
+                                            Pets
+                                        </a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a
+                                            className="nav-link"
+                                            aria-current="page"
+                                            href="/pets/create"
+                                        >
+                                            Add a Pet
+                                        </a>
+                                    </li>
                                     <li className="nav-item">
                                         <a
                                             className="nav-link"

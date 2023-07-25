@@ -15,6 +15,7 @@ function EventFeedCard({ loggedInUser }) {
     const response = await fetch("http://localhost:8000/api/events");
     if (response.ok) {
       const data = await response.json();
+      // console.log("Events Data", data.events)
       setEvents(data.events);
     }
   }
