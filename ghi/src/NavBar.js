@@ -57,13 +57,17 @@ export default function NavBar() {
                         <a
                           className="nav-link"
                           aria-current="page"
-                          href="/locations"
+                          href={`/user/${user.id}`}
                         >
                           My Profile
                         </a>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link" aria-current="page" href="/">
+                        <a
+                          className="nav-link"
+                          aria-current="page"
+                          href="/logout"
+                        >
                           Log Out
                         </a>
                       </li>
