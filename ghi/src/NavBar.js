@@ -2,13 +2,13 @@ import { useSelector } from 'react-redux';
 
 export default function NavBar() {
     const user = useSelector((state) => state.user);
-
+    console.log(user)
         return (
           <>
             <div className="container-nav">
               <header className="header">
                 <nav className="navbar navbar-expand navbar-light">
-                  <h2> Welcome</h2>
+                  <h2> Welcome {user && user.first_name}</h2>
                   <button
                     className="navbar-toggler ms-auto"
                     type="button"
@@ -57,7 +57,7 @@ export default function NavBar() {
                         <a
                           className="nav-link"
                           aria-current="page"
-                        //   href={`/user/${user.id}`}
+                            href={`/user/${user && user.id}`}
                         >
                           My Profile
                         </a>

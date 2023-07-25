@@ -94,7 +94,8 @@ function App() {
                                     element={<CreatePet pets={pets} />}
                                 />
                             </Route>
-                            <Route path="events">
+                            <Route path="events"
+                                element={<EventsList />}>
 
                                 <Route
                                     path="create"
