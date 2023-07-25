@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import './MainPage.css';
-import EventDetail from '../Event Detail/eventDetail';
+import { useState, useEffect } from "react";
+import "./MainPage.css";
+import EventDetail from "../EventDetail/eventDetail";
 
 function EventFeedCard({ loggedInUser }) {
   const [events, setEvents] = useState([]);
@@ -12,7 +12,7 @@ function EventFeedCard({ loggedInUser }) {
   };
 
   async function getEvents() {
-    const response = await fetch('http://localhost:8000/api/events');
+    const response = await fetch("http://localhost:8000/api/events");
     if (response.ok) {
       const data = await response.json();
       setEvents(data.events);
@@ -20,7 +20,7 @@ function EventFeedCard({ loggedInUser }) {
   }
 
   async function getLocations() {
-    const response = await fetch('http://localhost:8000/api/locations/');
+    const response = await fetch("http://localhost:8000/api/locations/");
     if (response.ok) {
       const data = await response.json();
       setLocations(data.locations);
@@ -30,8 +30,8 @@ function EventFeedCard({ loggedInUser }) {
   async function loadAccounts() {
     const url = `${process.env.REACT_APP_API_HOST}/api/accounts`;
     const response = await fetch(url, {
-      credentials: 'include',
-      method: 'get',
+      credentials: "include",
+      method: "get",
     });
     if (response.ok) {
       const data = await response.json();
@@ -62,24 +62,24 @@ function EventFeedCard({ loggedInUser }) {
 
       {events.map((event, index) => {
         const start_date = new Date(event.date_start).toLocaleDateString([], {
-          weekday: 'long',
-          month: 'short',
-          day: 'numeric',
+          weekday: "long",
+          month: "short",
+          day: "numeric",
         });
         const start_time = new Date(event.date_start).toLocaleTimeString([], {
-          hour: 'numeric',
-          minute: 'numeric',
+          hour: "numeric",
+          minute: "numeric",
           hour12: true,
         });
 
         const location = locations.find((loc) => event.location_id === loc.id);
-        const locationName = location ? location.name : 'Unknown Location';
+        const locationName = location ? location.name : "Unknown Location";
         const user = users.find((use) => event.account_id === use.id);
-        const firstName = user ? user.first_name : 'Unknown User';
-        const lastName = user ? user.last_name : 'Unknown User';
+        const firstName = user ? user.first_name : "Unknown User";
+        const lastName = user ? user.last_name : "Unknown User";
         const userPhoto = user
           ? user.picture_url
-          : 'https://i.pinimg.com/75x75_RS/8b/6f/15/8b6f158af2606b7ed97718b983e04438.jpg';
+          : "https://i.pinimg.com/75x75_RS/8b/6f/15/8b6f158af2606b7ed97718b983e04438.jpg";
 
         return (
           <div className="card gedf-card" key={event.id}>
@@ -94,9 +94,9 @@ function EventFeedCard({ loggedInUser }) {
                       src={userPhoto}
                       alt=""
                       style={{
-                        objectFit: 'cover',
-                        borderRadius: '50%',
-                        borderColor: 'white',
+                        objectFit: "cover",
+                        borderRadius: "50%",
+                        borderColor: "white",
                       }}
                     />
                   </div>
@@ -117,8 +117,8 @@ function EventFeedCard({ loggedInUser }) {
                     src={event.picture_url}
                     height="200px"
                     width="125px"
-                    alt=""
-                    style={{ objectFit: 'cover', borderRadius: '10%' }}
+                    alt="event photo"
+                    style={{ objectFit: "cover", borderRadius: "10%" }}
                   />
                   <div className="event-details-card-body col-sm">
                     <div className="event-card-name">{event.name}</div>
@@ -148,8 +148,8 @@ function EventFeedCard({ loggedInUser }) {
               <div
                 className={`${
                   activeModal === index
-                    ? 'active-modal event_modal'
-                    : 'event_modal'
+                    ? "active-modal event_modal"
+                    : "event_modal"
                 }`}
                 key={event.id}
               >
