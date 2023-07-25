@@ -19,19 +19,14 @@ function MainPage({ locations, user, users }) {
         <NavBar/>
             <div className="container gedf-wrapper">
                 <div className="row">
-                    {/* MAIN PAGE - LEFT SIDE: PROFILE / FRIENDS LIST / LOCATIONS */}
                     <div className="col-md-3">
                         <LeftProfileCard />
                     </div>
-
-                    {/* MAIN PAGE - CENTER: CREATE EVENT & EVENT FEED */}
                     <div className="col-md-6 gedf-main">
                         <EventButtonModal />
                         <hr />
                         <EventFeedCard loggedInUser={user} />
                     </div>
-
-                    {/* MAIN PAGE - RIGHT SIDE: ADS / ADD USERS / EVENTS */}
                     <div className="col-md-3">
                         <RightFeed />
                     </div>
