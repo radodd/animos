@@ -6,8 +6,9 @@ import EventDetail from "../EventDetail/eventDetail.js";
 // import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchEvents } from "../actions/eventAction.js";
-import NavBar from '../NavBar'
-import DiscoverEvents from '../../src/assets/images/discover_events.png'
+import NavBar from '../NavBar';
+import DiscoverEvents from '../../src/assets/images/discover_events.png';
+
 
 function EventsList() {
   const events = useSelector((state) => state.events);
@@ -20,28 +21,24 @@ function EventsList() {
   //     navigate('/');
   // }
 
-    const [activeModal, setActiveModal] = useState(null);
-    const toggleModal = (index) => {
-        setActiveModal(index === activeModal ? null : index);
-    };
-    function Card() {
-        return (
-            <>
-                <div className="events-list">
-                    {events.map((event, index) => {
-                        const date = new Date(
-                            event.date_start
-                        ).toLocaleDateString();
-                        const time = new Date(
-                            event.date_start
-                        ).toLocaleTimeString();
-                        let locationName;
-                        locations.map((location) => {
-                            if (event.location_id === location.id) {
-                                locationName = location.name;
-                            }
-                            return locationName;
-                        });
+  const [activeModal, setActiveModal] = useState(null);
+  const toggleModal = (index) => {
+    setActiveModal(index === activeModal ? null : index);
+  };
+  function Card() {
+    return (
+      <>
+        <div className="events-list">
+          {events.map((event, index) => {
+            const date = new Date(event.date_start).toLocaleDateString();
+            const time = new Date(event.date_start).toLocaleTimeString();
+            let locationName;
+            locations.map((location) => {
+              if (event.location_id === location.id) {
+                locationName = location.name;
+              }
+              return locationName;
+            });
 
             return (
               <div className="event-card" key={event.id}>
@@ -110,24 +107,24 @@ function EventsList() {
     );
   }
 
-    return (
-      <>
-      <br />
-        <img
-          className="locations-image-title"
-          src={DiscoverEvents}
-          alt=""
-          width="600px"
+  return (
+    <>
+    <NavBar />
+    <br />
+    <img
+        src={DiscoverEvents}
+        width="600px"
+        alt=""
         />
         <br />
-        <NavLink type="button" to="/events/create">
-          Create Event
-        </NavLink>
-        <div className="wrapper">
-          <Card />
-        </div>
-      </>
-    );
+      <NavLink type="button" to="/events/create">
+        Create Event
+      </NavLink>
+      <div className="wrapper">
+        <Card />
+      </div>
+    </>
+  );
 }
 
 export default EventsList;
