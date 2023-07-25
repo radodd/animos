@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './LocationListDetail.css';
-import useToken from '@galvanize-inc/jwtdown-for-react';
-import { useNavigate } from 'react-router';
+// import useToken from '@galvanize-inc/jwtdown-for-react';
+// import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 
 function LocationsList() {

@@ -2,8 +2,8 @@ import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import './EventsList.css';
 import EventDetail from '../Event Detail/eventDetail.js';
-import useToken from '@galvanize-inc/jwtdown-for-react';
-import { useNavigate } from 'react-router-dom';
+// import useToken from '@galvanize-inc/jwtdown-for-react';
+// import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 function EventsList() {

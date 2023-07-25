@@ -117,7 +117,7 @@ function EventFeedCard({ loggedInUser }) {
                     src={event.picture_url}
                     height="200px"
                     width="125px"
-                    alt="event photo"
+                    alt=""
                     style={{ objectFit: 'cover', borderRadius: '10%' }}
                   />
                   <div className="event-details-card-body col-sm">
@@ -133,17 +133,17 @@ function EventFeedCard({ loggedInUser }) {
                 </div>
               </div>
             </div>
-            <div className="event-card-footer">
-              <a className="card-link">
+            {/* <div className="event-card-footer">
+              <div className="card-link">
                 <i className="fa fa-gittip"></i>Like
-              </a>
+              </div>
               <a className="card-link">
                 <i className="fa fa-comment"></i>Comment
               </a>
               <a className="card-link">
                 <i className="fa fa-mail-forward"></i>Share
               </a>
-            </div>
+            </div> */}
             {activeModal === index && (
               <div
                 className={`${

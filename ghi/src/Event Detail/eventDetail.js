@@ -77,7 +77,7 @@ export default function EventDetail({ event, location, user }) {
           )}
         </div>
       )}
-      {event.account_id != user.id && (
+      {event.account_id !== user.id && (
         <div>
           {" "}
           <button

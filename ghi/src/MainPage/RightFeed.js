@@ -5,29 +5,29 @@ import AdoptionAd from '../assets/images/animal-adoption-ad.png';
 function RightFeed() {
 
     function NewFriendsCard() {
-    const [user, setUser] = useState(null);
+    // const [user, setUser] = useState(null);
 
-    async function loadCurrentUser() {
-      const response = await fetch('http://localhost:8000/api/protected', {
-        credentials: 'include',
-      });
-      if (response.ok) {
-        const data = await response.json();
-        const user = {
-          id: data.id,
-          firstName: data.first_name,
-          lastName: data.last_name,
-          email: data.email,
-        };
-        setUser(user);
-      } else {
-        console.error('user not logged in');
-      }
-    }
+    // async function loadCurrentUser() {
+    //   const response = await fetch('http://localhost:8000/api/protected', {
+    //     credentials: 'include',
+    //   });
+    //   if (response.ok) {
+    //     const data = await response.json();
+    //     const user = {
+    //       id: data.id,
+    //       firstName: data.first_name,
+    //       lastName: data.last_name,
+    //       email: data.email,
+    //     };
+    //     setUser(user);
+    //   } else {
+    //     console.error('user not logged in');
+    //   }
+    // }
 
-    useEffect(() => {
-      loadCurrentUser();
-    }, []);
+    // useEffect(() => {
+    //   loadCurrentUser();
+    // }, []);
 
     return (
       <div className="card gedf-card right-card">
@@ -98,23 +98,23 @@ function RightFeed() {
     }
 
     return (
-        <>
+      <>
         <NewFriendsCard />
         <UpcomingEventsCard />
 
         <div className="gedf-card">
-            <div className="card-body">
+          <div className="card-body">
             <a
-                href="https://www.humanesociety.org/"
-                className="sponsored-ad "
-                target="_blank"
-                rel="noopener"
+              href="https://www.humanesociety.org/"
+              className="sponsored-ad "
+              target="_blank"
+              rel="noreferrer"
             >
-                <img className="rounded" src={AdoptionAd} alt="" width="100%" />
+              <img className="rounded" src={AdoptionAd} alt="" width="100%" />
             </a>
-            </div>
+          </div>
         </div>
-        </>
+      </>
     );
 }
 
