@@ -15,6 +15,7 @@ import CreatePet from "./CreatePet/CreatePet.js";
 import MainPage from "./MainPage/MainPage.js";
 import ProfilePage from "./user_profile/ProfilePage.js";
 import NavBar from "./NavBar.js";
+import Modal from "react-modal";
 
 function App() {
   const domain = /https:\/\/[^/]+/;
@@ -31,11 +32,28 @@ function App() {
   async function loadAccount() {
     const response = await fetch(`${process.env.REACT_APP_API_HOST}/token`, {
       credentials: "include",
+      method: "get",
     });
 
     const data = await response.json();
     if (data.account) {
       setUser(data.account);
+    }
+  }
+
+  async function updateLoadAccount() {
+    try {
+      if (user) {
+        const response = await fetch(
+          `${process.env.REACT_APP_API_HOST}/api/accounts/${user.email}`
+        );
+        const data = await response.json();
+        setUser(data);
+      } else {
+        console.error("User object is null or undefined");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
   }
 
@@ -135,7 +153,10 @@ function App() {
             <NavBar user={user} />
             <Routes>
               <Route path="/" element={<LandingPage />} />
-              <Route path="home" element={<MainPage events={events} user={user} />} />
+              <Route
+                path="home"
+                element={<MainPage events={events} user={user} />}
+              />
               <Route exact path="/signup" element={<SignupForm />}></Route>
               <Route exact path="/login" element={<LoginForm />}></Route>
               <Route path="/" element={<LandingPage />} />
@@ -192,7 +213,10 @@ function App() {
                 <Route
                   path=""
                   element={
-                    <ProfilePage user={user} loadAccount={loadAccount} />
+                    <ProfilePage
+                      user={user}
+                      updateLoadAccount={updateLoadAccount}
+                    />
                   }
                 />
               </Route>
@@ -203,4 +227,7 @@ function App() {
     </div>
   );
 }
+
+Modal.setAppElement("#root");
+
 export default App;
