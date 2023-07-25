@@ -6,7 +6,7 @@ import EventDetail from '../Event Detail/eventDetail.js';
 // import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import NavBar from '../NavBar'
-
+import DiscoverEvents from '../../src/assets/images/discover_events.png'
 
 function EventsList() {
     const events = useSelector((state) => state.events);
@@ -108,15 +108,21 @@ function EventsList() {
     }
 
     return (
-        <>
-            <h1>Events Happening</h1>
-            <NavLink type="button" to="/events/create">
-                Create Event
-            </NavLink>
-            <div className="wrapper">
-                <Card />
-            </div>
-        </>
+      <>
+        <img
+          className="locations-image-title"
+          src={DiscoverEvents}
+          alt=""
+          width="600px"
+        />
+        <br />
+        <NavLink type="button" to="/events/create">
+          Create Event
+        </NavLink>
+        <div className="wrapper">
+          <Card />
+        </div>
+      </>
     );
 }
 
