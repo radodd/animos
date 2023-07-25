@@ -109,6 +109,7 @@ function EventsList() {
 
     return (
       <>
+      <br />
         <img
           className="locations-image-title"
           src={DiscoverEvents}
