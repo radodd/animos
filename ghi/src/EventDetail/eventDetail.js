@@ -2,11 +2,16 @@ import { useState } from "react";
 
 export default function EventDetail({ event, location, user }) {
   const [isDeleted, setIsDeleted] = useState(false);
-
+  //  comment for change for push
   async function deleteEvent(id) {
     const url = `${process.env.REACT_APP_API_HOST}/api/events/${id}`;
+    const data = {
+      event_id: event.id,
+      user_id: user.id,
+    };
     const response = await fetch(url, {
       method: "DELETE",
+      body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
       },
@@ -32,7 +37,6 @@ export default function EventDetail({ event, location, user }) {
     };
     await fetch(url, fetchOptions);
   };
-
   return (
     <>
       <h1>{event.name}</h1>
@@ -52,7 +56,7 @@ export default function EventDetail({ event, location, user }) {
       <p>
         <b>Description:</b> {event.description}
       </p>
-      {event.account_id === user.id && (
+      {user && user.id && event.account_id === user.id && (
         <div>
           <button
             type="button"
@@ -73,7 +77,7 @@ export default function EventDetail({ event, location, user }) {
           )}
         </div>
       )}
-      {event.account_id != user.id && (
+      {event.account_id !== user.id && (
         <div>
           {" "}
           <button

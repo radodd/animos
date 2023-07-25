@@ -17,6 +17,7 @@ from queries.accounts import (
 from models import (
     AccountIn,
     AccountOut,
+    AddFriend
     UpdateAccount,
     Account,
 )
@@ -158,3 +159,12 @@ async def get_account_by_email(
             detail="Account not found",
         )
     return AccountOut(**account.dict())
+
+
+@router.put("/api/users/addfriend/", response_model=AccountOut)
+async def follow_a_user(
+    friend: AddFriend,
+    account_repo: AccountQueries = Depends()
+):
+    updated_account = account_repo.follow_user(friend)
+    return updated_account

@@ -1,6 +1,14 @@
-
 from .client import Queries
-from models import Account, AccountIn, AttendEvent, EventIn, UpdateAccount
+from models import (
+    Account,
+    AccountIn,
+    AttendEvent,
+    EventIn,
+    AddFriend,
+    AccountOut,
+    PetIn,
+    UpdateAccount
+)
 from pymongo.errors import DuplicateKeyError
 from typing import List
 from bson.objectid import ObjectId
@@ -44,26 +52,6 @@ class AccountQueries(Queries):
         # updated_account["id"] = str(updated_account["_id"])
         print("update_account:", updated_account)
         return True
-        # return Account(**updated_account)
-
-
-        # if not account:
-        #     return None
-        # # Update the account with the new information
-        # update_result = self.collection.update_one(
-        #     {"email": email},
-        #     {"$set": info.dict(exclude_unset=True)}
-        # )
-        # print("update_result from UPDATE:", update_result)
-        # # Check if the update was successful
-        # if update_result.modified_count == 1:
-        #     print("email modified_count from UPDATE:", email)
-        #     # Get the updated account from the database
-        #     updated_account = self.get(info.email)
-        #     return updated_account
-        # else:
-        #     return None
-
 
     def delete(self, email: str) -> bool:
         # Find the account with the specified email
@@ -97,8 +85,19 @@ class AccountQueries(Queries):
         filter = {"_id": ObjectId(props["user_id"])}
         new_values = {"$push": {"attending_events": props["event_id"]}}
         result = self.collection.find_one_and_update(
-            filter,
-            new_values, return_document=True
+            filter, new_values, return_document=True
+        )
+        if result is None:
+            return Exception("User Not Found")
+        result["id"] = str(result["id"])
+        return Account(**result)
+
+    def add_pet(self, pet: PetIn) -> Account:
+        props = pet.dict()
+        filter = {"_id": ObjectId(props["user_id"])}
+        new_values = {"$push": {"pets": props["id"]}}
+        result = self.collection.find_one_and_update(
+            filter, new_values, return_document=True
         )
         if result is None:
             return Exception("User Not Found")
@@ -110,10 +109,61 @@ class AccountQueries(Queries):
         filter = {"_id": ObjectId(props["account_id"])}
         new_values = {"$push": {"hosted_events": props["id"]}}
         result = self.collection.find_one_and_update(
-            filter,
-            new_values, return_document=True
+            filter, new_values, return_document=True
         )
         if result is None:
             return Exception("User Not Found")
+        result["id"] = str(result["_id"])
+        return Account(**result)
+
+
+    def remove_hosted_event(self, event: AttendEvent) -> Account:
+        props = event.dict()
+        find_by = {"_id": ObjectId(props["user_id"])}
+        remove_value = {"$pull": {"hosted_events": props["event_id"]}}
+        result = self.collection.find_one_and_update(
+            find_by,
+            remove_value
+        )
+        if result is None:
+            return Exception("User not found")
+        result["id"] = str(result["_id"])
+        return Account(**result)
+
+    def follow_user(self, friend: AddFriend) -> AccountOut:
+        props = friend.dict()
+        requesting_user = self.collection.find_one(
+            {"_id": ObjectId(props["requesting_user_id"])}
+        )
+        if not requesting_user:
+            return Exception("Requesting User Not Found")
+        receiving_user = self.collection.find_one(
+            {"_id": ObjectId(props["user_id"])}
+        )
+        if not receiving_user:
+            return Exception("Requested Friend Not Found")
+        # add receiving user's id to requesting user's following
+        requesting_user_filter = {"_id": ObjectId(props["requesting_user_id"])}
+        requesting_user_new_values = {
+            "$push": {"following_list": props["user_id"]}
+        }
+        self.collection.find_one_and_update(
+            requesting_user_filter,
+            requesting_user_new_values,
+            return_document=True,
+        )
+        # add requesting user's ID to receiving user's follower's list
+        receiving_user_filter = {"_id": ObjectId(props["user_id"])}
+        receiving_user_new_values = {
+            "$push": {"follower_list": props["requesting_user_id"]}
+        }
+        result = self.collection.find_one_and_update(
+            receiving_user_filter,
+            receiving_user_new_values,
+            return_document=True,
+        )
+        if result is None:
+            return Exception("Requesting User Not Found")
+
         result["id"] = str(result["_id"])
         return Account(**result)
