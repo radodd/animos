@@ -7,28 +7,25 @@ function RightFeed() {
         // const [user, setUser] = useState(null);
 
         // async function loadCurrentUser() {
-        //     const response = await fetch(
-        //         'http://localhost:8000/api/protected',
-        //         {
-        //             credentials: 'include',
-        //         }
-        //     );
-        //     if (response.ok) {
-        //         const data = await response.json();
-        //         const user = {
-        //             id: data.id,
-        //             firstName: data.first_name,
-        //             lastName: data.last_name,
-        //             email: data.email,
-        //         };
-        //         setUser(user);
-        //     } else {
-        //         console.error('user not logged in');
-        //     }
+        //   const response = await fetch('http://localhost:8000/api/protected', {
+        //     credentials: 'include',
+        //   });
+        //   if (response.ok) {
+        //     const data = await response.json();
+        //     const user = {
+        //       id: data.id,
+        //       firstName: data.first_name,
+        //       lastName: data.last_name,
+        //       email: data.email,
+        //     };
+        //     setUser(user);
+        //   } else {
+        //     console.error('user not logged in');
+        //   }
         // }
 
         // useEffect(() => {
-        //     loadCurrentUser();
+        //   loadCurrentUser();
         // }, []);
 
         return (
@@ -103,14 +100,35 @@ function RightFeed() {
         <>
             <NewFriendsCard />
             <UpcomingEventsCard />
+            <>
+                <NewFriendsCard />
+                <UpcomingEventsCard />
 
+                <div className="gedf-card">
+                    <div className="card-body">
+                        <a
+                            href="https://www.humanesociety.org/"
+                            className="sponsored-ad "
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            <img
+                                className="rounded"
+                                src={AdoptionAd}
+                                alt=""
+                                width="100%"
+                            />
+                        </a>
+                    </div>
+                </div>
+            </>
             <div className="gedf-card">
                 <div className="card-body">
                     <a
                         href="https://www.humanesociety.org/"
                         className="sponsored-ad "
                         target="_blank"
-                        rel="noopener"
+                        rel="noreferrer"
                     >
                         <img
                             className="rounded"
