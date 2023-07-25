@@ -3,10 +3,9 @@ import LeftProfileCard from './LeftFeed';
 import EventFeedCard from './CenterFeed';
 import RightFeed from './RightFeed';
 import EventButtonModal from './CreateEventButtonModal';
-import useToken from '@galvanize-inc/jwtdown-for-react';
+// import useToken from '@galvanize-inc/jwtdown-for-react';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
-
 import NavBar from '../NavBar'
 
 function MainPage() {
