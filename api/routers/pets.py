@@ -3,6 +3,7 @@ from fastapi import (
     APIRouter,
 )
 from queries.pets import PetQueries
+from queries.accounts import AccountQueries
 from models import PetIn, PetOut, PetsList
 from bson import ObjectId
 
@@ -12,9 +13,11 @@ router = APIRouter()
 @router.post("/api/pets", response_model=PetOut)
 def create_pet(
     pet: PetIn,
-    repo: PetQueries = Depends()
+    repo: PetQueries = Depends(),
+    account_repo: AccountQueries = Depends()
 ):
     pet = repo.create(pet)
+    account_repo.add_pet(pet)
     return pet
 
 

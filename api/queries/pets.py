@@ -2,6 +2,7 @@ from .client import Queries
 from models import PetIn, PetOut
 from typing import List
 from bson.objectid import ObjectId
+
 # from pymongo.errors import DuplicateKeyError
 
 # class DuplicatePetError(ValueError):
@@ -38,9 +39,7 @@ class PetQueries(Queries):
         props = pet.dict()
         new_values = {"$set": dict(props)}
         result = self.collection.find_one_and_update(
-            filter,
-            new_values,
-            return_document=True
+            filter, new_values, return_document=True
         )
         if result is None:
             return Exception("Pet Not Found")

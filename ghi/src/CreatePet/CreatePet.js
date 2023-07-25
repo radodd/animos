@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { useSelector } from 'react-redux';
 
-function CreatePet({ pets }) {
+function CreatePet() {
     const [name, setName] = useState('');
     const [birthday, setBirthday] = useState('');
     const [breed, setBreed] = useState('');
@@ -10,6 +11,10 @@ function CreatePet({ pets }) {
     const [vibe, setVibe] = useState('');
     const [size, setSize] = useState('');
     const [picture, setPicture] = useState('');
+    const [isSubmitted, setIsSubmitted] = useState(false);
+
+    const pets = useSelector((state) => state.pets);
+    const user = useSelector((state) => state.user);
 
     const handleNameChange = (event) => {
         const value = event.target.value;
@@ -50,8 +55,9 @@ function CreatePet({ pets }) {
             vibe: vibe,
             size: size,
             pet_picture_url: picture,
-            user_id: 'test account',
+            user_id: user.id,
         };
+
         const postUrl = `http://localhost:8000/api/pets/`;
         const fetchConfig = {
             method: 'POST',
@@ -63,7 +69,6 @@ function CreatePet({ pets }) {
         const response = fetch(postUrl, fetchConfig);
         if (response.ok) {
             const newPet = response.json();
-            console.log(newPet);
             setName('');
             setBirthday('');
             setBreed('');
@@ -226,8 +231,20 @@ function CreatePet({ pets }) {
                                 />
                             )}
                         </div>
-                        <button className="btn btn-primary">Add my Pet</button>
-                        {/* <button onClick={ submit2 }>submit2</button> */}
+                        <div
+                                className="row"
+                                style={{ justifyContent: 'center' }}
+                            >
+                                <button className="submit-btn">Add my pet!</button>
+                            </div>
+                            {isSubmitted === true && (
+                                <div
+                                    className="alert alert-success"
+                                    id="success-message"
+                                >
+                                    You successfully created a new event!
+                                </div>
+                            )}
                     </form>
                 </div>
             </div>

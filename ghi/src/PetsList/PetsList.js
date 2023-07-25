@@ -1,95 +1,97 @@
-import { useEffect, useState } from 'react';
-import useToken from '@galvanize-inc/jwtdown-for-react';
-import { useNavigate } from 'react-router';
+import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import useToken from "@galvanize-inc/jwtdown-for-react";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import "./PetsList.css";
+import { fetchPets } from "../actions/petAction";
+import { removePet } from "../slices/petsSlice";
 
-function PetsList({ pets }) {
-    const { token } = useToken();
-    const navigate = useNavigate();
-    if (!token) {
-        navigate('/');
-    }
-    const [pet, setPet] = useState([]);
+function PetsList() {
+  const pets = useSelector((state) => state.pets);
+  const user = useSelector((state) => state.user);
+  const userPets = pets.filter((pet) => pet.user_id === user.id);
+  const dispatch = useDispatch();
 
-    const fetchData = async () => {
-        const url = 'http://localhost:8000/api/pets';
-        const response = await fetch(url);
+  const handleDelete = (id) => {
+    dispatch(removePet(id));
+  };
 
-        if (response.ok) {
-            const data = await response.json();
-            setPet(data.pets);
-        }
-    };
-    useEffect(() => {
-        fetchData();
-    }, []);
+  // const { token } = useToken();
+  // const navigate = useNavigate();
+  // if (!token) {
+  //     navigate('/');
+  // }
+  const [activeModal, setActiveModal] = useState(null);
+  const toggleModal = (index) => {
+    setActiveModal(index === activeModal ? null : index);
+  };
 
-    const handleDelete = async (event) => {
-        const petsUrl = `http://localhost:8000/api/pets/${event}/`;
-        const fetchConfig = {
-            method: 'delete',
-        };
-        const response = await fetch(petsUrl, fetchConfig);
-        if (response.ok) {
-            console.log(response.deleted, response.breakdown);
-            fetchData();
-        }
-    };
+  // const fetchData = async () => {
+  //     const url = 'http://localhost:8000/api/pets';
+  //     const response = await fetch(url);
 
+  //     if (response.ok) {
+  //         const data = await response.json();
+  //         setPet(data.pets);
+  //     }
+  // };
+  // useEffect(() => {
+  //     fetchData();
+  // }, []);
+
+  // const handleDelete = async (event) => {
+  //     const petsUrl = `http://localhost:8000/api/pets/${event}/`;
+  //     const fetchConfig = {
+  //         method: 'delete',
+  //     };
+  //     const response = await fetch(petsUrl, fetchConfig);
+  //     if (response.ok) {
+  //         console.log(response.deleted, response.breakdown);
+  //         fetchData();
+  //     }
+  // };
+  function Card() {
     return (
-        <>
-            <table className="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Birth / Adoption Date</th>
-                        <th>Breed</th>
-                        <th>Dietary Restrictions</th>
-                        <th>Vibe</th>
-                        <th>Size</th>
-                        <th>Pet Picture</th>
-                        <th>User ID</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {pet.map((pet) => {
-                        return (
-                            <tr key={pet.id}>
-                                <td className="fs-3">{pet.pet_name}</td>
-                                <td className="fs-3">
-                                    {pet.birth_adoption_date}
-                                </td>
-                                <td className="fs-3">{pet.breed}</td>
-                                <td className="fs-3">
-                                    {pet.dietary_restrictions}
-                                </td>
-                                <td className="fs-3">{pet.vibe}</td>
-                                <td className="fs-3">{pet.size}</td>
-                                {/* <td className="fs-3">{ pet.pet_picture_url }</td> */}
-                                <td>
-                                    <img
-                                        className="img-thumbnail"
-                                        height="20px"
-                                        width="200px"
-                                        src={pet.pet_picture_url}
-                                        alt=""
-                                    />
-                                </td>
-                                <td className="fs-3">{pet.user_id}</td>
-                                <td>
-                                    <button
-                                        onClick={() => handleDelete(pet.id)}
-                                        className="btn btn-danger"
-                                    >
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
-        </>
+      <div className="pets-list">
+        {userPets.map((pet, index) => {
+          console.log("MY PET INFO", pet.id);
+          return (
+            <div className="event-card" key={pet.id}>
+              <div className="card-body">
+                <div className="card-title">{pet.pet_name}</div>
+                <img
+                  className="card-image"
+                  src={pet.pet_picture_url}
+                  alt="list pets"
+                ></img>
+                <div className="card-breed">{pet.breed}</div>
+                <div className="card-vibe">{pet.vibe}</div>
+                <div className="card-size">{pet.size}</div>
+                <div className="card-birthday">{pet.birth_adoption_date}</div>
+                <button
+                  className="card-button"
+                  onClick={() => {
+                    dispatch(removePet(pet.id));
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     );
-}
+  }
 
+  return (
+    <>
+      <h1>Test Pet Cards</h1>
+      <div className="wrapper">
+        <Card />
+      </div>
+    </>
+  );
+}
 export default PetsList;

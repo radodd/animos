@@ -62,7 +62,10 @@ function App() {
                             <Route
                                 path="home"
                                 element={
-                                    <MainPage events={events} user={user} />
+                                    <MainPage
+                                    events={events}
+                                    user={user}
+                                    pets={pets} />
                                 }
                             />
                             <Route
@@ -92,10 +95,9 @@ function App() {
                                 />
                             </Route>
                             <Route path="events">
-                                <Route index element={<EventsList />} />
+
                                 <Route
                                     path="create"
-                                    element={<CreateEvent />}
                                 />
                             </Route>
                             <Route path="profile">
