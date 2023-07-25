@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import "./MainPage.css";
 // import { NavLink } from 'react-router-dom';
 // import PetsList from '../PetsList/PetsList';

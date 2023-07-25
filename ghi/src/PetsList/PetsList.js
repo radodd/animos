@@ -1,10 +1,5 @@
-import { NavLink } from "react-router-dom";
-import { useState } from "react";
-import useToken from "@galvanize-inc/jwtdown-for-react";
-import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import "./PetsList.css";
-import { fetchPets } from "../actions/petAction";
 import { removePet } from "../slices/petsSlice";
 
 function PetsList() {
@@ -13,44 +8,7 @@ function PetsList() {
   const userPets = pets.filter((pet) => pet.user_id === user.id);
   const dispatch = useDispatch();
 
-  const handleDelete = (id) => {
-    dispatch(removePet(id));
-  };
 
-  // const { token } = useToken();
-  // const navigate = useNavigate();
-  // if (!token) {
-  //     navigate('/');
-  // }
-  const [activeModal, setActiveModal] = useState(null);
-  const toggleModal = (index) => {
-    setActiveModal(index === activeModal ? null : index);
-  };
-
-  // const fetchData = async () => {
-  //     const url = 'http://localhost:8000/api/pets';
-  //     const response = await fetch(url);
-
-  //     if (response.ok) {
-  //         const data = await response.json();
-  //         setPet(data.pets);
-  //     }
-  // };
-  // useEffect(() => {
-  //     fetchData();
-  // }, []);
-
-  // const handleDelete = async (event) => {
-  //     const petsUrl = `http://localhost:8000/api/pets/${event}/`;
-  //     const fetchConfig = {
-  //         method: 'delete',
-  //     };
-  //     const response = await fetch(petsUrl, fetchConfig);
-  //     if (response.ok) {
-  //         console.log(response.deleted, response.breakdown);
-  //         fetchData();
-  //     }
-  // };
   function Card() {
     return (
       <div className="pets-list">

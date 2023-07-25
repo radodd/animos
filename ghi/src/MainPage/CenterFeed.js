@@ -118,7 +118,7 @@ function EventFeedCard({ loggedInUser }) {
                     src={event.picture_url}
                     height="200px"
                     width="125px"
-                    alt="event photo"
+                    alt=""
                     style={{ objectFit: "cover", borderRadius: "10%" }}
                   />
                   <div className="event-details-card-body col-sm">

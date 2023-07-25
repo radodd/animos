@@ -13,7 +13,6 @@ function CreatePet() {
     const [picture, setPicture] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const pets = useSelector((state) => state.pets);
     const user = useSelector((state) => state.user);
 
     const handleNameChange = (event) => {
@@ -69,6 +68,7 @@ function CreatePet() {
         const response = fetch(postUrl, fetchConfig);
         if (response.ok) {
             const newPet = response.json();
+            console.log("newPet", newPet);
             setName('');
             setBirthday('');
             setBreed('');
@@ -76,6 +76,7 @@ function CreatePet() {
             setVibe('');
             setSize('');
             setPicture('');
+            setIsSubmitted(true);
         }
 
         confirmAlert({
