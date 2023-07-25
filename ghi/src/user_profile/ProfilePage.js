@@ -1,9 +1,14 @@
 import { useState } from "react";
 import Modal from "react-modal";
-import { useEffect } from "react";
+// import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+// import { fetchUser } from "../actions/userAction";
 
-export default function ProfilePage({ user, updateLoadAccount }) {
+export default function ProfilePage() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const user = useSelector((state) => state.user);
+  console.log("User exists?", user);
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     email: user?.email || (user && user.email) || "",
     first_name: user?.first_name || (user && user.first_name) || "",
@@ -41,7 +46,8 @@ export default function ProfilePage({ user, updateLoadAccount }) {
     const data = await response.json();
     if (response.ok) {
       // Update the user data displayed on the ProfilePage
-      updateLoadAccount();
+      dispatch(fetchUpdatedUser(user.email));
+      // dispatch(fetchUser());
       setModalIsOpen(false);
     } else {
       console.log(data.detail);
@@ -59,9 +65,9 @@ export default function ProfilePage({ user, updateLoadAccount }) {
   // console.log("formData.hosted_events:", formData.hosted_events);
   // console.log("formData.attending_events:", formData.attending_events);
 
-  useEffect(() => {
-    updateLoadAccount();
-  }, [user]);
+  // useEffect(() => {
+  //   dispatch(fetchUpdatedUser());
+  // }, []);
 
   return (
     <>
