@@ -1,5 +1,4 @@
 import './MainPage.css';
-import { useState } from 'react';
 import LeftProfileCard from './LeftFeed';
 import EventFeedCard from './CenterFeed';
 import RightFeed from './RightFeed';

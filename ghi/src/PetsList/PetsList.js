@@ -71,6 +71,7 @@ function PetsList({ pets }) {
                                         height="20px"
                                         width="200px"
                                         src={pet.pet_picture_url}
+                                        alt=""
                                     />
                                 </td>
                                 <td className="fs-3">{pet.user_id}</td>

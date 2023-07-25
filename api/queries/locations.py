@@ -12,9 +12,9 @@ class LocationQueries(Queries):
         props = self.collection.find()
         locationsList = list(props)
 
-        for location in locationsList:
-            location["id"] = str(location["_id"])
-        return [LocationOut(**location_obj) for location_obj in locationsList]
+        for props in locationsList:
+            props["id"] = str(props["_id"])
+        return [LocationOut(**props) for props in locationsList]
 
     def get_location(self, id: str) -> LocationOut:
         props = self.collection.find_one({"_id": ObjectId(id)})

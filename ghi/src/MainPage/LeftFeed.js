@@ -76,6 +76,7 @@ function LeftProfileCard() {
                   className="left-main-icon"
                   src={CalendarIcon}
                   width="35px"
+                  alt="calendar icon"
                 />
                 My Events
               </a>
@@ -86,6 +87,7 @@ function LeftProfileCard() {
                   className="left-main-icon"
                   src={FriendsIcon}
                   width="35px"
+                  alt="friends icon"
                 />
                 Friends
               </a>
@@ -96,6 +98,7 @@ function LeftProfileCard() {
                   className="left-main-icon"
                   src={LocationsIcon}
                   width="35px"
+                  alt="location map icon"
                 />
                 Locations
               </a>

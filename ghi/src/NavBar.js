@@ -1,11 +1,14 @@
-export default function NavBar({ user }) {
+import { useSelector } from 'react-redux';
+
+export default function NavBar() {
+    const user = useSelector((state) => state.user);
     if (user != null) {
         return (
             <>
                 <div className="container-nav">
                     <header className="header">
                         <nav className="navbar navbar-expand navbar-light">
-                            <h1> Welcome, {user.firstName}</h1>
+                            <h1> Welcome, {user.first_name}</h1>
                             <button
                                 className="navbar-toggler ms-auto"
                                 type="button"

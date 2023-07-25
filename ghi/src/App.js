@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./LandingPage/LandingPage.js";
 import EventsList from "./EventsList/EventsList.js";
-import EventDetail from "./Event Detail/eventDetail.js";
 import CreateEvent from "./CreateEvent/createEvent.js";
 import LocationsListDetail from "./LocationsListDetail/LocationsListDetail.js";
 import UserAccounts from "./user_profile/UserAccounts.jsx";
@@ -15,92 +14,23 @@ import CreatePet from "./CreatePet/CreatePet.js";
 import MainPage from "./MainPage/MainPage.js";
 import ProfilePage from "./user_profile/ProfilePage.js";
 import NavBar from "./NavBar.js";
-import FindFriend from "./FindFriend/FindFriend.js";
-import MyFriends from "./MyFriends/MyFriends.js";
+// import FindFriend from './FindFriend/FindFriend.js';
+// import MyFriends from './MyFriends/MyFriends.js';
+import { useDispatch, useSelector } from "react-redux";
+import { fetchLocations } from "./actions/locationActions.js";
+import { fetchEvents } from "./actions/eventAction.js";
+import { fetchUser, fetchUsers } from "./actions/userAction.js";
+import { fetchPets } from "./actions/petAction.js";
 
 function App() {
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, "");
-  const [locations, setLocations] = useState([]);
-  const [events, setEvents] = useState([]);
-  const [event, setEvent] = useState({});
-  const [location, setLocation] = useState({});
   const [pets, setPets] = useState({});
-  const [user, setUser] = useState(null);
-  const [users, setUsers] = useState([]);
-  const [userDataTest, setUserDataTest] = useState([]);
-
-  async function loadAccount() {
-    const response = await fetch(`${process.env.REACT_APP_API_HOST}/token`, {
-      credentials: "include",
-    });
-
-    const data = await response.json();
-    if (data && data.account) {
-      setUser(data.account);
-    } else {
-      console.warn(
-        'No user account data found or the "account" property is null/undefined.'
-      );
-    }
-  }
-
-  async function loadAccounts() {
-    const url = `${process.env.REACT_APP_API_HOST}/api/accounts`;
-    const response = await fetch(url, {
-      credentials: "include",
-      method: "get",
-    });
-    if (response.ok) {
-      const data = await response.json();
-      setUsers(data);
-    }
-  }
-
-  async function loadEvent(id) {
-    const response = await fetch(
-      `${process.env.REACT_APP_API_HOST}/api/events/${id}`
-    );
-    if (response.ok) {
-      const data = await response.json();
-      const location_data = await loadLocation(data.location_id);
-      data.location = location_data;
-      setEvent(data);
-      setLocation(data.location);
-    }
-  }
-
-  async function loadLocation(id) {
-    const response = await fetch(
-      `${process.env.REACT_APP_API_HOST}/api/locations/${id}`
-    );
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    }
-  }
-
-  async function loadLocations() {
-    const response = await fetch(
-      `${process.env.REACT_APP_API_HOST}/api/locations/`
-    );
-    if (response.ok) {
-      const data = await response.json();
-      setLocations(data.locations);
-    } else {
-      console.error(response);
-    }
-  }
-
-  async function getEvents() {
-    const response = await fetch(
-      `${process.env.REACT_APP_API_HOST}/api/events`
-    );
-    if (response.ok) {
-      const data = await response.json();
-      setEvents(data.events);
-    }
-  }
+  const dispatch = useDispatch();
+  const events = useSelector((state) => state.events);
+  const user = useSelector((state) => state.user);
+  const reduxPets = useSelector((state) => state.pets);
+  console.log(reduxPets);
 
   async function getPets() {
     const response = await fetch(`${process.env.REACT_APP_API_HOST}/api/pets`);
@@ -125,12 +55,13 @@ function App() {
   }
 
   useEffect(() => {
-    loadLocations();
-    getEvents();
+    dispatch(fetchUser());
+    dispatch(fetchLocations());
+    dispatch(fetchEvents());
+    dispatch(fetchUsers());
+    dispatch(fetchPets());
     getPets();
-    loadAccounts();
-    loadAccount();
-    getUserDataTest();
+    // getUserDataTest();
   }, []);
 
   return (
@@ -147,61 +78,33 @@ function App() {
               />
               <Route exact path="/signup" element={<SignupForm />}></Route>
               <Route exact path="/login" element={<LoginForm />}></Route>
-              <Route path="/" element={<LandingPage />} />
               <Route path="locations">
-                <Route
-                  index
-                  element={<LocationsListDetail locations={locations} />}
-                />
+                <Route index element={<LocationsListDetail />} />
               </Route>
               <Route path="pets">
                 <Route index element={<PetsList pets={pets} />} />
                 <Route path="create" element={<CreatePet pets={pets} />} />
               </Route>
               <Route path="events">
-                <Route
-                  index
-                  element={
-                    <EventsList
-                      events={events}
-                      locations={locations}
-                      user={user}
-                      getEvents={getEvents}
-                    />
-                  }
-                />
-                <Route
-                  path="create"
-                  element={
-                    <CreateEvent
-                      locations={locations}
-                      user={user}
-                      users={users}
-                    />
-                  }
-                />
-
-                <Route
-                  path=":id"
-                  element={
-                    <EventDetail
-                      loadEvent={loadEvent}
-                      event={event}
-                      location={location}
-                      user={user}
-                    />
-                  }
-                />
+                <Route index element={<EventsList />} />
+                <Route path="create" element={<CreateEvent />} />
               </Route>
               <Route path="profile">
                 <Route
                   path="all"
-                  element={<UserAccounts userDataTest={userDataTest} />}
+                  element={
+                    <UserAccounts
+                    // userDataTest={userDataTest}
+                    />
+                  }
                 />
                 <Route
                   path=""
                   element={
-                    <ProfilePage user={user} loadAccount={loadAccount} />
+                    <ProfilePage
+                    // user={user}
+                    // loadAccount={loadAccount}
+                    />
                   }
                 />
               </Route>

@@ -1,16 +1,22 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import "./EventsList.css";
-import EventDetail from "../Event Detail/eventDetail.js";
-import useToken from "@galvanize-inc/jwtdown-for-react";
-import { useNavigate } from "react-router-dom";
+import EventDetail from "../EventDetail/eventDetail.js";
+// import useToken from "@galvanize-inc/jwtdown-for-react";
+// import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchEvents } from "../actions/eventAction.js";
 
-function EventsList(props) {
-  const { token } = useToken();
-  const navigate = useNavigate();
-  if (!token) {
-    navigate("/");
-  }
+function EventsList() {
+  const events = useSelector((state) => state.events);
+  const locations = useSelector((state) => state.locations);
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  // const { token } = useToken();
+  // const navigate = useNavigate();
+  // if (!token) {
+  //     navigate('/');
+  // }
 
   const [activeModal, setActiveModal] = useState(null);
   const toggleModal = (index) => {
@@ -20,11 +26,11 @@ function EventsList(props) {
     return (
       <>
         <div className="events-list">
-          {props.events.map((event, index) => {
+          {events.map((event, index) => {
             const date = new Date(event.date_start).toLocaleDateString();
             const time = new Date(event.date_start).toLocaleTimeString();
             let locationName;
-            props.locations.map((location) => {
+            locations.map((location) => {
               if (event.location_id === location.id) {
                 locationName = location.name;
               }
@@ -56,9 +62,9 @@ function EventsList(props) {
               </div>
             );
           })}
-          {props.events.map((event, index) => {
+          {events.map((event, index) => {
             let curLocation;
-            props.locations.map((location) => {
+            locations.map((location) => {
               if (event.location_id === location.id) {
                 curLocation = location;
               }
@@ -78,13 +84,13 @@ function EventsList(props) {
                   <EventDetail
                     event={event}
                     location={curLocation}
-                    user={props.user}
+                    user={user}
                   />
                   <button
                     className="modal-button"
                     onClick={() => {
                       toggleModal(index);
-                      props.getEvents();
+                      dispatch(fetchEvents());
                     }}
                   >
                     Close

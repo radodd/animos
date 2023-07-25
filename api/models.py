@@ -1,7 +1,6 @@
 from pydantic import BaseModel
 from bson.objectid import ObjectId
 from typing import List, Optional
-import datetime
 
 
 class PydanticObjectId(ObjectId):
@@ -59,8 +58,8 @@ class EventIn(BaseModel):
     description: str
     capacity: int
     picture_url: str
-    date_start: datetime.datetime
-    date_end: datetime.datetime
+    date_start: str
+    date_end: str
     location_id: str
     account_id: str
     attendees: list
