@@ -57,7 +57,6 @@ function App() {
             <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
                 <BrowserRouter basename={basename}>
                     <div className="container">
-                        <NavBar user={user} />
                         <Routes>
                             <Route path="/" element={<LandingPage />} />
                             <Route

@@ -5,6 +5,7 @@ import RightFeed from './RightFeed';
 import EventButtonModal from './CreateEventButtonModal';
 import useToken from '@galvanize-inc/jwtdown-for-react';
 import { useNavigate } from 'react-router';
+import NavBar from '../NavBar'
 
 function MainPage({ locations, user, users }) {
     const { token } = useToken();
@@ -15,6 +16,7 @@ function MainPage({ locations, user, users }) {
 
     return (
         <>
+        <NavBar/>
             <div className="container gedf-wrapper">
                 <div className="row">
                     {/* MAIN PAGE - LEFT SIDE: PROFILE / FRIENDS LIST / LOCATIONS */}
