@@ -1,9 +1,13 @@
+.locations-image-title {
+  padding-top: 15px;
+}
+
 .wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(10rem, 16rem));
   gap: 2rem;
   justify-content: center;
-  padding-top: 50px;
+  padding-top: 40px;
 }
 
 .location-card {

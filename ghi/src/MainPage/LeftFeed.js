@@ -50,7 +50,9 @@ function LeftProfileCard() {
             </div>
           )}
           <div className="h6 text-muted">Username : @</div>
-          <div className="h7">Profile Page | Edit Profile</div>
+          <div className="h7">
+            <a>Profile Page</a> | <a>Edit Profile</a>
+          </div>
         </div>
         <ul className="list-group list-group-flush">
           <li className="list-group-item">

@@ -3,6 +3,7 @@ import './LocationListDetail.css';
 // import useToken from '@galvanize-inc/jwtdown-for-react';
 // import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
+import LocationsTitle from '../../src/assets/images/locations.png'
 
 function LocationsList() {
     const locations = useSelector((state) => state.locations);
@@ -72,8 +73,12 @@ function LocationsList() {
 
     return (
         <>
-            <h1>Placeholder for NavBar</h1>
-            <h1> Pet Furiendly Locations 🐾</h1>
+            <br />
+            <img
+                className="locations-image-title"
+                src={LocationsTitle}
+                alt=""
+                width="800px"/>
             <div className="wrapper">
                 <Card />
             </div>
