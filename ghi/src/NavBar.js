@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux';
 
 export default function NavBar() {
     const user = useSelector((state) => state.user);
-    console.log(user)
         return (
           <>
             <div className="container-nav">
