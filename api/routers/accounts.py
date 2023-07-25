@@ -17,9 +17,8 @@ from queries.accounts import (
 from models import (
     AccountIn,
     AccountOut,
-    AddFriend
+    AddFriend,
     UpdateAccount,
-    Account,
 )
 
 router = APIRouter()
