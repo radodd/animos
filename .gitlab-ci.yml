@@ -15,15 +15,18 @@ lint-test-job:
         - flake8 api
 
 # # Run the unit tests
-# api-unit-tests-job:
-#   image: python:3-bullseye
-#   stage: test
-#   needs:
-#     - lint-test-job
-#   script:
-#     - cd api
-#     - pip install -r requirements.txt
-#     - python -m pytest
+api-unit-tests-job:
+    image: python:3-bullseye
+    stage: test
+    needs:
+        - lint-test-job
+    script:
+        - cd api
+        - pip install -r requirements.txt
+        - python -m pytest
+    variables:
+        DATABASE_URL: "mongodb://animos:password@mongo/"
+        SIGNING_KEY: "87fe4a3fcfb60092dbaeb854a196bc3d9b190aed7930c734749e85245de698420c25f8e6899c421b4494e99459e01058de5daa9d49584cd62ec975da9aea33da"
 
 # Build API Image:
 build-api-image:

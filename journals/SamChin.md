@@ -2,6 +2,7 @@
 ## Sam Chin Journal Entries
 
 ## Monday, July 24, 2023
+Today I worked on cleaning up some lint issues for our build-front-end-job deployment as well as worked on the unit tests for locations. After rewatching Paul's unit test lecture as well as reviewing the FastAPI documentation, I was able to successfully write two unit tests for locations - get locations as well as create locations. Initially, my tests were failing due to typos and not correctly matching either the url or function name in my queries/routers files for locations. Once I made those edits, my tests were passing after running python -m pytest. After successfully passing those tests, when I had initially pushed my merge request to also test the api-unit-tests-job defined in our gitlab-ci.yml file, they failed. I was getting a KEYERROR and couldn't figure out what was causing the issue. After posting in help-me-understand, Caleb was able to help me figure it out and we needed to add in the variables DATABASE_URL and SIGNING_KEY to the unit-test-job. After pushing my code again and rerunning the test, it successfully passed. I'm excited that I was able to get the tests to pass on both ends and will be sharing my files so that the team can create their unit tests as well! 
 
 ## Thursday, July 20, 2023
 
