@@ -1,14 +1,16 @@
 import { useState } from "react";
 import Modal from "react-modal";
-// import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-// import { fetchUser } from "../actions/userAction";
+import { useEffect } from "react";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import { useSelector, useDispatch } from "react-redux";
+import { removePet } from "../slices/petsSlice";
 
-export default function ProfilePage() {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const user = useSelector((state) => state.user);
-  console.log("User exists?", user);
+export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
+  const pets = useSelector((state) => state.pets);
+  const userPets = pets.filter((pet) => pet.user_id === user.id);
   const dispatch = useDispatch();
+  const [updateUserModalIsOpen, setUpdateUserModalIsOpen] = useState(false);
+  const [createPetModalIsOpen, setCreatePetModalIsOpen] = useState(false);
   const [formData, setFormData] = useState({
     email: user?.email || (user && user.email) || "",
     first_name: user?.first_name || (user && user.first_name) || "",
@@ -21,6 +23,14 @@ export default function ProfilePage() {
     hosted_events: user?.hosted_events || (user && user.hosted_events) || [],
     attending_events:
       user?.attending_events || (user && user.attending_events) || [],
+    pet_name: "",
+    birth_adoption_date: "",
+    breed: "",
+    dietary_restrictions: "",
+    vibe: "",
+    size: "",
+    pet_picture_url: "",
+    user_id: user?.id || (user && user.id) || "",
   });
 
   const handleInputChange = (event) => {
@@ -46,28 +56,58 @@ export default function ProfilePage() {
     const data = await response.json();
     if (response.ok) {
       // Update the user data displayed on the ProfilePage
-      dispatch(fetchUpdatedUser(user.email));
-      // dispatch(fetchUser());
-      setModalIsOpen(false);
+      updateLoadAccount();
+      setUpdateUserModalIsOpen(false);
     } else {
       console.log(data.detail);
     }
   };
 
-  // console.log("formData.email:", formData.email);
-  // console.log("formData.first_name:", formData.first_name);
-  // console.log("formData.last_name:", formData.last_name);
-  // console.log("formData.password:", formData.password);
-  // console.log("formData.zipcode:", formData.zipcode);
-  // console.log("formData.picture_url:", formData.picture_url);
-  // console.log("formData.friend_list:", formData.friend_list);
-  // console.log("formData.pets:", formData.pets);
-  // console.log("formData.hosted_events:", formData.hosted_events);
-  // console.log("formData.attending_events:", formData.attending_events);
+  const toggleCreatePetModal = () => {
+    setCreatePetModalIsOpen((prevIsOpen) => !prevIsOpen);
+  };
 
-  // useEffect(() => {
-  //   dispatch(fetchUpdatedUser());
-  // }, []);
+  const handleCreatePetSubmit = async (event) => {
+    event.preventDefault();
+    // Add your logic to handle creating a new pet here
+    // Example: Make an API request to create a new pet entity
+    try {
+      const data = {
+        pet_name: formData.pet_name,
+        birth_adoption_date: formData.birth_adoption_date,
+        breed: formData.breed,
+        dietary_restrictions: formData.dietary_restrictions,
+        vibe: formData.vibe,
+        size: formData.size,
+        pet_picture_url: formData.pet_picture_url,
+        user_id: user.id,
+      };
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      };
+      const response = await fetch(
+        `${process.env.REACT_APP_API_HOST}/api/pets/`,
+        requestOptions
+      );
+      const responseData = await response.json();
+      if (response.ok) {
+        // Update the user data displayed on the ProfilePage
+        updateLoadAccount();
+        setCreatePetModalIsOpen(false);
+      } else {
+        console.log(responseData.detail);
+      }
+    } catch (error) {
+      console.error("Error creating pet:", error);
+    }
+  };
+
+  useEffect(() => {
+    loadAccount();
+    updateLoadAccount();
+  }, []);
 
   return (
     <>
@@ -77,17 +117,49 @@ export default function ProfilePage() {
           <div className="user" key={user.id}>
             <div className="user-first_name">{user.first_name}</div>
             <div className="user-last_name">{user.last_name}</div>
-            <div className="user-email">{user.email}</div>
             <div className="user-zipcode">{user.zipcode}</div>
-            <div className="user-pets">{user.pets}</div>
+            <div className="pets-list">
+              {userPets.map((pet, index) => {
+                console.log("MY PET INFO", pet.id);
+                return (
+                  <div className="event-card" key={pet.id}>
+                    <div className="card-body">
+                      <div className="card-title">{pet.pet_name}</div>
+                      <img
+                        className="card-image"
+                        src={pet.pet_picture_url}
+                        alt="list pets"
+                      ></img>
+                      <div className="card-breed">{pet.breed}</div>
+                      <div className="card-vibe">{pet.vibe}</div>
+                      <div className="card-size">{pet.size}</div>
+                      <div className="card-birthday">
+                        {pet.birth_adoption_date}
+                      </div>
+                      <button
+                        className="card-button"
+                        onClick={() => {
+                          dispatch(removePet(pet.id));
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
             <div className="user-hosted_events">{user.hosted_events}</div>
             <div className="user-attending_events">{user.attending_events}</div>
           </div>
         )}
-        <button onClick={() => setModalIsOpen(true)}>Edit Profile</button>
+        <button onClick={() => setUpdateUserModalIsOpen(true)}>
+          Edit Profile
+        </button>
+        <button onClick={toggleCreatePetModal}>Create Pet</button>
         <Modal
-          isOpen={modalIsOpen}
-          onRequestClose={() => setModalIsOpen(false)}
+          isOpen={updateUserModalIsOpen}
+          onRequestClose={() => setUpdateUserModalIsOpen(false)}
         >
           <h2>Edit Profile</h2>
           <form onSubmit={handleSubmit}>
@@ -122,6 +194,83 @@ export default function ProfilePage() {
               />
             </label>
             <button type="submit">Save Changes</button>
+          </form>
+        </Modal>
+        <Modal
+          isOpen={createPetModalIsOpen}
+          onRequestClose={toggleCreatePetModal}
+        >
+          <h2>Create Pet</h2>
+          <form onSubmit={handleCreatePetSubmit}>
+            <label>
+              Pet Name:
+              <input
+                type="text"
+                name="pet_name"
+                value={formData.pet_name}
+                onChange={handleInputChange}
+                required
+              />
+            </label>
+            <label>
+              Birth/Adoption Date:
+              <input
+                type="date"
+                name="birth_adoption_date"
+                value={formData.birth_adoption_date}
+                onChange={handleInputChange}
+                required
+              />
+            </label>
+            <label>
+              Breed:
+              <input
+                type="text"
+                name="breed"
+                value={formData.breed}
+                onChange={handleInputChange}
+                required
+              />
+            </label>
+            <label>
+              Dietary Restrictions:
+              <input
+                type="text"
+                name="dietary_restrictions"
+                value={formData.dietary_restrictions}
+                onChange={handleInputChange}
+              />
+            </label>
+            <label>
+              Vibe:
+              <input
+                type="text"
+                name="vibe"
+                value={formData.vibe}
+                onChange={handleInputChange}
+                required
+              />
+            </label>
+            <label>
+              Size:
+              <input
+                type="text"
+                name="size"
+                value={formData.size}
+                onChange={handleInputChange}
+                required
+              />
+            </label>
+            <label>
+              Pet Picture URL:
+              <input
+                type="text"
+                name="pet_picture_url"
+                value={formData.pet_picture_url}
+                onChange={handleInputChange}
+              />
+            </label>
+            <button type="submit">Create Pet</button>
           </form>
         </Modal>
       </div>
