@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "react-confirm-alert": "^3.0.6"
+    "@reduxjs/toolkit": "^1.9.5",
+    "react-confirm-alert": "^3.0.6",
+    "react-icons": "^4.7.1"
   }
 }

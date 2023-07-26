@@ -1,13 +1,24 @@
 # Ethan Flores JOURNAL
 
+## 7/25/2023
+
+Submitted MR for pet view on the home page and list all pets endpoint. MR was approved.
+
+## 7/24/2023
+
+Working to submit MR tomorrow. Goal is to have only the logged in user pets render at the home page in the pets card. The card will contain the image and name of the user's pet. Additionally worked on the list all pets endpoint. Changed the view to render all pets in a card view.
+
+Refactored entire front end to utilize Redux. Was unable to implement delete function with Redux. This feature is not MVP.
+
+Able to successfully write and pass first written tests for list all pets
+
 ## 7/17/2023
 
-Worked on branch management on my end. I ended up setting up two features (pet list and create pet) on one branch. Working to separate features into individual working branches to be committed one after the other. Sent merge request to approve create pet form. As it is now, the code does not connect with a given user via user id. Later I will connect user information once the user profile is created.
+Worked on branch management on my end. I ended up setting up two features (pet list and create pet) on one branch. Working to separate features into individual working branches to be committed one after the other. Sent merge request to approve create pet form. As it is now, the code does not connect with a given user via user id. Later I will connect user information once the user profile is created....
 
 ## 7/13/2023
 
 Planned: In order to resynchronize the front end we will confirm a merge request as a group and continue to build the front end afterwards.
-
 
 ## 7/12/2023
 
