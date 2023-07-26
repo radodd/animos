@@ -19,24 +19,44 @@ import { fetchLocations } from './actions/locationActions.js';
 import { fetchEvents } from './actions/eventAction.js';
 import { fetchUser, fetchUsers } from './actions/userAction.js';
 import { fetchPets } from './actions/petAction.js';
+import Modal from 'react-modal';
 
 function App() {
     const domain = /https:\/\/[^/]+/;
     const basename = process.env.PUBLIC_URL.replace(domain, '');
-    const [pets, setPets] = useState({});
     const dispatch = useDispatch();
     const events = useSelector((state) => state.events);
-    const user = useSelector((state) => state.user);
-    const reduxPets = useSelector((state) => state.pets);
-    console.log(reduxPets);
+    const reduxUser = useSelector((state) => state.user);
+    const pets = useSelector((state) => state.pets);
+    const [user, setUser] = useState(null);
 
-    async function getPets() {
+    async function loadAccount() {
         const response = await fetch(
-            `${process.env.REACT_APP_API_HOST}/api/pets`
+            `${process.env.REACT_APP_API_HOST}/token`,
+            {
+                credentials: 'include',
+                method: 'get',
+            }
         );
-        if (response.ok) {
-            const data = await response.json();
-            setPets(data.pets);
+        const data = await response.json();
+        if (data.account) {
+            setUser(data.account);
+        }
+    }
+
+    async function updateLoadAccount() {
+        try {
+            if (user) {
+                const response = await fetch(
+                    `${process.env.REACT_APP_API_HOST}/api/accounts/${user.email}`
+                );
+                const data = await response.json();
+                setUser(data);
+            } else {
+                console.error('User object is null or undefined');
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
         }
     }
 
@@ -46,8 +66,6 @@ function App() {
         dispatch(fetchEvents());
         dispatch(fetchUsers());
         dispatch(fetchPets());
-        getPets();
-        // getUserDataTest();
     }, [dispatch]);
 
     return (
@@ -61,9 +79,10 @@ function App() {
                                 path="home"
                                 element={
                                     <MainPage
-                                    events={events}
-                                    user={user}
-                                    pets={pets} />
+                                        events={events}
+                                        user={reduxUser}
+                                        pets={pets}
+                                    />
                                 }
                             />
                             <Route
@@ -92,12 +111,8 @@ function App() {
                                     element={<CreatePet pets={pets} />}
                                 />
                             </Route>
-                            <Route path="events"
-                                element={<EventsList />}>
-
-                                <Route
-                                    path="create"
-                                />
+                            <Route path="events" element={<EventsList />}>
+                                <Route path="create" />
                             </Route>
                             <Route path="profile">
                                 <Route
@@ -112,8 +127,11 @@ function App() {
                                     path=""
                                     element={
                                         <ProfilePage
-                                        // user={user}
-                                        // loadAccount={loadAccount}
+                                            user={user}
+                                            loadAccount={loadAccount}
+                                            updateLoadAccount={
+                                                updateLoadAccount
+                                            }
                                         />
                                     }
                                 />
@@ -125,4 +143,5 @@ function App() {
         </div>
     );
 }
+Modal.setAppElement('#root');
 export default App;

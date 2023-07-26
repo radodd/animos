@@ -17,7 +17,8 @@ from queries.accounts import (
 from models import (
     AccountIn,
     AccountOut,
-    AddFriend
+    AddFriend,
+    UpdateAccount,
 )
 
 router = APIRouter()
@@ -42,7 +43,7 @@ class AccountToken(Token):
     account: AccountOut
 
 
-@router.get("/api/protected/")
+@router.get("/api/protected")
 async def get_protected(
     request: Request,
     account_data: dict = Depends(authenticator.get_current_account_data),
@@ -50,7 +51,7 @@ async def get_protected(
     return account_data
 
 
-@router.get("/token/", response_model=AccountToken | None)
+@router.get("/token", response_model=AccountToken | None)
 async def get_token(
     request: Request,
     account: dict = Depends(authenticator.try_get_current_account_data)
@@ -63,7 +64,7 @@ async def get_token(
         }
 
 
-@router.post("/api/accounts/", response_model=AccountToken | HttpError)
+@router.post("/api/accounts", response_model=AccountToken | HttpError)
 async def create_account(
     info: AccountIn,
     request: Request,
@@ -84,37 +85,17 @@ async def create_account(
     return AccountToken(account=account, **token.dict())
 
 
-@router.put("/api/accounts/{email}/", response_model=AccountToken | HttpError)
+@router.put("/api/accounts/{email}", response_model=bool)
 async def update_account(
     email: str,
-    info: AccountIn,
-    request: Request,
-    response: Response,
+    info: UpdateAccount,
     repo: AccountQueries = Depends(),
 ):
-    # Update the account with the new information
-    original_password = info.password
-    hashed_password = authenticator.hash_password(info.password)
-    info.password = hashed_password
     updated_account = repo.update(email, info)
-    if not updated_account:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Account not found or update failed",
-        )
-    print("updated_account from ROUTER:", updated_account)
-    # Create a new token for the updated account
-    form = AccountForm(
-        username=updated_account.email,
-        password=original_password
-    )
-    token = await authenticator.login(response, request, form, repo)
-
-    # Return the updated account and token
-    return AccountToken(account=updated_account, **token.dict())
+    return updated_account
 
 
-@router.delete("/api/accounts/{email}/", response_model=bool)
+@router.delete("/api/accounts/{email}", response_model=bool)
 async def delete_account(
     email: str,
     repo: AccountQueries = Depends(),
@@ -128,7 +109,7 @@ async def delete_account(
     return True
 
 
-@router.get("/api/accounts/", response_model=List[AccountOut])
+@router.get("/api/accounts", response_model=List[AccountOut])
 async def get_all_accounts(
     repo: AccountQueries = Depends(),
 ):
@@ -136,7 +117,7 @@ async def get_all_accounts(
     return [AccountOut(**account.dict()) for account in accounts]
 
 
-@router.get("/api/accounts/{email}/", response_model=AccountOut | None)
+@router.get("/api/accounts/{email}", response_model=AccountOut | None)
 async def get_account_by_email(
     email: str,
     repo: AccountQueries = Depends(),
@@ -150,7 +131,7 @@ async def get_account_by_email(
     return AccountOut(**account.dict())
 
 
-@router.put("/api/users/addfriend/", response_model=AccountOut)
+@router.put("/api/users/addfriend", response_model=AccountOut)
 async def follow_a_user(
     friend: AddFriend,
     account_repo: AccountQueries = Depends()

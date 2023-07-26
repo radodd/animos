@@ -7,6 +7,7 @@ from models import (
     AddFriend,
     AccountOut,
     PetIn,
+    UpdateAccount
 )
 from pymongo.errors import DuplicateKeyError
 from typing import List
@@ -39,32 +40,29 @@ class AccountQueries(Queries):
         props["id"] = str(props["_id"])
         return Account(**props)
 
-    def update(self, email: str, info: AccountIn) -> Account:
-        # Find the account with the specified email
-        account = self.get(email)
-        print("account from UPDATE:", account)
-        if not account:
-            return None
-        # Update the account with the new information
-        update_result = self.collection.update_one(
-            {"email": email}, {"$set": info.dict(exclude_unset=True)}
+    def update(self, email: str, info: UpdateAccount) -> bool:
+        filter = {"email": email}
+        props = info.dict()
+        new_values = {
+            "$set": {
+                "first_name": props["first_name"],
+                "last_name": props["last_name"],
+                "zipcode": props["zipcode"],
+                "picture_url": props["picture_url"]
+            }
+        }
+        updated_account = self.collection.find_one_and_update(
+            filter, new_values, return_document=True
         )
-        print("update_result from UPDATE:", update_result)
-        # Check if the update was successful
-        if update_result.modified_count == 1:
-            print("email modified_count from UPDATE:", email)
-            # Get the updated account from the database
-            updated_account = self.get(info.email)
-            return updated_account
-        else:
-            return None
+        if updated_account is None:
+            raise Exception("Account not found")
+        print("update_account:", updated_account)
+        return True
 
     def delete(self, email: str) -> bool:
-        # Find the account with the specified email
         account = self.get(email)
         if not account:
             return False
-        # Delete the account from the database
         delete_result = self.collection.delete_one({"email": email})
         if delete_result.deleted_count == 1:
             return True
