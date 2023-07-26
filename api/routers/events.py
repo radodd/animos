@@ -7,7 +7,7 @@ from bson.objectid import ObjectId
 router = APIRouter()
 
 
-@router.post("/api/events/", response_model=EventOut)
+@router.post("/api/events", response_model=EventOut)
 def create_event(
     event: EventIn,
     repo: EventQueries = Depends(),
@@ -18,18 +18,18 @@ def create_event(
     return event
 
 
-@router.get("/api/events/{id}/", response_model=EventOut)
+@router.get("/api/events/{id}", response_model=EventOut)
 def get_event(id: str, repo: EventQueries = Depends()):
     event = repo.get({"_id": ObjectId(id)})
     return event
 
 
-@router.get("/api/events/", response_model=EventsList)
+@router.get("/api/events", response_model=EventsList)
 def get_events(repo: EventQueries = Depends()):
     return EventsList(events=repo.get_list())
 
 
-@router.delete("/api/events/{id}/", response_model=bool)
+@router.delete("/api/events/{id}", response_model=bool)
 def delete_event(
     id: str,
     remove_obj: AttendEvent,
@@ -41,7 +41,7 @@ def delete_event(
     return deleted_event
 
 
-@router.put("/api/events/{id}/", response_model=EventOut)
+@router.put("/api/events/{id}", response_model=EventOut)
 async def update_event(
     id: str, event: EventIn, repo: EventQueries = Depends()
 ):
@@ -49,7 +49,7 @@ async def update_event(
     return updated_event
 
 
-@router.put("/api/events/attend/", response_model=EventOut)
+@router.put("/api/events/attend", response_model=EventOut)
 async def attend_event(
     attend: AttendEvent,
     event_repo: EventQueries = Depends(),

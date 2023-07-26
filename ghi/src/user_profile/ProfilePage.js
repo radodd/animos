@@ -52,7 +52,7 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
       body: JSON.stringify(formData),
     };
     const response = await fetch(
-      `${process.env.REACT_APP_API_HOST}/api/accounts/${user.email}/`,
+      `${process.env.REACT_APP_API_HOST}/api/accounts/${user.email}`,
       requestOptions
     );
     const data = await response.json();
@@ -87,7 +87,7 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
         body: JSON.stringify(data),
       };
       const response = await fetch(
-        `${process.env.REACT_APP_API_HOST}/api/pets/`,
+        `${process.env.REACT_APP_API_HOST}/api/pets`,
         requestOptions
       );
       const responseData = await response.json();
@@ -105,7 +105,7 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
   useEffect(() => {
     loadAccount();
     updateLoadAccount();
-  });
+  }, []);
 
   return (
     <>

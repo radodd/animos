@@ -31,7 +31,7 @@ function App() {
   const [user, setUser] = useState(null);
 
   async function loadAccount() {
-    const response = await fetch(`${process.env.REACT_APP_API_HOST}/token/`, {
+    const response = await fetch(`${process.env.REACT_APP_API_HOST}/token`, {
       credentials: "include",
       method: "get",
     });
@@ -45,7 +45,7 @@ function App() {
     try {
       if (user) {
         const response = await fetch(
-          `${process.env.REACT_APP_API_HOST}/api/accounts/${user.email}/`
+          `${process.env.REACT_APP_API_HOST}/api/accounts/${user.email}`
         );
         const data = await response.json();
         setUser(data);
