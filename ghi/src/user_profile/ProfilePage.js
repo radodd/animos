@@ -104,7 +104,7 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
   useEffect(() => {
     loadAccount();
     updateLoadAccount();
-  }, [formData]);
+  });
 
   return (
     <>
