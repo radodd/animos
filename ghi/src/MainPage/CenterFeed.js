@@ -71,9 +71,9 @@ function EventFeedCard() {
                                             src={userPhoto}
                                             alt=""
                                             style={{
-                                                objectFit: 'cover',
-                                                borderRadius: '50%',
-                                                borderColor: 'white',
+                                                objectFit: "cover",
+                                                borderRadius: "50%",
+                                                borderColor: "white",
                                             }}
                                         />
                                     </div>

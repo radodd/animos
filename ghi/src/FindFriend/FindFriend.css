@@ -1,0 +1,84 @@
+
+.friend-card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    justify-content: center;
+    justify-items:center;
+    padding-top: 15px;
+}
+
+.profile-card {
+    background-color: #f0f2f558;
+    border-radius: 10px;
+    width: 400px;
+    margin: 5px;
+}
+
+.profile-card:hover {
+    background-color: #5574c813;
+}
+
+
+.vh-100 {
+    background-color:#9de2ff ;
+}
+
+
+.img-fluid {
+    border-radius: 10px;
+}
+
+.mb-2 {
+    color: #2b2a2a;
+}
+
+.div-tag-test {
+    background-color: #f0f2f5b0;
+}
+
+.user-name {
+    color: #2400C6;
+    font-weight: 600;
+}
+
+.follow-btn {
+    background-color: #5574C8;
+    border-radius: 8px;
+    color:white;
+    font-weight: 700;
+    border:none;
+    padding:4px;
+}
+
+.following-btn {
+    background-color: #22C99E;
+    border-radius: 8px;
+    color:white;
+    font-weight: 700;
+    border:none;
+    padding:4px;
+    cursor:none;
+}
+
+.follow-btn:hover,
+.view-profile-btn:hover {
+    background-color: #2400C6;
+    color:white;
+    border-color: white;
+}
+
+.view-profile-btn {
+    background-color: white;
+    border-radius: 8px;
+    color:#5574C8;
+    font-weight: 700;
+    border-color:#5574C8;
+    border:2px solid #5574C8;
+    padding:4px;
+}
+
+
+.pets-list-view {
+    padding-right: 5px;
+}

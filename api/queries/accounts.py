@@ -145,7 +145,9 @@ class AccountQueries(Queries):
         )
         if not receiving_user:
             return Exception("Requested Friend Not Found")
-        # add receiving user's id to requesting user's following
+
+        if "following_list" not in requesting_user:
+            requesting_user["following_list"] = []
         requesting_user_filter = {"_id": ObjectId(props["requesting_user_id"])}
         requesting_user_new_values = {
             "$push": {"following_list": props["user_id"]}
@@ -155,7 +157,6 @@ class AccountQueries(Queries):
             requesting_user_new_values,
             return_document=True,
         )
-        # add requesting user's ID to receiving user's follower's list
         receiving_user_filter = {"_id": ObjectId(props["user_id"])}
         receiving_user_new_values = {
             "$push": {"follower_list": props["requesting_user_id"]}

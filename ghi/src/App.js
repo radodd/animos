@@ -12,7 +12,7 @@ import PetsList from './PetsList/PetsList.js';
 import CreatePet from './CreatePet/CreatePet.js';
 import MainPage from './MainPage/MainPage.js';
 import ProfilePage from './user_profile/ProfilePage.js';
-// import FindFriend from './FindFriend/FindFriend.js';
+import FindFriend from './FindFriend/FindFriend.js';
 // import MyFriends from './MyFriends/MyFriends.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLocations } from './actions/locationActions.js';
@@ -69,78 +69,58 @@ function App() {
     }, [dispatch]);
 
     return (
-        <div>
-            <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
-                <BrowserRouter basename={basename}>
-                    <div className="container">
-                        <Routes>
-                            <Route path="/" element={<LandingPage />} />
-                            <Route
-                                path="home"
-                                element={
-                                    <MainPage
-                                        events={events}
-                                        user={reduxUser}
-                                        pets={pets}
-                                    />
-                                }
-                            />
-                            <Route
-                                exact
-                                path="/signup"
-                                element={<SignupForm />}
-                            ></Route>
-                            <Route
-                                exact
-                                path="/login"
-                                element={<LoginForm />}
-                            ></Route>
-                            <Route path="locations">
-                                <Route
-                                    index
-                                    element={<LocationsListDetail />}
-                                />
-                            </Route>
-                            <Route path="pets">
-                                <Route
-                                    index
-                                    element={<PetsList pets={pets} />}
-                                />
-                                <Route
-                                    path="create"
-                                    element={<CreatePet pets={pets} />}
-                                />
-                            </Route>
-                            <Route path="events" element={<EventsList />}>
-                                <Route path="create" />
-                            </Route>
-                            <Route path="profile">
-                                <Route
-                                    path="all"
-                                    element={
-                                        <UserAccounts
-                                        // userDataTest={userDataTest}
-                                        />
-                                    }
-                                />
-                                <Route
-                                    path=""
-                                    element={
-                                        <ProfilePage
-                                            user={user}
-                                            loadAccount={loadAccount}
-                                            updateLoadAccount={
-                                                updateLoadAccount
-                                            }
-                                        />
-                                    }
-                                />
-                            </Route>
-                        </Routes>
-                    </div>
-                </BrowserRouter>
-            </AuthProvider>
-        </div>
+      <div>
+        <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
+          <BrowserRouter basename={basename}>
+            <div className="container">
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route
+                  path="home"
+                  element={
+                    <MainPage events={events} user={reduxUser} pets={pets} />
+                  }
+                />
+                <Route exact path="/signup" element={<SignupForm />}></Route>
+                <Route exact path="/login" element={<LoginForm />}></Route>
+                <Route path="locations">
+                  <Route index element={<LocationsListDetail />} />
+                </Route>
+                <Route path="pets">
+                  <Route index element={<PetsList pets={pets} />} />
+                  <Route path="create" element={<CreatePet pets={pets} />} />
+                </Route>
+                <Route path="events" element={<EventsList />}>
+                  <Route path="create" />
+                </Route>
+                <Route path="profile">
+                  <Route
+                    path="all"
+                    element={
+                      <UserAccounts
+                      // userDataTest={userDataTest}
+                      />
+                    }
+                  />
+                  <Route
+                    path=""
+                    element={
+                      <ProfilePage
+                        user={user}
+                        loadAccount={loadAccount}
+                        updateLoadAccount={updateLoadAccount}
+                      />
+                    }
+                  />
+                </Route>
+                <Route path="users">
+                  <Route index element={<FindFriend />} />
+                </Route>
+              </Routes>
+            </div>
+          </BrowserRouter>
+        </AuthProvider>
+      </div>
     );
 }
 Modal.setAppElement('#root');

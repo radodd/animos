@@ -1,13 +1,13 @@
-import { useState } from "react";
-import "./EventsList.css";
-import EventDetail from "../EventDetail/eventDetail.js";
+import { useState } from 'react';
+import './EventsList.css';
+import EventDetail from '../EventDetail/eventDetail.js';
 // import useToken from "@galvanize-inc/jwtdown-for-react";
 // import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchEvents } from "../actions/eventAction.js";
-import NavBar from "../NavBar";
-import DiscoverEvents from "../../src/assets/images/discover_events.png";
-import EventButtonModal from "../MainPage/CreateEventButtonModal.js";
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchEvents } from '../actions/eventAction.js';
+import NavBar from '../NavBar';
+import DiscoverEvents from '../../src/assets/images/discover_events.png';
+import EventButtonModal from '../MainPage/CreateEventButtonModal.js';
 
 function EventsList() {
   const events = useSelector((state) => state.events);
@@ -76,8 +76,8 @@ function EventsList() {
               key={event.id}
               className={`${
                 activeModal === index
-                  ? "active-modal event_modal"
-                  : "event_modal"
+                  ? 'active-modal event_modal'
+                  : 'event_modal'
               }`}
             >
               <div className="card_modal-content">
