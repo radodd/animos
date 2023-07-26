@@ -49,8 +49,6 @@ function App() {
         );
         const data = await response.json();
         setUser(data);
-      } else {
-        console.error("User object is null or undefined");
       }
     } catch (error) {
       console.error("Error fetching data:", error);
