@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import createEvent from '../assets/images/create_event_title.png';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchEvents } from '../actions/eventAction.js';
 
 function CreateEvent() {
     const [name, setName] = useState('');
@@ -14,6 +15,7 @@ function CreateEvent() {
 
     const locations = useSelector((state) => state.locations);
     const user = useSelector((state) => state.user);
+    const dispatch = useDispatch();
     // console.log('USER RIGHT HERE', user);
 
     const handleNameChange = (e) => {
@@ -73,7 +75,7 @@ function CreateEvent() {
             account_id: user.id,
             attendees: [],
         };
-        const url = 'http://localhost:8000/api/events/';
+        const url = `${process.env.REACT_APP_API_HOST}/api/events/`;
         const fetchOptions = {
             method: 'POST',
             body: JSON.stringify(data),
@@ -91,7 +93,8 @@ function CreateEvent() {
             setCapacity('');
             setPicture('');
             setIsSubmitted(true);
-            window.location.reload();
+            dispatch(fetchEvents());
+            // window.location.reload();
         }
     };
 

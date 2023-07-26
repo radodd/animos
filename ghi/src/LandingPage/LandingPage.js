@@ -1,6 +1,7 @@
 import './LandingPage.css';
 import Logo from '../assets/images/animoslogo.png';
 import Photo from '../assets/images/landingpage_photo.png';
+import { Link } from 'react-router-dom';
 
 function LandingPage() {
     return (
@@ -18,22 +19,22 @@ function LandingPage() {
                         </div>
                         <div className="buttons">
                             <button className="get_started_button button">
-                                <a
+                                <Link
                                     className="nav-link nav-link-signup"
                                     aria-current="page"
-                                    href="/signup"
+                                    to="/signup"
                                 >
                                     Get Started
-                                </a>
+                                </Link>
                             </button>
                             <button className="login_button button">
-                                <a
+                                <Link
                                     className="nav-link nav-link-signup"
                                     aria-current="page"
-                                    href="/login"
+                                    to="/login"
                                 >
                                     Login
-                                </a>
+                                </Link>
                             </button>
                         </div>
                     </div>
