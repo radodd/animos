@@ -116,6 +116,9 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
             <div className="user-first_name">{user.first_name}</div>
             <div className="user-last_name">{user.last_name}</div>
             <div className="user-zipcode">{user.zipcode}</div>
+            <button onClick={() => setUpdateUserModalIsOpen(true)}>
+              Edit Profile
+            </button>
             <h2>My pets</h2>
             <div className="pets-list">
               {userPets.map((pet) => {
@@ -148,6 +151,7 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
                 );
               })}
             </div>
+            <button onClick={toggleCreatePetModal}>Create Pet</button>
             <h2>My events</h2>
             <div className="user-hosted_events">
               {user.hosted_events.map((event) => {
@@ -168,10 +172,6 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
             <div className="user-attending_events">{user.attending_events}</div>
           </div>
         )}
-        <button onClick={() => setUpdateUserModalIsOpen(true)}>
-          Edit Profile
-        </button>
-        <button onClick={toggleCreatePetModal}>Create Pet</button>
         <Modal
           isOpen={updateUserModalIsOpen}
           onRequestClose={() => setUpdateUserModalIsOpen(false)}
