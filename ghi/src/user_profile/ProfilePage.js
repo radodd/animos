@@ -1,3 +1,4 @@
+/* eslint react-hooks/exhaustive-deps: 0 */
 import { useState } from "react";
 import Modal from "react-modal";
 import { useEffect } from "react";
