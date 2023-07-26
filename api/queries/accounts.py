@@ -19,8 +19,9 @@ class DuplicateAccountError(ValueError):
 
 
 class AccountQueries(Queries):
-    DB_NAME = "animos-db"
-    COLLECTION = "accounts"
+    def __init__(self, mongo_client):
+        self.mongo_client = mongo_client
+        self.collection = self.mongo_client["accounts"]
 
     def get(self, email: str) -> Account:
         props = self.collection.find_one({"email": email})
