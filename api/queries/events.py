@@ -1,3 +1,4 @@
+import bson
 from .client import Queries
 from models import EventIn, EventOut, AttendEvent
 from typing import List
@@ -30,10 +31,16 @@ class EventQueries(Queries):
         return [EventOut(**result) for result in result_list]
 
     def delete(self, id) -> bool:
-        result = self.collection.delete_one(id)
-        if result.deleted_count > 0:
-            return True
-        return False
+        try:
+            if not bson.ObjectId.is_valid(id):
+                raise ValueError("Invalid is parameter")
+            result = self.collection.delete_one(id)
+            if result.deleted_count > 0:
+                return True
+            return False
+        except ValueError as e:
+            print(f"Invalid id, error: {e}")
+            return False
 
     def update(self, id: str, event: EventIn) -> EventOut:
         filter = {"_id": ObjectId(id)}
