@@ -20,7 +20,7 @@ export const fetchUsers = () => async (dispatch) => {
 export const fetchUser = () => async (dispatch) => {
     try {
         const response = await fetch(
-            `${process.env.REACT_APP_API_HOST}/token`,
+            `${process.env.REACT_APP_API_HOST}/token/`,
             {
                 credentials: 'include',
             }

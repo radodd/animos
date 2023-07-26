@@ -42,7 +42,7 @@ class AccountToken(Token):
     account: AccountOut
 
 
-@router.get("/api/protected")
+@router.get("/api/protected/")
 async def get_protected(
     request: Request,
     account_data: dict = Depends(authenticator.get_current_account_data),
@@ -50,7 +50,7 @@ async def get_protected(
     return account_data
 
 
-@router.get("/token", response_model=AccountToken | None)
+@router.get("/token/", response_model=AccountToken | None)
 async def get_token(
     request: Request,
     account: dict = Depends(authenticator.try_get_current_account_data)
@@ -63,7 +63,7 @@ async def get_token(
         }
 
 
-@router.post("/api/accounts", response_model=AccountToken | HttpError)
+@router.post("/api/accounts/", response_model=AccountToken | HttpError)
 async def create_account(
     info: AccountIn,
     request: Request,
@@ -84,7 +84,7 @@ async def create_account(
     return AccountToken(account=account, **token.dict())
 
 
-@router.put("/api/accounts/{email}", response_model=AccountToken | HttpError)
+@router.put("/api/accounts/{email}/", response_model=AccountToken | HttpError)
 async def update_account(
     email: str,
     info: AccountIn,
@@ -114,7 +114,7 @@ async def update_account(
     return AccountToken(account=updated_account, **token.dict())
 
 
-@router.delete("/api/accounts/{email}", response_model=bool)
+@router.delete("/api/accounts/{email}/", response_model=bool)
 async def delete_account(
     email: str,
     repo: AccountQueries = Depends(),
@@ -128,7 +128,7 @@ async def delete_account(
     return True
 
 
-@router.get("/api/accounts", response_model=List[AccountOut])
+@router.get("/api/accounts/", response_model=List[AccountOut])
 async def get_all_accounts(
     repo: AccountQueries = Depends(),
 ):
@@ -136,7 +136,7 @@ async def get_all_accounts(
     return [AccountOut(**account.dict()) for account in accounts]
 
 
-@router.get("/api/accounts/{email}", response_model=AccountOut | None)
+@router.get("/api/accounts/{email}/", response_model=AccountOut | None)
 async def get_account_by_email(
     email: str,
     repo: AccountQueries = Depends(),
