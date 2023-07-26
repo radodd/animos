@@ -43,22 +43,26 @@ class AccountQueries(Queries):
     def update(self, email: str, info: UpdateAccount) -> bool:
         filter = {"email": email}
         props = info.dict()
-        print("props:", props)
-        # data = {"first_name": props.first_name, "last_name": props.last_name, "zipcode": props.zipcode, "picture_url": props.picture_url}
-        new_values = {"$set": {"first_name": props["first_name"], "last_name": props["last_name"], "zipcode": props["zipcode"], "picture_url": props["picture_url"]}}
-        updated_account = self.collection.find_one_and_update(filter, new_values, return_document=True)
+        new_values = {
+            "$set": {
+                "first_name": props["first_name"],
+                "last_name": props["last_name"],
+                "zipcode": props["zipcode"],
+                "picture_url": props["picture_url"]
+            }
+        }
+        updated_account = self.collection.find_one_and_update(
+            filter, new_values, return_document=True
+        )
         if updated_account is None:
-            return Exception("Account not found")
-        # updated_account["id"] = str(updated_account["_id"])
+            raise Exception("Account not found")
         print("update_account:", updated_account)
         return True
 
     def delete(self, email: str) -> bool:
-        # Find the account with the specified email
         account = self.get(email)
         if not account:
             return False
-        # Delete the account from the database
         delete_result = self.collection.delete_one({"email": email})
         if delete_result.deleted_count == 1:
             return True
@@ -115,7 +119,6 @@ class AccountQueries(Queries):
             return Exception("User Not Found")
         result["id"] = str(result["_id"])
         return Account(**result)
-
 
     def remove_hosted_event(self, event: AttendEvent) -> Account:
         props = event.dict()
