@@ -85,7 +85,7 @@ async def create_account(
     return AccountToken(account=account, **token.dict())
 
 
-@router.put("/api/accounts/{email}", response_model=bool)
+@router.put("/api/accounts/{email}/", response_model=bool)
 async def update_account(
     email: str,
     info: UpdateAccount,
@@ -93,35 +93,6 @@ async def update_account(
 ):
     updated_account = repo.update(email, info)
     return updated_account
-
-# @router.put("/api/accounts/{email}", response_model=AccountToken | HttpError)
-# async def update_account(
-#     email: str,
-#     info: AccountIn,
-#     request: Request,
-#     response: Response,
-#     repo: AccountQueries = Depends(),
-# ):
-#     # Update the account with the new information
-#     original_password = info.password
-#     hashed_password = authenticator.hash_password(info.password)
-#     info.password = hashed_password
-#     updated_account = repo.update(email, info)
-#     if not updated_account:
-#         raise HTTPException(
-#             status_code=status.HTTP_404_NOT_FOUND,
-#             detail="Account not found or update failed",
-#         )
-#     print("updated_account from ROUTER:", updated_account)
-#     # Create a new token for the updated account
-#     form = AccountForm(
-#         username=updated_account.email,
-#         password=original_password
-#     )
-#     token = await authenticator.login(response, request, form, repo)
-
-#     # Return the updated account and token
-#     return AccountToken(account=updated_account, **token.dict())
 
 
 @router.delete("/api/accounts/{email}/", response_model=bool)
