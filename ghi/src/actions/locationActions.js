@@ -2,7 +2,10 @@ import { setLocations } from '../slices/locationsSlice.js';
 export const fetchLocations = () => async (dispatch) => {
     try {
         const response = await fetch(
-            `${process.env.REACT_APP_API_HOST}/api/locations`
+            `${process.env.REACT_APP_API_HOST}/api/locations`,
+            {
+                credentials: 'include',
+            }
         );
         if (response.ok) {
             const data = await response.json();
