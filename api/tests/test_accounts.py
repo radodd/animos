@@ -3,7 +3,7 @@ import pytest
 from fastapi.testclient import TestClient
 from main import app
 from models import AccountIn
-from accounts_queries import AccountQueries
+from queries.accounts import AccountQueries
 
 
 @pytest.fixture
