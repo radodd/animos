@@ -1,36 +1,26 @@
 from main import app
 from fastapi.testclient import TestClient
-from queries.accounts import AccountQueries
+from models import AccountIn
 
 client = TestClient(app)
 
 
-class GetAllAccountQueries:
-    def get_all(self):
-        return []
+def test_create_account():
+    client = TestClient(app)
+    info = AccountIn(
+        email="el@moustachio.com",
+        first_name="Pablo",
+        last_name="Escobar",
+        password="password",
+        zipcode="62150",
+        picture_url="https://moustache.com/picture.jpg",
+        follower_list=["Michou", "Robert"],
+        following_list=["Patoche", "Germaine"],
+        pets=["Lizard", "Koala"],
+        hosted_events=["Pool partayyy", "Snowfight"],
+        attending_events=["Catnip session", "Couch scratching"]
+    )
 
-
-def test_get_all_users():
-    # arrange
-    app.dependency_overrides[AccountQueries] = GetAllAccountQueries
-    # Act
-    response = client.get("/api/accounts")
-    # Assert
+    response = client.post("/api/accounts", json=info.dict())
     assert response.status_code == 200
-    response_data = response.json()
-    assert isinstance(response_data, list)
-    for user in response_data:
-        assert "id" in user
-        assert "first_name" in user
-        assert "last_name" in user
-        assert "email" in user
-        assert "password" in user
-        assert "zipcode" in user
-        assert "picture_url" in user
-        assert "follower_list" in user
-        assert "following_list" in user
-        assert "pets" in user
-        assert "hosted_events" in user
-        assert "attending_events" in user
-    # Cleanup
-    app.dependency_overrides = {}
+    assert "account" in response.json()
