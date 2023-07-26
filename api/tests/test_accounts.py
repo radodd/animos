@@ -4,6 +4,7 @@ from main import app
 from fastapi.testclient import TestClient
 from models import AccountIn
 
+
 @pytest.fixture
 def mock_mongo_client():
     return MongoClient()
