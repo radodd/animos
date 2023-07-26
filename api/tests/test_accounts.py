@@ -1,8 +1,9 @@
 from mongomock import MongoClient
 import pytest
-from main import app
 from fastapi.testclient import TestClient
+from main import app
 from models import AccountIn
+from accounts_queries import AccountQueries
 
 
 @pytest.fixture
@@ -10,7 +11,12 @@ def mock_mongo_client():
     return MongoClient()
 
 
-def test_create_account(mock_mongo_client):
+@pytest.fixture
+def override_account_queries(mock_mongo_client):
+    return AccountQueries(mock_mongo_client)
+
+
+def test_create_account(override_account_queries):
     client = TestClient(app)
     info = AccountIn(
         email="example@example.com",
