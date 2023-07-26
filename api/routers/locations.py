@@ -7,7 +7,7 @@ location_api_router = APIRouter()
 location_queries = LocationQueries()
 
 
-@location_api_router.get("/api/locations/", response_model=LocationList)
+@location_api_router.get("/api/locations", response_model=LocationList)
 async def list_locations(repo: LocationQueries = Depends()):
     return LocationList(locations=repo.list_locations())
 
@@ -20,7 +20,7 @@ async def get_location(id: str):
     return location
 
 
-@location_api_router.post("/api/locations/", response_model=LocationOut)
+@location_api_router.post("/api/locations", response_model=LocationOut)
 async def create_location(
     location: LocationIn, repo: LocationQueries = Depends()
 ):
@@ -28,7 +28,7 @@ async def create_location(
     return location
 
 
-@location_api_router.put("/api/locations/{id}/", response_model=LocationOut)
+@location_api_router.put("/api/locations/{id}", response_model=LocationOut)
 async def update_location(
     id: str, location: LocationIn, repo: LocationQueries = Depends()
 ):
@@ -38,7 +38,7 @@ async def update_location(
     return updated_location
 
 
-@location_api_router.delete("/api/locations/{id}/")
+@location_api_router.delete("/api/locations/{id}")
 async def delete_location(id: str, repo: LocationQueries = Depends()):
     deleted_location = repo.delete(id)
     if deleted_location:
