@@ -57,7 +57,7 @@ function CreatePet() {
             user_id: user.id,
         };
 
-        const postUrl = `http://localhost:8000/api/pets/`;
+        const postUrl = `${process.env.REACT_APP_API_HOST}/api/pets/`;
         const fetchConfig = {
             method: 'POST',
             body: JSON.stringify(data),
@@ -68,7 +68,7 @@ function CreatePet() {
         const response = fetch(postUrl, fetchConfig);
         if (response.ok) {
             const newPet = response.json();
-            console.log("newPet", newPet);
+            console.log('newPet', newPet);
             setName('');
             setBirthday('');
             setBreed('');
@@ -233,19 +233,19 @@ function CreatePet() {
                             )}
                         </div>
                         <div
-                                className="row"
-                                style={{ justifyContent: 'center' }}
+                            className="row"
+                            style={{ justifyContent: 'center' }}
+                        >
+                            <button className="submit-btn">Add my pet!</button>
+                        </div>
+                        {isSubmitted === true && (
+                            <div
+                                className="alert alert-success"
+                                id="success-message"
                             >
-                                <button className="submit-btn">Add my pet!</button>
+                                You successfully created a new event!
                             </div>
-                            {isSubmitted === true && (
-                                <div
-                                    className="alert alert-success"
-                                    id="success-message"
-                                >
-                                    You successfully created a new event!
-                                </div>
-                            )}
+                        )}
                     </form>
                 </div>
             </div>
