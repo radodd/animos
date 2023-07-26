@@ -23,6 +23,24 @@
   transform: scale(1.02);
 }
 
+.event-list-create-btn {
+  border-color: black;
+  width: 300px;
+  align-items: center;
+}
+
+.create_event_modal-close-button {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.card-body-event-btn:hover {
+  border: none;
+}
+
 .card-title {
   padding: 1rem;
   font-size: 800;
