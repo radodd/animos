@@ -1,75 +1,70 @@
-import './MainPage.css';
-// import { NavLink } from 'react-router-dom';
-// import PetsList from '../PetsList/PetsList';
-import { useSelector } from 'react-redux';
-import CalendarIcon from '../assets/icons/calendar.png';
-import FriendsIcon from '../assets/icons/friends.png';
-import LocationsIcon from '../assets/icons/locations.png';
+import "./MainPage.css";
 import { Link } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import CalendarIcon from "../assets/icons/calendar.png";
+import FriendsIcon from "../assets/icons/friends.png";
+import LocationsIcon from "../assets/icons/locations.png";
 
 function LeftFeed() {
     const user = useSelector((state) => state.user);
     const pets = useSelector((state) => state.pets);
     const userPets = pets.filter((pet) => pet.user_id === user.id);
 
-    function ProfileCard() {
-        return (
-            <>
-                <div className="card">
-                    <div className="card-body">
-                        <img
-                            src={user.picture_url}
-                            alt=""
-                            className="rounded-circle"
-                            width="150"
-                            height="150"
-                            style={{ objectFit: 'cover', borderRadius: '50%' }}
-                        />
+  function ProfileCard() {
+    return (
+      <>
+        <div className="card">
+          <div className="card-body">
+            <img
+              src={user.picture_url}
+              alt=""
+              className="rounded-circle"
+              width="150"
+              height="150"
+              style={{ objectFit: 'cover', borderRadius: '50%' }}
+            />
 
-                        {user && (
-                            <div className="h5">
-                                {user.first_name} {user.last_name}
-                            </div>
-                        )}
-                        <div className="h6 text-muted">Username : @</div>
-                        <div className="h7">Profile Page | Edit Profile</div>
-                    </div>
-                </div>
+            {user && (
+              <div className="h5" key={user.id}>
+                {user.first_name} {user.last_name}
+              </div>
+            )}
+            <div className="h7">
+              <Link to={`/users/${user.id}`}>Profile Page</Link> | <Link to="/profile">Edit Profile</Link>
+            </div>
+          </div>
+        </div>
 
-                <div className="card">
-                    <h5>
-                        <Link to="/pets" className="card-subtitle">
-                            My Pets
-                        </Link>
-                    </h5>
-                    <div className="card-body row row-cols-3">
-                        <br />
+        <div className="card">
+          <h5>
+            <Link to="/pets" className="card-subtitle">
+              My Pets
+            </Link>
+          </h5>
+          <div className="card-body row row-cols-3">
+            <br />
 
-                        {userPets.map((pets, index) => {
-                            return (
-                                <>
-                                    <div
-                                        className="card align-items-center"
-                                        style={{
-                                            width: '6rem',
-                                            border: 'none',
-                                        }}
-                                    >
-                                        <img
-                                            className="rounded-circle card-img-top"
-                                            src={pets.pet_picture_url}
-                                            alt=""
-                                            width="50"
-                                            height="90"
-                                            key={pets.id}
-                                        />
-                                        <p className="card-text">
-                                            {pets.pet_name}
-                                        </p>
-                                    </div>
-                                </>
-                            );
-                        })}
+            {userPets.map((pets) => {
+              return (
+                <>
+                  <div
+                    className="card align-items-center"
+                    style={{ width: 'fit', border: 'none' }}
+                  >
+                    <img
+                      className="rounded-circle card-img-top"
+                      src={pets.pet_picture_url}
+                      alt=""
+                      width="50"
+                      height="50"
+                      key={pets.id}
+                      style={{objectFit: "cover"}}
+                    />
+                    <p className="card-text">{pets.pet_name}</p>
+                  </div>
+                </>
+              );
+            })}
 
                         <br />
                     </div>

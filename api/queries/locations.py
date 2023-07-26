@@ -16,10 +16,10 @@ class LocationQueries(Queries):
             props["id"] = str(props["_id"])
         return [LocationOut(**props) for props in locationsList]
 
-    def get_location(self, id: str) -> LocationOut:
+    def get_location(self, id) -> LocationOut:
         props = self.collection.find_one({"_id": ObjectId(id)})
-        if not props:
-            return None
+        if props is None:
+            raise Exception("Location Not Found")
         props["id"] = str(props["_id"])
         return LocationOut(**props)
 
