@@ -7,7 +7,7 @@ from models import (
     AddFriend,
     AccountOut,
     PetIn,
-    UpdateAccount
+    UpdateAccount,
 )
 from pymongo.errors import DuplicateKeyError
 from typing import List
@@ -48,7 +48,7 @@ class AccountQueries(Queries):
                 "first_name": props["first_name"],
                 "last_name": props["last_name"],
                 "zipcode": props["zipcode"],
-                "picture_url": props["picture_url"]
+                "picture_url": props["picture_url"],
             }
         }
         updated_account = self.collection.find_one_and_update(
@@ -124,10 +124,7 @@ class AccountQueries(Queries):
         props = event.dict()
         find_by = {"_id": ObjectId(props["user_id"])}
         remove_value = {"$pull": {"hosted_events": props["event_id"]}}
-        result = self.collection.find_one_and_update(
-            find_by,
-            remove_value
-        )
+        result = self.collection.find_one_and_update(find_by, remove_value)
         if result is None:
             return Exception("User not found")
         result["id"] = str(result["_id"])

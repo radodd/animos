@@ -3,16 +3,26 @@ import { useState } from "react";
 import Modal from "react-modal";
 import { useEffect } from "react";
 import "react-confirm-alert/src/react-confirm-alert.css";
+<<<<<<< HEAD
 import { useSelector, useDispatch } from "react-redux";
 import { removePet } from "../slices/petsSlice";
+=======
+import { useSelector } from "react-redux";
+>>>>>>> main
 import EventButtonModal from "../MainPage/CreateEventButtonModal";
 
 export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
   const pets = useSelector((state) => state.pets);
   const userPets = pets.filter((pet) => pet.user_id === user.id);
+<<<<<<< HEAD
   const dispatch = useDispatch();
   const [updateUserModalIsOpen, setUpdateUserModalIsOpen] = useState(false);
   const [createPetModalIsOpen, setCreatePetModalIsOpen] = useState(false);
+=======
+  const [updateUserModalIsOpen, setUpdateUserModalIsOpen] = useState(false);
+  const [createPetModalIsOpen, setCreatePetModalIsOpen] = useState(false);
+  const [isDeleted, setIsDeleted] = useState(false);
+>>>>>>> main
   const [formData, setFormData] = useState({
     email: user?.email || (user && user.email) || "",
     first_name: user?.first_name || (user && user.first_name) || "",
@@ -102,6 +112,27 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
     }
   };
 
+<<<<<<< HEAD
+=======
+  async function handleDelete(id) {
+    const url = `${process.env.REACT_APP_API_HOST}/api/pets/${id}`;
+    const data = {
+      pet_id: pets.id,
+      user_id: user.id,
+    };
+    const response = await fetch(url, {
+      method: "DELETE",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.ok) {
+      setIsDeleted(true);
+    }
+  }
+
+>>>>>>> main
   useEffect(() => {
     loadAccount();
     updateLoadAccount();
@@ -142,7 +173,11 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
                       <button
                         className="card-button"
                         onClick={() => {
+<<<<<<< HEAD
                           dispatch(removePet(pet.id));
+=======
+                          handleDelete(pet.id);
+>>>>>>> main
                         }}
                       >
                         Delete
@@ -151,6 +186,14 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
                   </div>
                 );
               })}
+<<<<<<< HEAD
+=======
+              {isDeleted === true && (
+                <div className="alert alert-success" id="success-message">
+                  You've deleted your event
+                </div>
+              )}
+>>>>>>> main
             </div>
             <button onClick={toggleCreatePetModal}>Create Pet</button>
             <h2>My events</h2>

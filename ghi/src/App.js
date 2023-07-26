@@ -27,7 +27,6 @@ function App() {
   const dispatch = useDispatch();
   const events = useSelector((state) => state.events);
   const reduxUser = useSelector((state) => state.user);
-  const pets = useSelector((state) => state.pets);
   const [user, setUser] = useState(null);
 
   async function loadAccount() {
@@ -72,9 +71,7 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route
                 path="home"
-                element={
-                  <MainPage events={events} user={reduxUser} pets={pets} />
-                }
+                element={<MainPage events={events} user={reduxUser} />}
               />
               <Route exact path="/signup" element={<SignupForm />}></Route>
               <Route exact path="/login" element={<LoginForm />}></Route>
@@ -82,8 +79,8 @@ function App() {
                 <Route index element={<LocationsListDetail />} />
               </Route>
               <Route path="pets">
-                <Route index element={<PetsList pets={pets} />} />
-                <Route path="create" element={<CreatePet pets={pets} />} />
+                <Route index element={<PetsList />} />
+                <Route path="create" element={<CreatePet />} />
               </Route>
               <Route path="events" element={<EventsList />}>
                 <Route path="create" />
