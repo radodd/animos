@@ -36,14 +36,14 @@ class LocationQueries(Queries):
             {"$set": dict(props)},
             return_document=True
         )
-        if not updated_props:
-            return None
+        if updated_props is None:
+            return Exception("Location not found")
         updated_props["id"] = str(updated_props["_id"])
         return LocationOut(**updated_props)
 
     def delete(self, id: str) -> bool:
         props = self.collection.find_one({"_id": ObjectId(id)})
-        if not props:
-            return False
+        if props is None:
+            return Exception("Location not found")
         self.collection.delete_one({"_id": ObjectId(id)})
         return True

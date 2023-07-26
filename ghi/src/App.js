@@ -12,7 +12,7 @@ import PetsList from "./PetsList/PetsList.js";
 import CreatePet from "./CreatePet/CreatePet.js";
 import MainPage from "./MainPage/MainPage.js";
 import ProfilePage from "./user_profile/ProfilePage.js";
-// import FindFriend from './FindFriend/FindFriend.js';
+import FindFriend from "./FindFriend/FindFriend.js";
 // import MyFriends from './MyFriends/MyFriends.js';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLocations } from "./actions/locationActions.js";
@@ -107,6 +107,9 @@ function App() {
                     />
                   }
                 />
+              </Route>
+              <Route path="users">
+                <Route index element={<FindFriend />} />
               </Route>
             </Routes>
           </div>
