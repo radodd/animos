@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { useSelector, useDispatch } from "react-redux";
 import { removePet } from "../slices/petsSlice";
+import EventButtonModal from "../MainPage/CreateEventButtonModal";
 
 export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
   const pets = useSelector((state) => state.pets);
@@ -55,7 +56,6 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
     );
     const data = await response.json();
     if (response.ok) {
-      // Update the user data displayed on the ProfilePage
       updateLoadAccount();
       setUpdateUserModalIsOpen(false);
     } else {
@@ -69,8 +69,6 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
 
   const handleCreatePetSubmit = async (event) => {
     event.preventDefault();
-    // Add your logic to handle creating a new pet here
-    // Example: Make an API request to create a new pet entity
     try {
       const data = {
         pet_name: formData.pet_name,
@@ -93,7 +91,6 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
       );
       const responseData = await response.json();
       if (response.ok) {
-        // Update the user data displayed on the ProfilePage
         updateLoadAccount();
         setCreatePetModalIsOpen(false);
       } else {
@@ -115,11 +112,13 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
       <div className="user-profile">
         {user && (
           <div className="user" key={user.id}>
+            <h2>My info</h2>
             <div className="user-first_name">{user.first_name}</div>
             <div className="user-last_name">{user.last_name}</div>
             <div className="user-zipcode">{user.zipcode}</div>
+            <h2>My pets</h2>
             <div className="pets-list">
-              {userPets.map((pet, index) => {
+              {userPets.map((pet) => {
                 console.log("MY PET INFO", pet.id);
                 return (
                   <div className="event-card" key={pet.id}>
@@ -149,7 +148,23 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
                 );
               })}
             </div>
-            <div className="user-hosted_events">{user.hosted_events}</div>
+            <h2>My events</h2>
+            <div className="user-hosted_events">
+              {user.hosted_events.map((event) => {
+                const date = new Date(event.date_start).toLocaleDateString();
+                return (
+                  <div key={event.id} className="hosted-event-card">
+                    <div className="hosted-event-title">{event.name}</div>
+                    <img
+                      className="hosted-event-image"
+                      src={event.picture_url}
+                      alt="hosted-event"
+                    />
+                    <div className="hosted-event-date">Date: {date}</div>
+                  </div>
+                );
+              })}
+            </div>
             <div className="user-attending_events">{user.attending_events}</div>
           </div>
         )}
@@ -273,6 +288,7 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
             <button type="submit">Create Pet</button>
           </form>
         </Modal>
+        <EventButtonModal />
       </div>
     </>
   );
