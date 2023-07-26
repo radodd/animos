@@ -23,6 +23,14 @@ class AccountQueries(Queries):
         self.mongo_client = mongo_client
         self.collection = self.mongo_client["accounts"]
 
+    @property
+    def collection(self):
+        return self._collection
+
+    @collection.setter
+    def collection(self, value):
+        self._collection = value
+
     def get(self, email: str) -> Account:
         props = self.collection.find_one({"email": email})
         print("props from GET:", props)
