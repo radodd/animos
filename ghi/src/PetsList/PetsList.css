@@ -6,7 +6,7 @@
   padding-top: 50px;
 }
 
-.event-card {
+.pet-card {
   overflow: hidden;
   box-shadow: 0 2px 20px rgb(232, 232, 232);
   border-radius: 12px;
@@ -19,21 +19,17 @@
   flex: 1;
 }
 
-.event-card:hover {
-  transform: scale(1.02);
-}
-
-.card-title {
+.pet-card-title {
   padding: 1rem;
   font-size: 800;
 }
 
-.card-description {
+.pet-card-description {
   padding: 1rem;
   font-size: 800;
 }
 
-.card-button {
+.pet-card-button {
   padding: 5px 10px 5px 10px;
   font-size: 1rem;
   margin: 1rem;
@@ -41,13 +37,13 @@
   font-weight: bold;
   border-radius: 12px;
   color: white;
-  background-color: purple;
+  background-color: #EE5828;
   transition: 20ms ease-in;
 }
 
-.card-button:hover {
-  color: purple;
-  background-color: rgba(128, 0, 128, 0.143);
+.pet-card-button:hover {
+  color: white;
+  background-color: #EE5828;
 }
 
 .event_modal-close-button {
@@ -58,7 +54,7 @@
   cursor: pointer;
 }
 
-.event_modal {
+.pet_modal {
   display: flex;
   position: fixed;
   top: 0;
@@ -78,7 +74,7 @@
   border-radius: 12px;
 }
 
-.card_modal-content {
+.pet-card_modal-content {
   width: 500px;
   position: relative;
   padding: 3.5rem 2.5rem 2.5rem;
@@ -104,41 +100,11 @@
   top: 15rem;
   width: 100%;
 }
-.modal-title {
-  text-align: center;
-  padding: 15px;
-}
 
-.modal-description {
-  text-align: center;
-  padding-top: 10px;
-}
-
-.modal-capacity,
-.modal-zipcode {
+.add-pet-button-holder {
   justify-content: center;
   align-items: center;
-  text-align: center;
-  margin-bottom: 1rem;
-  font-size: 15px;
-}
-
-.modal-description {
-  font-size: var(--smaller-font-size);
-  margin-bottom: 20px;
-}
-
-.modal-title {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin-bottom: 1rem;
-  font-size: 25px;
-}
-
-/* Active modal */
-.active-modal {
-  opacity: 1;
-  visibility: visible;
-  /* height: 200%; */
+  align-content: center;
+  align-self: center;
+  width: 00px;
 }

@@ -40,18 +40,20 @@ function EventsList() {
 
           return (
             <div className="event-card" key={event.id}>
-              <div className="card-body">
-                <img
-                  className="card-image"
-                  src={event.picture_url}
-                  alt="event"
-                ></img>
-                <div className="card-title">{event.name}</div>
-                <div className="card-date-start">Date: {date}</div>
-                <div className="card-time-start">Start time: {time}</div>
-                <div className="card-location">Where: {locationName}</div>
+              <img
+                className="event-card-image"
+                height="200px"
+                src={event.picture_url}
+                style={{ objectFit: 'cover' }}
+                alt="event"
+              ></img>
+              <div className="event-card-body">
+                <h5 className="event-card-title">{event.name}</h5>
+                <h6 className="event-card-location">{locationName}</h6>
+                <div className="event-card-date-start">Date: {date}</div>
+                <div className="event-card-time-start">Start time: {time}</div>
                 <button
-                  className="card-button"
+                  className="event-card-button"
                   onClick={() => {
                     toggleModal(index);
                   }}
@@ -80,10 +82,10 @@ function EventsList() {
                   : 'event_modal'
               }`}
             >
-              <div className="card_modal-content">
+              <div className="event_modal-content">
                 <EventDetail event={event} location={curLocation} user={user} />
                 <button
-                  className="modal-button create_event_modal-close-button"
+                  className="event-modal-button create_event_modal-close-button"
                   onClick={() => {
                     toggleModal(index);
                     dispatch(fetchEvents());
@@ -103,20 +105,24 @@ function EventsList() {
     <>
       <NavBar />
       <br />
+      <br/>
+      <div className="image-title-holder">
       <img src={DiscoverEvents} width="600px" alt="" />
+      </div>
       <br />
-      <button
-        type="button"
-        className="event-list-create-btn btn bg-transparent"
-      >
-        {events && events.length > 0 ? (
-          <EventButtonModal />
-        ) : (
-          <div>Loading ...</div>
-        )}
-      </button>
-      <br />
-      <div className="wrapper">
+      <div className="event-button-holder">
+        <button
+          type="button"
+          className="event-list-create-btn btn bg-transparent"
+        >
+          {events && events.length > 0 ? (
+            <EventButtonModal />
+          ) : (
+            <div>Loading ...</div>
+          )}
+        </button>
+      </div>
+      <div className="event-wrapper">
         <Card />
       </div>
     </>

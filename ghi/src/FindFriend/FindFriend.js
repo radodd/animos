@@ -11,6 +11,8 @@ function FindFriend() {
   const pets = useSelector((state) => state.pets);
   const userEmail = tokenUser && tokenUser['email'];
   const databaseUser = users.filter((user) => user.email === userEmail);
+  const usersExceptToken = users.filter((user) => user !== databaseUser[0]);
+
   const followingUsersList =
     databaseUser[0] && databaseUser[0]['following_list'];
 
@@ -49,15 +51,17 @@ function FindFriend() {
     <>
       <NavBar />
       <br />
-      <img
-        className="find-friends-title"
-        src={FindFriendTitle}
-        width="900px"
-        alt="title reads sniff out new friends to follow"
-      />
+      <div className="image-title-holder">
+        <img
+          className="find-friends-title"
+          src={FindFriendTitle}
+          width="900px"
+          alt="title reads sniff out new friends to follow"
+        />
+      </div>
       <br />
       <div className="friend-card-container">
-        {users.map((profileCardUser) => (
+        {usersExceptToken.map((profileCardUser) => (
           <div key={profileCardUser.id} className="profile-card">
             <div className="user-card-body p-4">
               <div className="d-flex text-black">

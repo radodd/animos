@@ -202,7 +202,7 @@ function CreatePet() {
             </div>
             {isSubmitted === true && (
               <div className="alert alert-success" id="success-message">
-                You successfully created a new event!
+                You successfully created a new pet!
               </div>
             )}
           </form>

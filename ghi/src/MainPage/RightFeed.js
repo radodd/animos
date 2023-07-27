@@ -6,24 +6,6 @@ function RightFeed() {
     const users = useSelector((state) => state.users);
 
     function NewFriendsCard() {
-        // const [user, setUser] = useState(null);
-
-        // async function loadAccounts() {
-        //   const url = `${process.env.REACT_APP_API_HOST}/api/accounts`;
-        //   const response = await fetch(url, {
-        //     credentials: 'include',
-        //     method: 'get',
-        //   });
-        //   if (response.ok) {
-        //     const data = await response.json();
-        //     setUsers(data);
-        //   }
-        // }
-
-        // useEffect(() => {
-        //   loadCurrentUser();
-        // }, []);
-
         return (
             <div className="card gedf-card right-card">
                 <div className="card-body">
@@ -78,7 +60,7 @@ function RightFeed() {
                             );
                         })}
                         <br />
-
+                        <br />
                         <Link to="/events" className="card-link">
                             View more
                         </Link>

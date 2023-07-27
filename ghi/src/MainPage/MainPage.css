@@ -240,7 +240,7 @@ body {
     position: relative;
     padding: 3.5rem 2.5rem 2.5rem;
     border-radius: 1.5rem;
-    background-color: beige;
+    background-color: #f0f2f5;
 }
 
 .event_modal-close-button {
@@ -297,3 +297,47 @@ body {
     opacity: 1;
     visibility: visible;
 }
+
+
+.profile-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1rem;
+}
+
+.profile-card-image {
+  margin-bottom: 20px;
+}
+
+.home-profile-card{
+  align-items: center;
+  justify-items:center;
+  text-align:center;
+}
+
+.card-my-pets-title {
+  text-decoration: none;
+  color: black;
+  margin-left: 10px;
+}
+
+.my-pets-title {
+  margin-top: 10px;
+}
+
+.home-pet-card-body {
+  box-shadow: none;
+    background-clip: none;
+ }

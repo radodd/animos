@@ -2,6 +2,8 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import "./PetsList.css";
 import NavBar from "../NavBar";
+import AddPetButton from '../assets/images/add_pet_button.png';
+import { Link } from "react-router-dom"
 
 function PetsList({ pet }) {
   const pets = useSelector((state) => state.pets);
@@ -31,25 +33,30 @@ function PetsList({ pet }) {
       <div className="pets-list">
         {userPets.map((pet, index) => {
           return (
-            <div className="event-card" key={pet.id}>
-              <div className="card-body">
-                <div className="card-title">{pet.pet_name}</div>
+            <div className="pet-card" key={pet.id}>
+              <div className="pet-card-body">
+                <h5 className="pet-card-title">{pet.pet_name}</h5>
                 <img
-                  className="card-image"
+                  className="pet-card-image"
                   src={pet.pet_picture_url}
                   alt="list pets"
+                  style={{ objectFit: 'cover' }}
+                  height="200px"
+                  width="300px"
                 ></img>
-                <div className="card-breed">{pet.breed}</div>
-                <div className="card-vibe">{pet.vibe}</div>
-                <div className="card-size">{pet.size}</div>
-                <div className="card-birthday">{pet.birth_adoption_date}</div>
+                <div className="pet-card-breed">{pet.breed}</div>
+                <div className="pet-card-vibe">{pet.vibe}</div>
+                <div className="pet-card-size">{pet.size}</div>
+                <div className="pet-card-birthday">
+                  {pet.birth_adoption_date}
+                </div>
                 <button
-                  className="card-button"
+                  className="pet-card-button"
                   onClick={() => {
                     handleDelete(pet.id);
                   }}
                 >
-                  Delete
+                  Remove
                 </button>
               </div>
             </div>
@@ -57,7 +64,7 @@ function PetsList({ pet }) {
         })}
         {isDeleted === true && (
           <div className="alert alert-success" id="success-message">
-            You've deleted your event
+            You removed a pet from your profile
           </div>
         )}
       </div>
@@ -68,10 +75,18 @@ function PetsList({ pet }) {
     <>
       <NavBar />
       <br />
-      <h1>Test Pet Cards</h1>
-      <a className="nav-link" aria-current="page" href="pets/create">
-        Add a new Pet!
-      </a>
+      <h1>My Pets</h1>
+      <br/>
+      <div className="add-pet-button-holder">
+        <Link className="nav-link" aria-current="page" to="create">
+          <img
+          className="add-pet-button"
+          src={AddPetButton}
+          width="300"
+          alt=""
+          />
+        </Link>
+      </div>
       <div className="wrapper">
         <Card />
       </div>

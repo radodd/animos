@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { useSelector } from "react-redux";
 import EventButtonModal from "../MainPage/CreateEventButtonModal";
+import NavBar from '../NavBar';
 
 export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
   const pets = useSelector((state) => state.pets);
@@ -126,6 +127,8 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
 
   return (
     <>
+      <NavBar/>
+      <br/>
       <h1>User profile</h1>
       <div className="user-profile">
         {user && (
