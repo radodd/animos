@@ -3,6 +3,10 @@ from bson.objectid import ObjectId
 from typing import List, Optional
 
 
+class Error(BaseModel):
+    message: str
+
+
 class PydanticObjectId(ObjectId):
     @classmethod
     def __get_validators__(cls):
