@@ -2,7 +2,10 @@ import { setEvents } from '../slices/eventsSlice.js';
 export const fetchEvents = () => async (dispatch) => {
     try {
         const response = await fetch(
-            `${process.env.REACT_APP_API_HOST}/api/events`
+            `${process.env.REACT_APP_API_HOST}/api/events`,
+            {
+                credentials: 'include',
+            }
         );
         if (response.ok) {
             const data = await response.json();

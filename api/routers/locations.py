@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends
 from models import LocationIn, LocationOut, LocationList
 from queries.locations import LocationQueries
+from .auth import authenticator
 
 
 location_api_router = APIRouter()
@@ -8,12 +9,18 @@ location_queries = LocationQueries()
 
 
 @location_api_router.get("/api/locations", response_model=LocationList)
-async def list_locations(repo: LocationQueries = Depends()):
+async def list_locations(
+    repo: LocationQueries = Depends(),
+    account: dict = Depends(authenticator.try_get_current_account_data),
+):
     return LocationList(locations=repo.list_locations())
 
 
 @location_api_router.get("/api/locations/{id}")
-async def get_location(id: str):
+async def get_location(
+    id: str,
+    account: dict = Depends(authenticator.try_get_current_account_data),
+):
     location = location_queries.get_location(id)
     if not location:
         return {"Error": "Location does not exist"}
@@ -22,7 +29,9 @@ async def get_location(id: str):
 
 @location_api_router.post("/api/locations", response_model=LocationOut)
 async def create_location(
-    location: LocationIn, repo: LocationQueries = Depends()
+    location: LocationIn,
+    repo: LocationQueries = Depends(),
+    account: dict = Depends(authenticator.try_get_current_account_data),
 ):
     location = repo.create(location)
     return location
@@ -30,7 +39,10 @@ async def create_location(
 
 @location_api_router.put("/api/locations/{id}", response_model=LocationOut)
 async def update_location(
-    id: str, location: LocationIn, repo: LocationQueries = Depends()
+    id: str,
+    location: LocationIn,
+    repo: LocationQueries = Depends(),
+    account: dict = Depends(authenticator.try_get_current_account_data),
 ):
     updated_location = repo.update(id, location)
     if not updated_location:
@@ -39,7 +51,11 @@ async def update_location(
 
 
 @location_api_router.delete("/api/locations/{id}")
-async def delete_location(id: str, repo: LocationQueries = Depends()):
+async def delete_location(
+    id: str,
+    repo: LocationQueries = Depends(),
+    account: dict = Depends(authenticator.try_get_current_account_data),
+):
     deleted_location = repo.delete(id)
     if deleted_location:
         return {"acknowledged": True, "deletedCount": 1}

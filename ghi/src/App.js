@@ -13,20 +13,19 @@ import CreatePet from "./CreatePet/CreatePet.js";
 import MainPage from "./MainPage/MainPage.js";
 import ProfilePage from "./user_profile/ProfilePage.js";
 import FindFriend from "./FindFriend/FindFriend.js";
-// import MyFriends from './MyFriends/MyFriends.js';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchLocations } from "./actions/locationActions.js";
 import { fetchEvents } from "./actions/eventAction.js";
 import { fetchUser, fetchUsers } from "./actions/userAction.js";
 import { fetchPets } from "./actions/petAction.js";
 import Modal from "react-modal";
+import UsersProfilePage from "./UsersProfilePage/UsersProfilePage.js";
 
 function App() {
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, "");
   const dispatch = useDispatch();
-  const events = useSelector((state) => state.events);
-  const reduxUser = useSelector((state) => state.user);
+
   const [user, setUser] = useState(null);
 
   async function loadAccount() {
@@ -69,10 +68,7 @@ function App() {
           <div className="container">
             <Routes>
               <Route path="/" element={<LandingPage />} />
-              <Route
-                path="home"
-                element={<MainPage events={events} user={reduxUser} />}
-              />
+              <Route path="home" element={<MainPage />} />
               <Route exact path="/signup" element={<SignupForm />}></Route>
               <Route exact path="/login" element={<LoginForm />}></Route>
               <Route path="locations">
@@ -107,6 +103,7 @@ function App() {
               </Route>
               <Route path="users">
                 <Route index element={<FindFriend />} />
+                <Route path=":userId" element={<UsersProfilePage />} />
               </Route>
             </Routes>
           </div>

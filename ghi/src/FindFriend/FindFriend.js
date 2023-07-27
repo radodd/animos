@@ -16,7 +16,7 @@ function FindFriend() {
 
   let navigate = useNavigate();
   const userProfileRedirect = (userId) => {
-    let path = `/user/${userId}/`;
+    let path = `/users/${userId}/`;
     navigate(path);
   };
 
