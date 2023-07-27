@@ -25,9 +25,25 @@ export const fetchUser = () => async (dispatch) => {
                 credentials: 'include',
             }
         );
+        const userResponse = await fetch(
+            `${process.env.REACT_APP_API_HOST}/token`,
+            {
+                credentials: 'include',
+            }
+        );
+        const usersResponse = await fetch(
+            `${process.env.REACT_APP_API_HOST}/api/accounts`
+        );
+
+        const usersData = await usersResponse.json();
+        const tokenUserData = await userResponse.json();
+        const tokenUser = tokenUserData.account;
+        const tokenUserId = tokenUser.id;
+        const currUser = usersData.filter((user) => user.id === tokenUserId);
         const data = await response.json();
+
         if (data && data.account) {
-            dispatch(setUser(data.account));
+            dispatch(setUser(currUser[0]));
         } else {
             console.warn(
                 'No user account data found or the "account" property is null/undefined.'
