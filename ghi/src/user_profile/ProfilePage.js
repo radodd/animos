@@ -5,7 +5,8 @@ import { useEffect } from "react";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { useSelector } from "react-redux";
 import EventButtonModal from "../MainPage/CreateEventButtonModal";
-import NavBar from '../NavBar';
+import NavBar from "../NavBar";
+import "../PetsList/PetsList.css";
 
 export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
   const pets = useSelector((state) => state.pets);
@@ -127,8 +128,8 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
 
   return (
     <>
-      <NavBar/>
-      <br/>
+      <NavBar />
+      <br />
       <h1>User profile</h1>
       <div className="user-profile">
         {user && (
@@ -141,42 +142,47 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
               Edit Profile
             </button>
             <h2>My pets</h2>
-            <div className="pets-list">
-              {userPets.map((pet) => {
-                console.log("MY PET INFO", pet.id);
-                return (
-                  <div className="event-card" key={pet.id}>
-                    <div className="card-body">
-                      <div className="card-title">{pet.pet_name}</div>
-                      <img
-                        className="card-image"
-                        src={pet.pet_picture_url}
-                        alt="list pets"
-                      ></img>
-                      <div className="card-breed">{pet.breed}</div>
-                      <div className="card-vibe">{pet.vibe}</div>
-                      <div className="card-size">{pet.size}</div>
-                      <div className="card-birthday">
-                        {pet.birth_adoption_date}
+            <div className="wrapper">
+              <div className="pets-list">
+                {userPets.map((pet) => {
+                  return (
+                    <div className="pet-card" key={pet.id}>
+                      <div className="pet-card-body">
+                        <div className="pet-card-title">{pet.pet_name}</div>
+                        <img
+                          className="pet-card-image"
+                          src={pet.pet_picture_url}
+                          alt="list pets"
+                          style={{ objectFit: "cover" }}
+                          height="200px"
+                          width="300px"
+                        ></img>
+                        <div className="pet-card-breed">{pet.breed}</div>
+                        <div className="pet-card-vibe">{pet.vibe}</div>
+                        <div className="pet-card-size">{pet.size}</div>
+                        <div className="pet-card-birthday">
+                          {pet.birth_adoption_date}
+                        </div>
+                        <button
+                          className="pet-card-button"
+                          onClick={() => {
+                            handleDelete(pet.id);
+                          }}
+                        >
+                          Delete
+                        </button>
                       </div>
-                      <button
-                        className="card-button"
-                        onClick={() => {
-                          handleDelete(pet.id);
-                        }}
-                      >
-                        Delete
-                      </button>
                     </div>
+                  );
+                })}
+                {isDeleted === true && (
+                  <div className="alert alert-success" id="success-message">
+                    You've deleted your event
                   </div>
-                );
-              })}
-              {isDeleted === true && (
-                <div className="alert alert-success" id="success-message">
-                  You've deleted your event
-                </div>
-              )}
+                )}
+              </div>
             </div>
+
             <button onClick={toggleCreatePetModal}>Create Pet</button>
             <h2>My events</h2>
             <div className="user-hosted_events">
