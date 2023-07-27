@@ -5,7 +5,6 @@ from models import Account
 from queries.accounts import AccountQueries
 
 
-
 client = TestClient(app)
 
 
@@ -84,5 +83,5 @@ def test_get_account_by_email():
     }
 
     mock_get_by_email.return_value = None
-    response = client.get(f"/api/accounts/nonexistent@example.com")
+    response = client.get("/api/accounts/nonexistent@example.com")
     assert response.status_code == 404
