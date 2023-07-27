@@ -1,40 +1,39 @@
 // import useToken from '@galvanize-inc/jwtdown-for-react';
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 function UserAccounts() {
-    // const { token } = useToken();
-    // console.log('User Accounts Token:', token);
-    // console.log('User Accounts Data:', userDataTest);
-    const userDataTest = useSelector((state) => state.users);
+  // const { token } = useToken();
 
-    return (
-        <>
-            <div>
-                <h1 className="font-weight-bold mt-4"> User Accounts </h1>
-                <table className="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Last Name</th>
-                            <th>First Name</th>
-                            <th>id</th>
-                            <th>email</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {userDataTest.map((userProfile) => {
-                            return (
-                                <tr key={userProfile.id}>
-                                    <td>{userProfile.last_name}</td>
-                                    <td>{userProfile.first_name}</td>
-                                    <td>{userProfile.id}</td>
-                                    <td>{userProfile.email}</td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
-            </div>
-        </>
-    );
+  const userDataTest = useSelector((state) => state.users);
+
+  return (
+    <>
+      <div>
+        <h1 className="font-weight-bold mt-4"> User Accounts </h1>
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th>Last Name</th>
+              <th>First Name</th>
+              <th>id</th>
+              <th>email</th>
+            </tr>
+          </thead>
+          <tbody>
+            {userDataTest.map((userProfile) => {
+              return (
+                <tr key={userProfile.id}>
+                  <td>{userProfile.last_name}</td>
+                  <td>{userProfile.first_name}</td>
+                  <td>{userProfile.id}</td>
+                  <td>{userProfile.email}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
 }
 
 export default UserAccounts;

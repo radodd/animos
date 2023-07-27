@@ -1,5 +1,9 @@
 # Ethan Flores JOURNAL
 
+## 7/26/2023
+
+Team completed numerous merge request throughout the day. Finally able to have a profile page render on the frontend. Many issues sucking one member of the team away for a majority of the project. Some lessons learned...
+
 ## 7/25/2023
 
 Submitted MR for pet view on the home page and list all pets endpoint. MR was approved.

@@ -3,6 +3,7 @@ import LeftProfileCard from "./LeftFeed";
 import EventFeedCard from "./CenterFeed";
 import RightFeed from "./RightFeed";
 import EventButtonModal from "./CreateEventButtonModal";
+import PetButtonModal from "./CreatePetButtonModal";
 // import useToken from '@galvanize-inc/jwtdown-for-react';
 import { useSelector } from "react-redux";
 import NavBar from "../NavBar";
@@ -23,6 +24,7 @@ function MainPage() {
           <div className="col-md-3">{user && <LeftProfileCard />}</div>
           <div className="col-md-6 gedf-main">
             <EventButtonModal />
+            <PetButtonModal />
             <hr />
             <EventFeedCard loggedInUser={user} />
           </div>

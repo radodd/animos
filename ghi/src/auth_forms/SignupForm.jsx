@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import useToken from './jwtdauth.tsx';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import useToken from "./jwtdauth.tsx";
+import { useNavigate } from "react-router-dom";
 
 const SignupForm = () => {
-  const [email, setEmail] = useState('');
-  const [first, setFirst] = useState('');
-  const [last, setLast] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [first, setFirst] = useState("");
+  const [last, setLast] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const { register } = useToken();
   const navigate = useNavigate();
 
@@ -15,7 +15,6 @@ const SignupForm = () => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      console.log('Passwords do not match');
       return;
     }
 
@@ -24,9 +23,9 @@ const SignupForm = () => {
       first_name: first,
       last_name: last,
       password: password,
-      zipcode: '12345',
+      zipcode: "12345",
       picture_url:
-        'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg',
+        "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg",
       follower_list: [],
       following_list: [],
       pets: [],
@@ -34,12 +33,10 @@ const SignupForm = () => {
       attending_events: [],
     };
 
-    console.log('API Host:', process.env.REACT_APP_API_HOST);
-    console.log('accountData:', accountData);
     register(accountData, `${process.env.REACT_APP_API_HOST}/api/accounts`);
     e.target.reset();
 
-    navigate('/profile');
+    navigate("/profile");
   };
 
   return (

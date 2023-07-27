@@ -1,12 +1,13 @@
 /* eslint react-hooks/exhaustive-deps: 0 */
 import { useState } from "react";
-import NavBar from "../NavBar";
 import "./ProfilePage.css";
 import Modal from "react-modal";
 import { useEffect } from "react";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { useSelector } from "react-redux";
 import EventButtonModal from "../MainPage/CreateEventButtonModal";
+import NavBar from "../NavBar";
+import "../PetsList/PetsList.css";
 
 export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
   const pets = useSelector((state) => state.pets);

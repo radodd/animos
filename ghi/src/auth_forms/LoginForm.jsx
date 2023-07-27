@@ -12,7 +12,6 @@ const LoginForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(`email: ${email} password: ${password}`);
     login(email, password);
     e.target.reset();
     navigate("/home");
