@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { useSelector } from "react-redux";
 import EventButtonModal from "../MainPage/CreateEventButtonModal";
+import PetButtonModal from "../MainPage/CreatePetButtonModal";
 import NavBar from "../NavBar";
 import "../PetsList/PetsList.css";
 
@@ -15,7 +16,6 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
   const events = useSelector((state) => state.events);
   const userEvents = events.filter((event) => event.account_id === user.id);
   const [updateUserModalIsOpen, setUpdateUserModalIsOpen] = useState(false);
-  const [createPetModalIsOpen, setCreatePetModalIsOpen] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
   const [formData, setFormData] = useState({
     email: user?.email || (user && user.email) || "",
@@ -65,44 +65,6 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
       setUpdateUserModalIsOpen(false);
     } else {
       console.log(data.detail);
-    }
-  };
-
-  const toggleCreatePetModal = () => {
-    setCreatePetModalIsOpen((prevIsOpen) => !prevIsOpen);
-  };
-
-  const handleCreatePetSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const data = {
-        pet_name: formData.pet_name,
-        birth_adoption_date: formData.birth_adoption_date,
-        breed: formData.breed,
-        dietary_restrictions: formData.dietary_restrictions,
-        vibe: formData.vibe,
-        size: formData.size,
-        pet_picture_url: formData.pet_picture_url,
-        user_id: user.id,
-      };
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      };
-      const response = await fetch(
-        `${process.env.REACT_APP_API_HOST}/api/pets`,
-        requestOptions
-      );
-      const responseData = await response.json();
-      if (response.ok) {
-        updateLoadAccount();
-        setCreatePetModalIsOpen(false);
-      } else {
-        console.log(responseData.detail);
-      }
-    } catch (error) {
-      console.error("Error creating pet:", error);
     }
   };
 
@@ -256,7 +218,7 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
                   </div>
                   <br />
                   <div className="d-flex justify-content-center">
-                    <button onClick={toggleCreatePetModal}>Add a Pet</button>
+                    <PetButtonModal />
                   </div>
                 </div>
               </div>
@@ -326,90 +288,6 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
               />
             )}
             <button type="submit">Save Changes</button>
-          </form>
-        </Modal>
-        <Modal
-          isOpen={createPetModalIsOpen}
-          onRequestClose={toggleCreatePetModal}
-        >
-          <h2>Create Pet</h2>
-          <form onSubmit={handleCreatePetSubmit}>
-            <label>
-              Pet Name:
-              <input
-                type="text"
-                name="pet_name"
-                value={formData.pet_name}
-                onChange={handleInputChange}
-                required
-              />
-            </label>
-            <label>
-              Birth/Adoption Date:
-              <input
-                type="date"
-                name="birth_adoption_date"
-                value={formData.birth_adoption_date}
-                onChange={handleInputChange}
-                required
-              />
-            </label>
-            <label>
-              Breed:
-              <input
-                type="text"
-                name="breed"
-                value={formData.breed}
-                onChange={handleInputChange}
-                required
-              />
-            </label>
-            <label>
-              Dietary Restrictions:
-              <input
-                type="text"
-                name="dietary_restrictions"
-                value={formData.dietary_restrictions}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label>
-              Vibe:
-              <input
-                type="text"
-                name="vibe"
-                value={formData.vibe}
-                onChange={handleInputChange}
-                required
-              />
-            </label>
-            <label>
-              Size:
-              <input
-                type="text"
-                name="size"
-                value={formData.size}
-                onChange={handleInputChange}
-                required
-              />
-            </label>
-            <label>
-              Pet Picture URL:
-              <input
-                type="text"
-                name="pet_picture_url"
-                value={formData.pet_picture_url}
-                onChange={handleInputChange}
-              />
-            </label>
-            {formData.pet_picture_url && (
-              <img
-                className="pet-picture-preview"
-                src={formData.pet_picture_url}
-                alt=""
-              />
-            )}
-            <button type="submit">Create Pet</button>
           </form>
         </Modal>
       </div>
