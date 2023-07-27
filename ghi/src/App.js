@@ -19,103 +19,98 @@ import { fetchEvents } from "./actions/eventAction.js";
 import { fetchUser, fetchUsers } from "./actions/userAction.js";
 import { fetchPets } from "./actions/petAction.js";
 import Modal from "react-modal";
-import UsersProfilePage from "./UsersProfilePage/UsersProfilePage.js"
+import UsersProfilePage from "./UsersProfilePage/UsersProfilePage.js";
 
 function App() {
-    const domain = /https:\/\/[^/]+/;
-    const basename = process.env.PUBLIC_URL.replace(domain, '');
-    const dispatch = useDispatch();
+  const domain = /https:\/\/[^/]+/;
+  const basename = process.env.PUBLIC_URL.replace(domain, "");
+  const dispatch = useDispatch();
 
-    const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
 
-    async function loadAccount() {
+  async function loadAccount() {
+    const response = await fetch(`${process.env.REACT_APP_API_HOST}/token`, {
+      credentials: "include",
+      method: "get",
+    });
+    const data = await response.json();
+    if (data.account) {
+      setUser(data.account);
+    }
+  }
+
+  async function updateLoadAccount() {
+    try {
+      if (user) {
         const response = await fetch(
-            `${process.env.REACT_APP_API_HOST}/token`,
-            {
-                credentials: 'include',
-                method: 'get',
-            }
+          `${process.env.REACT_APP_API_HOST}/api/accounts/${user.email}`
         );
         const data = await response.json();
-        if (data.account) {
-            setUser(data.account);
-        }
+        setUser(data);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
+  }
 
-    async function updateLoadAccount() {
-        try {
-            if (user) {
-                const response = await fetch(
-                    `${process.env.REACT_APP_API_HOST}/api/accounts/${user.email}`
-                );
-                const data = await response.json();
-                setUser(data);
-            } else {
-                console.error('User object is null or undefined');
-            }
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    }
+  useEffect(() => {
+    dispatch(fetchUser());
+    dispatch(fetchLocations());
+    dispatch(fetchEvents());
+    dispatch(fetchUsers());
+    dispatch(fetchPets());
+  }, [dispatch]);
 
-    useEffect(() => {
-        dispatch(fetchUser());
-        dispatch(fetchLocations());
-        dispatch(fetchEvents());
-        dispatch(fetchUsers());
-        dispatch(fetchPets());
-    }, [dispatch]);
-
-    return (
-      <div>
-        <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
-          <BrowserRouter basename={basename}>
-            <div className="container">
-              <Routes>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="home" element={<MainPage />} />
-                <Route exact path="/signup" element={<SignupForm />}></Route>
-                <Route exact path="/login" element={<LoginForm />}></Route>
-                <Route path="locations">
-                  <Route index element={<LocationsListDetail />} />
-                </Route>
-                <Route path="pets">
-                  <Route index element={<PetsList />} />
-                  <Route path="create" element={<CreatePet />} />
-                </Route>
-                <Route path="events" element={<EventsList />}>
-                  <Route path="create" />
-                </Route>
-                <Route path="profile">
-                  <Route
-                    path="all"
-                    element={
-                      <UserAccounts
-                      // userDataTest={userDataTest}
-                      />
-                    }
-                  />
-                  <Route
-                    path=""
-                    element={
-                      <ProfilePage
-                        user={user}
-                        loadAccount={loadAccount}
-                        updateLoadAccount={updateLoadAccount}
-                      />
-                    }
-                  />
-                </Route>
-                <Route path="users">
-                  <Route index element={<FindFriend />} />
-                  <Route path=":userId" element={<UsersProfilePage />} />
-                </Route>
-              </Routes>
-            </div>
-          </BrowserRouter>
-        </AuthProvider>
-      </div>
-    );
+  return (
+    <div>
+      <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
+        <BrowserRouter basename={basename}>
+          <div className="container">
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="home" element={<MainPage />} />
+              <Route exact path="/signup" element={<SignupForm />}></Route>
+              <Route exact path="/login" element={<LoginForm />}></Route>
+              <Route path="locations">
+                <Route index element={<LocationsListDetail />} />
+              </Route>
+              <Route path="pets">
+                <Route index element={<PetsList />} />
+                <Route path="create" element={<CreatePet />} />
+              </Route>
+              <Route path="events" element={<EventsList />}>
+                <Route path="create" />
+              </Route>
+              <Route path="profile">
+                <Route
+                  path="all"
+                  element={
+                    <UserAccounts
+                    // userDataTest={userDataTest}
+                    />
+                  }
+                />
+                <Route
+                  path=""
+                  element={
+                    <ProfilePage
+                      user={user}
+                      loadAccount={loadAccount}
+                      updateLoadAccount={updateLoadAccount}
+                    />
+                  }
+                />
+              </Route>
+              <Route path="users">
+                <Route index element={<FindFriend />} />
+                <Route path=":userId" element={<UsersProfilePage />} />
+              </Route>
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </AuthProvider>
+    </div>
+  );
 }
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 export default App;
