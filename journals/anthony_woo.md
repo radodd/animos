@@ -67,3 +67,13 @@ Today, a good chunk of the day was spent on the practice exam. However, I was ab
 I started today working on more redux implementation to the front end components. I also spend most of the morning and early afternoon trying to help PA get unblocked with his front end component which was having a lot of issues with implementing redux and so we attempted to isolate the component from redux state and just utilize local react state. This so far has not worked.
 
 Additionally, I was able to get the front end deploy done by adding a eslint rule to ignore the offending file. The deploy was good but we have a couple issues with the links as they were not using the react link tags and instead a tags with hrefs. I changed those and will be waiting on an MR to confirm if that did the trick.
+
+## 7/25/2023
+
+Today, the MR was approved that fixed the link tag issues. Now the buttons on the landing page will navigate to the correct view. I did realize however, that there was an issue with the initialization fetch request to load data. All of them except for locations was getting a blocked: mixed content 302 error. I spent some time trying to work it out and researching docs for solutions. I came across some documentation that this is an issue commonly caused when the front end and backend are not on the same http protocol. I was not able to resolve this by the end of the day.
+
+I also spent a significant amount of time helping PA try to get redux state implemented to the profilePage component but we kept running into the issue that user data is from the token and the token is always outdated until the session is renewed.
+
+## 7/26/2023
+
+Today, we spent the entire morning going through merge request and writing unit tests. I made a unit test to test the functionality of get(api/accounts) endpoint. Additionally, I began working on trying to protect some the endpoints to ensure that only a logged in user will be able to access the data. By the end of the day, I re-deployed our backend and as a group we began working on debugging the deployed front end. It appears that there are quite a few issues we need to work out prior to presenting tomorrow. This includes, user doesn't actually seem logged in until a page refresh. Clicking create an event actually does not create an event and same goes with creating a pet. I suspect that it has to do with trailing slashes on the fetch urls.
