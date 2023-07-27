@@ -1,6 +1,5 @@
 /* eslint react-hooks/exhaustive-deps: 0 */
 import { useState } from "react";
-import NavBar from "../NavBar";
 import "./ProfilePage.css";
 import Modal from "react-modal";
 import { useEffect } from "react";
@@ -140,7 +139,7 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
                     handleDeletePet(pet.id);
                   }}
                 >
-                  Remove
+                  Delete
                 </button>
               </div>
             </div>
@@ -214,63 +213,38 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
 
   return (
     <>
-      <NavBar />
-      <br />
-      <div className="container">
-        <div className="main-body">
-          <div className="row gutters-sm">
-            <div className="col-md-3 mb-3">
-              <div className="card">
-                <div className="card-body">
-                  <div className="d-flex flex-column align-items-center text-center">
-                    <img
-                      src={user && user.picture_url}
-                      alt=""
-                      className="rounded"
-                      width="150"
-                      height="150"
-                      style={{ objectFit: "cover" }}
-                    />
-                    <div className="mt-3">
-                      <h2>
-                        {user && user.first_name} {user && user.last_name}
-                      </h2>
-                      <p className="text-muted font-size-sm">
-                        {user && user.zipcode}
-                      </p>
-                      <button onClick={() => setUpdateUserModalIsOpen(true)}>
-                        Edit Profile
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <h1>User profile</h1>
+      <div className="user-profile">
+        {user && (
+          <div className="user" key={user.id}>
+            <h2>My Info</h2>
+            <div className="user-first_name">{user.first_name}</div>
+            <div className="user-last_name">{user.last_name}</div>
+            <div className="user-zipcode">{user.zipcode}</div>
+            <button onClick={() => setUpdateUserModalIsOpen(true)}>
+              Edit Profile
+            </button>
             <div className="col-md-8">
               <div className="card">
                 <div className="card-body">
-                  <h4>{user && user.first_name}'s Pet(s)</h4>
+                  <h4>My Pet(s)</h4>
                   <div className="card-container">
                     <ProfilePagePetCard />
                   </div>
-                  <br />
-                  <div className="d-flex justify-content-center">
-                    <button onClick={toggleCreatePetModal}>Add a Pet</button>
-                  </div>
+                  <button onClick={toggleCreatePetModal}>Add a Pet</button>
                 </div>
               </div>
               <br />
               <div className="card">
                 <div className="card-body">
-                  <h4>{user && user.first_name}'s Event(s)</h4>
+                  <h4>My Event(s)</h4>
                   <ProfilePageEventCard />
-                  <br />
-                  <EventButtonModal />
                 </div>
               </div>
             </div>
+            <div className="user-attending_events">{user.attending_events}</div>
           </div>
-        </div>
+        )}
         <Modal
           isOpen={updateUserModalIsOpen}
           onRequestClose={() => setUpdateUserModalIsOpen(false)}
@@ -321,7 +295,7 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
               <img
                 className="profile-picture-preview"
                 src={formData.picture_url}
-                alt=""
+                alt="Profile Picture Preview"
               />
             )}
             <button type="submit">Save Changes</button>
@@ -405,12 +379,13 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
               <img
                 className="pet-picture-preview"
                 src={formData.pet_picture_url}
-                alt=""
+                alt="Pet Picture Preview"
               />
             )}
             <button type="submit">Create Pet</button>
           </form>
         </Modal>
+        <EventButtonModal />
       </div>
     </>
   );

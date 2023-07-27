@@ -41,8 +41,6 @@ class AccountForm(BaseModel):
 
 class AccountToken(Token):
     account: AccountOut
-    token_type: str
-    access_token: str
 
 
 @router.get("/api/protected")
