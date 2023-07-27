@@ -1,3 +1,7 @@
+.locations-image-title {
+  padding-top: 15px;
+}
+
 .wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(10rem, 16rem));
@@ -22,18 +26,18 @@
 }
 
 
-.card-title {
+.location-card-title {
   padding: 1rem;
   font-size: 800;
 }
 
-.card-description {
+.location-card-description {
   padding: 1rem;
   font-size: 800;
 }
 
 
-.card-button {
+.location-card-button {
     padding: 5px 10px 5px 10px;
     font-size: 1rem;
     margin: 1rem;
@@ -41,13 +45,13 @@
     font-weight: bold;
     border-radius: 12px;
     color: white;
-    background-color:purple;
+    background-color:#5574C8;
     transition: 20ms ease-in;
 }
 
-.card-button:hover {
-    color: purple;
-    background-color:rgba(128, 0, 128, 0.143);
+.location-card-button:hover {
+    color: white;
+    background-color:#2400C6;
 }
 
 
@@ -76,7 +80,6 @@
     opacity: 0;
     visibility: hidden;
     transition: .3s;
-    border-radius: 12px;
 }
 
 .location_modal-content {
@@ -84,7 +87,7 @@
     position: relative;
     padding: 3.5rem 2.5rem 2.5rem;
     border-radius: 1.5rem;
-    background-color: beige;
+    background-color: #f0f2f5;
 }
 
 .location_modal-close-button {
@@ -99,23 +102,23 @@
     padding:0px 0px 20px 0px;
 }
 
-.modal-image {
+.location-modal-image {
     border-radius: 12px;
     padding: 2px;
     top: 15rem;
 }
-.modal-title{
+.location-modal-title{
     text-align: center;
     padding: 15px;
 }
 
-.modal-description {
+.location-modal-description {
     text-align: center;
     padding-top: 10px;
 }
 
-.modal-capacity,
-.modal-zipcode {
+.location-modal-capacity,
+.location-modal-zipcode {
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -123,12 +126,12 @@
     font-size: 15px;
 }
 
-.modal-description {
+.location-modal-description {
     font-size: var(--smaller-font-size);
     margin-bottom: 20px;
 }
 
-.modal-title {
+.location-modal-title {
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -140,4 +143,11 @@
 .active-modal {
     opacity: 1;
     visibility: visible;
+}
+
+
+.image-title-holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

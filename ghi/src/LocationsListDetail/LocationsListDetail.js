@@ -16,22 +16,22 @@ function LocationsList() {
     function Card() {
         return (
           <>
-            <NavBar />
             {locations.map((location, index) => (
               <div className="location-card" key={location.id}>
-                <div className="card-body">
+                <div className="location-card-body">
                   <img
-                    className="card-image"
-                    width="100%"
+                    className="location-card-image"
+                    height="200px"
                     src={location.picture_url}
+                    style={{objectFit:"cover"}}
                     alt="location"
                   />
-                  <h5 className="card-title">{location.name}</h5>
+                  <h5 className="location-card-title">{location.name}</h5>
                   <button
-                    className="card-button"
+                    className="location-card-button"
                     onClick={() => toggleModal(index)}
                   >
-                    View details
+                    View Details
                   </button>
                 </div>
               </div>
@@ -53,17 +53,21 @@ function LocationsList() {
                     X
                   </button>
                   <img
-                    className="modal-image"
-                    width="100%"
+                    className="location-modal-image"
+                    height="300"
+                    width="415"
                     src={location.picture_url}
                     alt="modal"
+                    style={{ objectFit: 'cover' }}
                   />
-                  <h5 className="modal-title">{location.name}</h5>
-                  <p className="modal-zipcode">{location.zipcode}</p>
-                  <p className="modal-capacity">
+                  <h5 className="location-modal-title">{location.name}</h5>
+                  <p className="location-modal-zipcode">{location.zipcode}</p>
+                  <p className="location-modal-capacity">
                     Capacity: {location.capacity}
                   </p>
-                  <p className="modal-description">{location.description}</p>
+                  <p className="location-modal-description">
+                    {location.description}
+                  </p>
                 </div>
               </div>
             ))}
@@ -72,17 +76,21 @@ function LocationsList() {
     }
 
     return (
-        <>
-            <br />
-            <img
-                className="locations-image-title"
-                src={LocationsTitle}
-                alt=""
-                width="800px"/>
-            <div className="wrapper">
-                <Card />
-            </div>
-        </>
+      <>
+        <NavBar />
+        <br />
+        <div className="image-title-holder">
+          <img
+            className="locations-image-title"
+            src={LocationsTitle}
+            alt=""
+            width="800px"
+          />
+        </div>
+        <div className="wrapper">
+          <Card />
+        </div>
+      </>
     );
 }
 

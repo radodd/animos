@@ -35,6 +35,7 @@
 
 .div-tag-test {
     background-color: #f0f2f5b0;
+    height:56px;
 }
 
 .user-name {
@@ -82,3 +83,5 @@
 .pets-list-view {
     padding-right: 5px;
 }
+
+

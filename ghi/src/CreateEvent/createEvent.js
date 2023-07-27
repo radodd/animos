@@ -66,8 +66,8 @@ function CreateEvent() {
         }
         const data = {
             name: name,
-            date_start: start,
-            date_end: end,
+            date_start: String(start),
+            date_end: String(end),
             description: description,
             location_id: location,
             picture_url: picture,
@@ -75,7 +75,7 @@ function CreateEvent() {
             account_id: user.id,
             attendees: [],
         };
-        const url = `${process.env.REACT_APP_API_HOST}/api/events/`;
+        const url = `${process.env.REACT_APP_API_HOST}/api/events`;
         const fetchOptions = {
             method: 'POST',
             body: JSON.stringify(data),

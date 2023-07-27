@@ -1,9 +1,8 @@
-.wrapper {
+.event-wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(10rem, 16rem));
   gap: 2rem;
   justify-content: center;
-  padding-top: 50px;
 }
 
 .event-card {
@@ -15,58 +14,36 @@
   justify-content: space-between;
   cursor: pointer;
   transition: 20ms ease-in;
-  width: 100%;
-  flex: 1;
 }
 
 .event-card:hover {
   transform: scale(1.02);
 }
 
-.event-list-create-btn {
-  border-color: black;
-  width: 300px;
-  align-items: center;
-}
 
-.create_event_modal-close-button {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.card-body-event-btn:hover {
-  border: none;
-}
-
-.card-title {
+.event-card-description {
   padding: 1rem;
   font-size: 800;
 }
 
-.card-description {
-  padding: 1rem;
-  font-size: 800;
+
+.event-card-button {
+    padding: 5px 10px 5px 10px;
+    font-size: 1rem;
+    margin: 1rem;
+    border: 2px solid;
+    font-weight: bold;
+    border-radius: 12px;
+    color: white;
+    background-color:#5574C8;
+    transition: 20ms ease-in;
 }
 
-.card-button {
-  padding: 5px 10px 5px 10px;
-  font-size: 1rem;
-  margin: 1rem;
-  border: 2px solid;
-  font-weight: bold;
-  border-radius: 12px;
-  color: white;
-  background-color: purple;
-  transition: 20ms ease-in;
+.event-card-button:hover {
+    color: white;
+    background-color:#2400C6;
 }
 
-.card-button:hover {
-  color: purple;
-  background-color: rgba(128, 0, 128, 0.143);
-}
 
 .event_modal-close-button {
   position: absolute;
@@ -77,86 +54,95 @@
 }
 
 .event_modal {
-  display: flex;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-  display: flex;
-  justify-content: center;
-  justify-self: center;
-  align-items: center;
-  padding: 0 1rem;
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.3s;
-  border-radius: 12px;
+    display:flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    justify-content:center;
+    justify-self: center;
+    align-items: center;
+    padding: 0 1rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
 }
 
-.card_modal-content {
-  width: 500px;
-  position: relative;
-  padding: 3.5rem 2.5rem 2.5rem;
-  border-radius: 1.5rem;
-  background-color: beige;
+.event_modal-content {
+    width: 500px;
+    position: relative;
+    padding: 3.5rem 2.5rem 2.5rem;
+    border-radius: 1.5rem;
+    background-color: #f0f2f5;
 }
 
 .event_modal-close-button {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  font-size: 1.5rem;
-  color: black;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0px 0px 20px 0px;
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 1.5rem;
+    color: black;
+    background-color: transparent;
+    border:none;
+    cursor: pointer;
+    padding:0px 0px 20px 0px;
 }
 
-.card-image {
-  border-radius: 12px;
-  padding: 2px;
-  top: 15rem;
-  width: 100%;
-}
-.modal-title {
-  text-align: center;
-  padding: 15px;
+.event-modal-image {
+    border-radius: 12px;
+    padding: 2px;
+    top: 8rem;
+    bottom: 8rem;
 }
 
-.modal-description {
-  text-align: center;
-  padding-top: 10px;
+.event-modal-title{
+    text-align: center;
+    padding: 5px;
 }
 
-.modal-capacity,
-.modal-zipcode {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin-bottom: 1rem;
-  font-size: 15px;
+.event-modal-description {
+    text-align: center;
+    padding-top: 5px;
 }
 
-.modal-description {
-  font-size: var(--smaller-font-size);
-  margin-bottom: 20px;
+.event-modal-capacity,
+.event-modal-zipcode {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 15px;
 }
 
-.modal-title {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin-bottom: 1rem;
-  font-size: 25px;
+.event-modal-description {
+    font-size: var(--smaller-font-size);
+    margin-bottom: 20px;
 }
 
-/* Active modal */
+.event-modal-title {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 25px;
+}
+
+/*Active Modal*/
 .active-modal {
-  opacity: 1;
-  visibility: visible;
-  /* height: 200%; */
+    opacity: 1;
+    visibility: visible;
+}
+
+
+.event-button-holder {
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+  width: 300px;
 }

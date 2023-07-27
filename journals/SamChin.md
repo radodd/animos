@@ -2,6 +2,7 @@
 ## Sam Chin Journal Entries
 
 ## Wednesday, July 26, 2023
+Today I worked on reviewing merge requests, as well as finalizing the Find Friends page with functionality full working. Refactoring Redux impacted the user load on the page, so Anthony was graciously able to share a workaround to grab a user without waiting for the page to fully load. In addition, I worked on the README with Ethan, following the example that was provided to us in Learn and we were able to draft out the API endpoints and the documentation.
 
 ## Tuesday, July 25, 2023
 Today I worked on the find friends to follow page and the user profile page. The find friends to follow page was more of a challenge than I had initially thought. I had my follow user endpoint ready, however I had to figure out a way to create the onClick handler so that the page will also refresh and update the button status from follow to following. Although it utilizes a window.location.reload(), I am hoping to workshop this further with Anthony in regards to incorporating useState and useDispatch via Redux. However, since this is not a priority towards our final grade, I am looking forward to working on this next week. In addition to the onClick functionality, I was coming across errors that the follower_list and following_list were returning null. After Anthony had walked our team through the demo, I was able to spot something and asked him for assistance where it was coming from our queries - I had to add in these two keys and set the values to empty arrays.

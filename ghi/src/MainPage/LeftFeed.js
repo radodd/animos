@@ -13,12 +13,12 @@ function LeftFeed() {
   function ProfileCard() {
     return (
       <>
-        <div className="card">
+        <div className="card home-profile-card">
           <div className="card-body">
             <img
               src={user.picture_url}
               alt=""
-              className="rounded-circle"
+              className="rounded-circle profile-card-image"
               width="150"
               height="150"
               style={{ objectFit: 'cover', borderRadius: '50%' }}
@@ -29,21 +29,22 @@ function LeftFeed() {
                 {user.first_name} {user.last_name}
               </div>
             )}
-            <div className="h7">
-              <Link to={`/users/${user.id}`}>Profile Page</Link> | <Link to="/profile">Edit Profile</Link>
+
+            <div className="h7 home-profile-card-links">
+              <Link to={`/users/${user.id}`}>Profile Page</Link> |{' '}
+              <Link to="/profile">Edit Profile</Link>
             </div>
           </div>
         </div>
-
-        <div className="card">
-          <h5>
-            <Link to="/pets" className="card-subtitle">
+        <br/>
+        <div className="card home-pets-card">
+          <h5 className="my-pets-title">
+            <Link to="/pets" className="card-my-pets-title">
               My Pets
             </Link>
           </h5>
           <div className="card-body row row-cols-3">
             <br />
-
             {userPets.map((pets) => {
               return (
                 <>
@@ -52,13 +53,13 @@ function LeftFeed() {
                     style={{ width: 'fit', border: 'none' }}
                   >
                     <img
-                      className="rounded-circle card-img-top"
+                      className="rounded-circle "
                       src={pets.pet_picture_url}
                       alt=""
                       width="50"
                       height="50"
                       key={pets.id}
-                      style={{objectFit: "cover"}}
+                      style={{ objectFit: 'cover' }}
                     />
                     <p className="card-text">{pets.pet_name}</p>
                   </div>
@@ -66,11 +67,11 @@ function LeftFeed() {
               );
             })}
 
-                        <br />
-                    </div>
-                </div>
-            </>
-        );
+            <br />
+          </div>
+        </div>
+      </>
+    );
     }
 
     function MyLinksCard() {
@@ -118,10 +119,11 @@ function LeftFeed() {
     }
 
     return (
-        <>
-            <ProfileCard />
-            <MyLinksCard />
-        </>
+      <>
+        <ProfileCard />
+        <br />
+        <MyLinksCard />
+      </>
     );
 }
 
