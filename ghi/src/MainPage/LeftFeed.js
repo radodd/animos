@@ -47,6 +47,7 @@ function LeftFeed() {
               return (
                 <>
                   <div
+                    key={pets.id}
                     className="card align-items-center"
                     style={{ width: "fit", border: "none" }}
                   >

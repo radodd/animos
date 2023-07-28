@@ -1,5 +1,9 @@
 # Ethan Flores JOURNAL
 
+## 7/28/2023
+
+Successfully implemented delete functionality of pet list. When user deletes pet from list of pets the pet instance is also deleted from the user data. Unable to complete an edit form. Reason was an error that reported the edit modal is called to open more than once. Sending MR as is and will work towards more successful implementation of edit modal in the future.
+
 ## 7/26/2023
 
 Team completed numerous merge request throughout the day. Finally able to have a profile page render on the frontend. Many issues sucking one member of the team away for a majority of the project. Some lessons learned...

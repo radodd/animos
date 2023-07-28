@@ -84,15 +84,6 @@ function CreatePet() {
     navigate(`/profile/${user && user.email}`);
   };
 
-  function covertToBase64(e) {
-    var reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
-    reader.onload = () => {
-      setPicture(reader.result);
-    };
-    reader.onerror = (error) => {};
-  }
-
   return (
     <div className="row">
       <div className="shadow p-4 mt-4">
@@ -187,11 +178,20 @@ function CreatePet() {
               className="form-control"
             />
             <label htmlFor="picture">Upload a picture of your pet</label>
-            <input accept="image/*" type="file" onChange={covertToBase64} />
+
             {picture === "" || picture === null ? (
               ""
             ) : (
-              <img width={140} height={100} src={picture} alt="preview" />
+              <div className="card-body">
+                <img
+                  className="rounded-circle rounded float-left"
+                  style={{ marginTop: "10px" }}
+                  width={150}
+                  height={150}
+                  src={picture}
+                  alt="preview"
+                />
+              </div>
             )}
           </div>
           <div className="row" style={{ justifyContent: "center" }}>

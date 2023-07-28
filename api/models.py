@@ -131,6 +131,11 @@ class PetsList(BaseModel):
     pets: List[PetOut]
 
 
+class UserPet(BaseModel):
+    pet_id: str
+    user_id: str
+
+
 class AddFriend(BaseModel):
     user_id: str
     requesting_user_id: str

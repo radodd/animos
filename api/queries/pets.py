@@ -46,6 +46,9 @@ class PetQueries(Queries):
         return PetOut(**result)
 
     def delete_pet(self, id) -> bool:
+        does_exist = self.collection.delete_one(id)
+        if does_exist is None:
+            raise Exception("Pet Not Found")
         result = self.collection.delete_one(id)
         if result.deleted_count > 0:
             return True
