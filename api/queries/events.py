@@ -30,6 +30,9 @@ class EventQueries(Queries):
         return [EventOut(**result) for result in result_list]
 
     def delete(self, id) -> bool:
+        does_exist = self.collection.find_one(id)
+        if does_exist is None:
+            raise Exception("Event Not Found")
         result = self.collection.delete_one(id)
         if result.deleted_count > 0:
             return True
@@ -40,24 +43,21 @@ class EventQueries(Queries):
         props = event.dict()
         new_values = {"$set": dict(props)}
         result = self.collection.find_one_and_update(
-            filter,
-            new_values,
-            return_document=True
+            filter, new_values, return_document=True
         )
         if result is None:
-            return Exception("Event Not Found")
+            return EventOut(id=id, **event.dict())
         result["id"] = str(result["_id"])
         return EventOut(**result)
 
-    def add_attendee(self, attend: AttendEvent) -> EventOut:
+    def add_attendee(self, attend: AttendEvent) -> bool:
         props = attend.dict()
         filter = {"_id": ObjectId(props["event_id"])}
         new_values = {"$push": {"attendees": props["user_id"]}}
         result = self.collection.find_one_and_update(
-            filter,
-            new_values, return_document=True
+            filter, new_values, return_document=True
         )
         if result is None:
             return Exception("Event Not Found")
         result["id"] = str(result["_id"])
-        return EventOut(**result)
+        return True

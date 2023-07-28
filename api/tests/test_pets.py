@@ -1,6 +1,7 @@
 from main import app
 from fastapi.testclient import TestClient
 from queries.pets import PetQueries
+from routers.auth import authenticator
 
 client = TestClient(app)
 
@@ -8,6 +9,10 @@ client = TestClient(app)
 class EmptyPetQueries:
     def get_pets(self):
         return []
+
+
+def mock_logged_in_account():
+    return True
 
 
 class CreatePetQueries:
@@ -31,6 +36,9 @@ class CreatePetQueries:
 
 def test_get_all_pets():
     app.dependency_overrides[PetQueries] = EmptyPetQueries
+    app.dependency_overrides[
+        authenticator.try_get_current_account_data
+    ] = mock_logged_in_account
     response = client.get("/api/pets/")
     app.dependency_overrides = {}
     assert response.status_code == 200

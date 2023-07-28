@@ -3,7 +3,6 @@ from models import EventIn, EventOut, EventsList, AttendEvent
 from queries.events import EventQueries
 from queries.accounts import AccountQueries
 from bson.objectid import ObjectId
-from .auth import authenticator
 
 router = APIRouter()
 
@@ -13,7 +12,6 @@ def create_event(
     event: EventIn,
     repo: EventQueries = Depends(),
     account_repo: AccountQueries = Depends(),
-    account: dict = Depends(authenticator.try_get_current_account_data),
 ):
     event = repo.create(event)
     account_repo.add_hosting(event)
@@ -21,20 +19,13 @@ def create_event(
 
 
 @router.get("/api/events/{id}", response_model=EventOut)
-def get_event(
-    id: str,
-    repo: EventQueries = Depends(),
-    account: dict = Depends(authenticator.try_get_current_account_data),
-):
+def get_event(id: str, repo: EventQueries = Depends()):
     event = repo.get({"_id": ObjectId(id)})
     return event
 
 
 @router.get("/api/events", response_model=EventsList)
-def get_events(
-    repo: EventQueries = Depends(),
-    account: dict = Depends(authenticator.try_get_current_account_data),
-):
+def get_events(repo: EventQueries = Depends()):
     return EventsList(events=repo.get_list())
 
 
@@ -44,7 +35,6 @@ def delete_event(
     remove_obj: AttendEvent,
     event_repo: EventQueries = Depends(),
     account_repo: AccountQueries = Depends(),
-    account: dict = Depends(authenticator.try_get_current_account_data),
 ):
     deleted_event = event_repo.delete({"_id": ObjectId(id)})
     account_repo.remove_hosted_event(remove_obj)
@@ -53,22 +43,18 @@ def delete_event(
 
 @router.put("/api/events/{id}", response_model=EventOut)
 async def update_event(
-    id: str,
-    event: EventIn,
-    repo: EventQueries = Depends(),
-    account: dict = Depends(authenticator.try_get_current_account_data),
+    id: str, event: EventIn, repo: EventQueries = Depends()
 ):
     updated_event = repo.update(id, event)
     return updated_event
 
 
-@router.put("/api/events/attend", response_model=EventOut)
-async def attend_event(
-    attend: AttendEvent,
+@router.put("/api/events/attending")
+async def attend_this_event(
+    attend_info: AttendEvent,
     event_repo: EventQueries = Depends(),
     account_repo: AccountQueries = Depends(),
-    account: dict = Depends(authenticator.try_get_current_account_data),
 ):
-    updated_event = event_repo.add_attendee(attend)
-    account_repo.add_attending(attend)
-    return updated_event
+    event_repo.add_attendee(attend_info)
+    account_repo.add_attending(attend_info)
+    return True
