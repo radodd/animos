@@ -14,11 +14,8 @@ class GetAllAccountQueries:
 
 
 def test_get_all_users():
-    # arrange
     app.dependency_overrides[AccountQueries] = GetAllAccountQueries
-    # Act
     response = client.get("/api/accounts")
-    # Assert
     assert response.status_code == 200
     response_data = response.json()
     assert isinstance(response_data, list)
@@ -35,7 +32,6 @@ def test_get_all_users():
         assert "pets" in user
         assert "hosted_events" in user
         assert "attending_events" in user
-    # Cleanup
     app.dependency_overrides = {}
 
 

@@ -25,18 +25,12 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
     zipcode: user?.zipcode || (user && user.zipcode) || "",
     picture_url: user?.picture_url || (user && user.picture_url) || "",
     friend_list: user?.friend_list || (user && user.friend_list) || [],
+    follower_list: user?.follower_list || (user && user.follower_list) || [],
+    following_list: user?.following_list || (user && user.following_list) || [],
     pets: user?.pets || (user && user.pets) || [],
     hosted_events: user?.hosted_events || (user && user.hosted_events) || [],
     attending_events:
       user?.attending_events || (user && user.attending_events) || [],
-    pet_name: "",
-    birth_adoption_date: "",
-    breed: "",
-    dietary_restrictions: "",
-    vibe: "",
-    size: "",
-    pet_picture_url: "",
-    user_id: user?.id || (user && user.id) || "",
   });
 
   const handleInputChange = (event) => {
