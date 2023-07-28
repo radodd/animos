@@ -15,7 +15,6 @@ function CreateEvent() {
 
     const locations = useSelector((state) => state.locations);
     const user = useSelector((state) => state.user);
-    console.log('userfrom event form', user);
     const dispatch = useDispatch();
     // console.log('USER RIGHT HERE', user);
 

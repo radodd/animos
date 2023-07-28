@@ -49,12 +49,12 @@ async def update_event(
     return updated_event
 
 
-@router.put("/api/events/attend", response_model=EventOut)
-async def attend_event(
-    attend: AttendEvent,
+@router.put("/api/events/attending")
+async def attend_this_event(
+    attend_info: AttendEvent,
     event_repo: EventQueries = Depends(),
     account_repo: AccountQueries = Depends(),
 ):
-    updated_event = event_repo.add_attendee(attend)
-    account_repo.add_attending(attend)
-    return updated_event
+    event_repo.add_attendee(attend_info)
+    account_repo.add_attending(attend_info)
+    return True

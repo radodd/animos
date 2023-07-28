@@ -93,7 +93,7 @@ class AccountQueries(Queries):
         )
         if result is None:
             return Exception("User Not Found")
-        result["id"] = str(result["id"])
+        result["id"] = str(result["_id"])
         return Account(**result)
 
     def add_pet(self, pet: PetIn) -> Account:

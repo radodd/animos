@@ -23,7 +23,7 @@ export default function EventDetail({ event, location, user }) {
     }
 
     const handleAttend = async (e) => {
-        const url = `${process.env.REACT_APP_API_HOST}/api/events/attend`;
+        const url = `${process.env.REACT_APP_API_HOST}/api/events/attending`;
         const data = {
             event_id: event.id,
             user_id: user.id,
