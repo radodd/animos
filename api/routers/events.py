@@ -3,7 +3,6 @@ from models import EventIn, EventOut, EventsList, AttendEvent, Error
 from queries.events import EventQueries
 from queries.accounts import AccountQueries
 from bson.objectid import ObjectId
-from .auth import authenticator
 from typing import Union
 
 router = APIRouter()
@@ -15,17 +14,13 @@ def create_event(
     event: EventIn,
     repo: EventQueries = Depends(),
     account_repo: AccountQueries = Depends(),
-    account: dict = Depends(authenticator.try_get_current_account_data),
 ):
-    if account is None:
-        response.status_code = 401
-        return Error(message="Sign in to create event")
-    event = repo.create(event)
+    created_event = repo.create(event)
     account_repo.add_hosting(event)
     if event is None:
         response.status_code = 400
         return Error(message="Cannot find event")
-    return event
+    return created_event
 
 
 @router.get("/api/events/{id}", response_model=Union[EventOut, Error])
@@ -33,11 +28,7 @@ def get_event(
     response: Response,
     id: str,
     repo: EventQueries = Depends(),
-    account: dict = Depends(authenticator.try_get_current_account_data),
 ):
-    if account is None:
-        response.status_code = 401
-        return Error(message="Sign in to see event")
     event = repo.get({"_id": ObjectId(id)})
     if event is None:
         response.status_code = 400
@@ -49,11 +40,7 @@ def get_event(
 def get_events(
     response: Response,
     repo: EventQueries = Depends(),
-    account: dict = Depends(authenticator.try_get_current_account_data),
 ):
-    if account is None:
-        response.status_code = 401
-        return Error(message="Sign in to see events")
     events = repo.get_list()
     if events is None:
         response.status_code = 400
@@ -68,11 +55,7 @@ def delete_event(
     remove_obj: AttendEvent,
     event_repo: EventQueries = Depends(),
     account_repo: AccountQueries = Depends(),
-    account: dict = Depends(authenticator.try_get_current_account_data),
 ):
-    if account is None:
-        response.status_code = 401
-        return Error(message="Sign in to delete event")
     deleted_event = event_repo.delete({"_id": ObjectId(id)})
     account_repo.remove_hosted_event(remove_obj)
     if deleted_event is False:
@@ -87,11 +70,7 @@ async def update_event(
     id: str,
     event: EventIn,
     repo: EventQueries = Depends(),
-    account: dict = Depends(authenticator.try_get_current_account_data),
 ):
-    if account is None:
-        response.status_code = 401
-        return Error(message="Sign in to edit event")
     updated_event = repo.update(id, event)
     if updated_event is None:
         response.status_code = 400
@@ -105,11 +84,7 @@ async def attend_event(
     attend: AttendEvent,
     event_repo: EventQueries = Depends(),
     account_repo: AccountQueries = Depends(),
-    account: dict = Depends(authenticator.try_get_current_account_data),
 ):
-    if account is None:
-        response.status_code = 401
-        return Error(message="Sign in to attend event")
     updated_event = event_repo.add_attendee(attend)
     account_repo.add_attending(attend)
     if updated_event is None:

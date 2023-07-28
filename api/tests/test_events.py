@@ -36,17 +36,6 @@ def test_get_events():
     assert response.json() == {"events": []}
 
 
-def test_get_events_not_logged_in():
-    app.dependency_overrides[EventQueries] = EmptyEventQueries
-    app.dependency_overrides[
-        authenticator.try_get_current_account_data
-    ] = mock_not_logged_in
-    response = client.get("/api/events/")
-    app.dependency_overrides = {}
-    assert response.status_code == 401
-    assert response.json() == {"message": "Sign in to see events"}
-
-
 def test_get_events_logged_in_failed_query():
     app.dependency_overrides[EventQueries] = FailedEventQueries
     app.dependency_overrides[
