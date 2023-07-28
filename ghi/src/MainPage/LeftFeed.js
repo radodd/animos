@@ -32,7 +32,7 @@ function LeftFeed() {
 
             <div className="h7 home-profile-card-links">
               <Link to={`/users/${user.id}`}>Profile Page</Link> |{" "}
-              <Link to="/profile">Edit Profile</Link>
+              <Link to={`/profile/${user.email}`}>Edit Profile</Link>
             </div>
           </div>
         </div>
