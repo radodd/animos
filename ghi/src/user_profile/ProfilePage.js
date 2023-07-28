@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import "./ProfilePage.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
@@ -13,10 +12,8 @@ import { fetchUser, fetchUsers } from "../actions/userAction.js";
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
-  const { userEmail } = useParams();
   const [tokenUser, setUserToken] = useState(null);
-  const users = useSelector((state) => state.users);
-  const userProfile = users.find((user) => user.email === userEmail);
+  const userProfile = useSelector((state) => state.user);
   const pets = useSelector((state) => state.pets);
   const events = useSelector((state) => state.events);
   const [updateUserModalIsOpen, setUpdateUserModalIsOpen] = useState(false);

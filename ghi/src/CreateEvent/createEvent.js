@@ -84,7 +84,6 @@ function CreateEvent() {
             },
         };
         const response = await fetch(url, fetchOptions);
-        console.log('Response', response);
         if (response.ok) {
             setName('');
             setStart('');

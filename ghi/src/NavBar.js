@@ -1,8 +1,28 @@
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchUser } from ".//actions/userAction";
+import { useNavigate } from "react-router-dom";
+import useToken from "@galvanize-inc/jwtdown-for-react";
 
 export default function NavBar() {
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const { logout } = useToken();
+  const navigate = useNavigate();
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    await logout()
+      .then(() => {
+        setTimeout(() => {
+          dispatch(fetchUser());
+          navigate("/");
+        }, 1500);
+      })
+      .catch((error) => {
+        console.error("Logout failed:", error);
+      });
+  };
   return (
     <>
       <div className="container-nav">
@@ -55,7 +75,11 @@ export default function NavBar() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" aria-current="page" to="/logout">
+                  <Link
+                    className="nav-link"
+                    aria-current="page"
+                    onClick={handleLogout}
+                  >
                     Log Out
                   </Link>
                 </li>
