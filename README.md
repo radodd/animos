@@ -1,10 +1,8 @@
-<img src="../animos/ghi/src/assets/images/animoslogo.png" width="200" alt="animos-logo">
-
-***
+# animos
 
 <br>
 
-**animos** is a platform designed to bring pet owners and their furry companions together, by allowing users to host and attend pet meetups in their local area, discover pet friendly locations and connect with others who share the same passion and affection for their pets.
+animos is a platform designed to bring pet owners and their furry companions together, by allowing users to host and attend pet meetups in their local area, discover pet friendly locations and connect with others who share the same passion and affection for their pets.
 
 **The Origin of “animos”** <br>
 The name of our application, animos, is derived from a combination of letters from each of the team’s beloved (and spoiled) pets: C**a**ke, E**n**zo, Vol**i**, Mo**m**o, No**o**dle, Mar**s**.
@@ -633,5 +631,5 @@ Get a pet (output):
 
 [View the Wireframe Design on Excalidraw](https://excalidraw.com/#room=6773be450a679227ae55,tBqxSCRKN8636vn8upbDRw)
 
-![Excalidraw Wireframe Image](../animos/ghi/src/assets/images/animos-excalidraw-wireframe.png)
+![Excalidraw Wireframe Image](/animos/api/docs/images/animos-excalidraw-wireframe.png "Excalidraw Wireframe")
 </details>
