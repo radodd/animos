@@ -3,6 +3,8 @@ from fastapi.testclient import TestClient
 from queries.events import EventQueries
 from models import EventIn, EventOut
 from bson.objectid import ObjectId
+from typing import Dict
+from fastapi import HTTPException, Depends
 
 client = TestClient(app)
 
@@ -12,18 +14,32 @@ class EmptyEventQueries:
         return []
 
 
-class MockEventQueries(EventQueries):
+class MockEventQueries:
     def __init__(self):
-        self.events = {}
+        self.events: Dict[str, EventOut] = {}
 
-    def update(self, id: str, event: EventIn):
-        if id not in self.events:
-            return None
-        self.events[id] = event
+    def update(self, id: str, event: EventIn) -> EventOut:
+        if id in self.events:
+            self.events[id] = self.events[id].copy(
+                update=event.dict(exclude_unset=True)
+            )
+            return self.events[id]
         return EventOut(id=id, **event.dict())
 
 
+def update_event(
+    id: str,
+    event: EventIn,
+    repo: EventQueries = Depends(MockEventQueries),
+):
+    updated_event = repo.update(id, event)
+    if updated_event is None:
+        raise HTTPException(status_code=404, detail="Event not found")
+    return updated_event
+
+
 def test_update_event():
+    app.dependency_overrides[EventQueries] = MockEventQueries
     event_id = str(ObjectId())
     event_data = {
         "name": "Fun Event that was updated",
