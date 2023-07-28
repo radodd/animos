@@ -58,15 +58,3 @@ async def update_event(
 ):
     updated_event = repo.update(id, event)
     return updated_event
-
-
-@router.put("/api/events/attend")
-async def attend_event(
-    attend: AttendEvent,
-    event_repo: EventQueries = Depends(),
-    account_repo: AccountQueries = Depends(),
-):
-    print("attendTHIS EVENT")
-    # updated_event = event_repo.add_attendee(attend)
-    # account_repo.add_attending(attend)
-    return print("lame")
