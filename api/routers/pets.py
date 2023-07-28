@@ -4,7 +4,7 @@ from fastapi import (
 )
 from queries.pets import PetQueries
 from queries.accounts import AccountQueries
-from models import PetIn, PetOut, PetsList, Error
+from models import PetIn, PetOut, PetsList, Error, UserPet
 from bson import ObjectId
 from typing import Union
 
@@ -38,19 +38,24 @@ def get_pet(
     return pet
 
 
-@router.put("/api/pets/{id}", response_model=Union[PetOut, Error])
+@router.put("/api/pets/{id}", response_model=Union[bool, Error])
 async def update_pet(
     id: str,
-    pet: PetIn,
+    pet: UserPet,
     repo: PetQueries = Depends(),
+    account_repo: AccountQueries = Depends(),
 ):
-    pet = repo.update_pet(id, pet)
-    return pet
+    updated_pet = account_repo.update_pet(id, pet)
+    return updated_pet
 
 
 @router.delete("/api/pets/{id}", response_model=Union[bool, Error])
 def delete_pet(
     id: str,
+    remove_obj: UserPet,
     repo: PetQueries = Depends(),
+    account_repo: AccountQueries = Depends(),
 ):
-    return repo.delete_pet({"_id": ObjectId(id)})
+    deleted_pet = repo.delete_pet({"_id": ObjectId(id)})
+    account_repo.remove_pet(remove_obj)
+    return deleted_pet
