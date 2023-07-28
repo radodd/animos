@@ -1,7 +1,7 @@
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, Depends
 from models import LocationIn, LocationOut, LocationList, Error
 from queries.locations import LocationQueries
-from .auth import authenticator
+
 from typing import Union
 
 
