@@ -49,7 +49,7 @@ async def update_event(
     return updated_event
 
 
-@router.put("/api/events/attend/", response_model=EventOut)
+@router.put("/api/events/attend", response_model=EventOut)
 async def attend_event(
     attend: AttendEvent,
     event_repo: EventQueries = Depends(),
