@@ -1,25 +1,16 @@
-import { useState } from 'react';
-import './EventsList.css';
-import EventDetail from '../EventDetail/eventDetail.js';
-// import useToken from "@galvanize-inc/jwtdown-for-react";
-// import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchEvents } from '../actions/eventAction.js';
-import NavBar from '../NavBar';
-import DiscoverEvents from '../../src/assets/images/discover_events.png';
-import EventButtonModal from '../MainPage/CreateEventButtonModal.js';
+import { useState } from "react";
+import "./EventsList.css";
+import EventDetail from "../EventDetail/eventDetail.js";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchEvents } from "../actions/eventAction.js";
+import NavBar from "../NavBar";
+import DiscoverEvents from "../../src/assets/images/discover_events.png";
+import EventButtonModal from "../MainPage/CreateEventButtonModal.js";
 
 function EventsList() {
   const events = useSelector((state) => state.events);
   const locations = useSelector((state) => state.locations);
-  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  // const { token } = useToken();
-  // const navigate = useNavigate();
-  // if (!token) {
-  //     navigate('/');
-  // }
-
   const [activeModal, setActiveModal] = useState(null);
   const toggleModal = (index) => {
     setActiveModal(index === activeModal ? null : index);
@@ -44,7 +35,7 @@ function EventsList() {
                 className="event-card-image"
                 height="200px"
                 src={event.picture_url}
-                style={{ objectFit: 'cover' }}
+                style={{ objectFit: "cover" }}
                 alt="event"
               ></img>
               <div className="event-card-body">
@@ -78,12 +69,12 @@ function EventsList() {
               key={event.id}
               className={`${
                 activeModal === index
-                  ? 'active-modal event_modal'
-                  : 'event_modal'
+                  ? "active-modal event_modal"
+                  : "event_modal"
               }`}
             >
               <div className="event_modal-content">
-                <EventDetail event={event} location={curLocation} user={user} />
+                <EventDetail event={event} location={curLocation} />
                 <button
                   className="event-modal-button create_event_modal-close-button"
                   onClick={() => {
@@ -105,9 +96,9 @@ function EventsList() {
     <>
       <NavBar />
       <br />
-      <br/>
+      <br />
       <div className="image-title-holder">
-      <img src={DiscoverEvents} width="600px" alt="" />
+        <img src={DiscoverEvents} width="600px" alt="" />
       </div>
       <br />
       <div className="event-button-holder">
@@ -115,11 +106,7 @@ function EventsList() {
           type="button"
           className="event-list-create-btn btn bg-transparent"
         >
-          {events && events.length > 0 ? (
-            <EventButtonModal />
-          ) : (
-            <div>Loading ...</div>
-          )}
+          {events !== undefined ? <EventButtonModal /> : <div>Loading ...</div>}
         </button>
       </div>
       <div className="event-wrapper">

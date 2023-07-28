@@ -1,3 +1,51 @@
+## 7/28/23 Final Presentation Day
+
+My create new events button doesn't load if there are no events. Its a simple change to have have it display all the time. I will delete the unused code.
+
+A red wall of not being able to "read id" kept happening upon refresh and other times, but I could not consistently figure out when it would occur. PA is seeing the same error on his profile page. It seems to be related to redux. With Anthony's help, we decided to remove user as a prop passed from EventsList to eventDetail and call useSelector for the `user` in eventDetail. An additional `user` var is added to line 74 & 95 with a before the other comparison logic for the delete and attending button, respectfully. That seems to be the fix.
+
+## 7/27/23 Reverting main
+
+I worked on the Readme. I made sure that events endpoints was all there.
+
+We gave our presentation before submitting our project. Super buggy and our db failed in the middle of the presentation. One of the worst presentation experiences that I've given.
+
+We believe things were breaking due to the newly created protected endpoints. We spent the end of the trying to roll back the changes to get our app to the point where its working again. We think we have it at a stable point and will test it. Between Sam, Anthony, and myself, we got EventsList up and running correctly. Most of the credit should be given to Anthony, that guy is a beast.
+
+## 7/26/23 Fixing new Create New Event button style and many MRs
+
+I changed the close button for the _event details_ modal view to match the other modal close buttons in our app.
+
+The css styling is difficult to get right for the _create new event_ button. I have my own css file for events list and individual classNames for the button on EventsList, but the styling is effecting both buttons on the main page and the EventsList component. I tried to changing the classNames to id, but still not luck. Sam is our style expert, we decided that she needs to take over the finalized styling for this button.
+
+As a team we have many merge requests. We ran out of minutes and had to wait to get more.
+
+Started on the ReadME. We decided to do a google doc even though we know it will be markdown. But this makes it easy to all work on the same document and see what is currently there in the doc.
+
+## 7/25/23 Getting Tests to work
+
+MR for redux implementation was approved. After talking with Sam about the test, she told me that I have to run the tests in the fastapi docker container and not the regular terminal. I'm currently facing the same issues from Staturday on getting that to run. Just running `python -m pytest` is not working, but at least I'm in the right place to run the tests. I had to update pip and then install pytest in the container with `pip install -U pytest` . Now I can use the `python -m pytest`, and the pytest runs correctly.
+
+I've learned that when you override a query in your test the func should have the same name as the actual query.
+
+I got one test to work for get_events, but tests the json 200 response and the mock empty list data for the list of events.
+
+I started doing the test for POST, but our post event router calls two separate queries. There is an issue with passing the id to the accounts_hosting query that I haven't been able to crack. With at least one test passing, we have enough to do.
+
+We originally wanted the create new event to be an modal. Sam is using Anthony's create event endpoint code as modal and I implanted that code with a certain amount of styling from Sam's css file to get the create event modal view to work.
+
+## 7/24/23 Redux EventList integration
+
+Ethan was having issues with the EventsList/EventsDetail MR I sent on Saturday, we fixed those issue and the MR was approved. Anthony implanted redux into our app. The functionality of the refreshing of the events in the list was broken after the change. I fixed the functionality to use redux for EventsList and the delete event functionality.
+
+## 7/23/23 Import error for unit testing
+
+I've been trying to fix the error from yesterday. No luck. I've tried a few things and documented what I've tried. I think I need some outside help.
+
+## 7/22/23 Unit testing
+
+Trying to understand unit testing. Watching the lecture on it and following along. I'm getting an import error that did not should up in lecture.
+
 ## 7/21/23 Finished delete event from hosted_events
 
 I also got to learn more about git and divergent branches/ Honestly still a little confused, but I know more. But I have merged, mine, Sam's, and Ethan's code. I do feel I got some extra practice at the merge editor in VS code and using the terminal together. I sent a MR (merge request) to Ethan. I've also been working with Anthony on linting errors over slack.

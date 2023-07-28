@@ -22,7 +22,6 @@ class PetQueries(Queries):
     def get_pets(self) -> List[PetOut]:
         result = self.collection.find()
         petPropsList = list(result)
-
         for pet in petPropsList:
             pet["id"] = str(pet["_id"])
         return [PetOut(**props) for props in petPropsList]
