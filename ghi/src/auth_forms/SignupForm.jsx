@@ -7,6 +7,7 @@ const SignupForm = () => {
   const [first, setFirst] = useState("");
   const [last, setLast] = useState("");
   const [password, setPassword] = useState("");
+  const [zipcode, setZipcode] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const { register } = useToken();
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const SignupForm = () => {
       first_name: first,
       last_name: last,
       password: password,
-      zipcode: "12345",
+      zipcode: zipcode,
       picture_url:
         "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg",
       follower_list: [],
@@ -96,6 +97,17 @@ const SignupForm = () => {
               className="form-control"
               onChange={(e) => {
                 setLast(e.target.value);
+              }}
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">zipcode</label>
+            <input
+              name="zipcode"
+              type="text"
+              className="form-control"
+              onChange={(e) => {
+                setZipcode(e.target.value);
               }}
             />
           </div>

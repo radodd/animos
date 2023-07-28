@@ -2,6 +2,7 @@
 import { useState } from "react";
 import "./ProfilePage.css";
 import Modal from "react-modal";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { useSelector } from "react-redux";
@@ -16,7 +17,8 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
   const events = useSelector((state) => state.events);
   const userEvents = events.filter((event) => event.account_id === user.id);
   const [updateUserModalIsOpen, setUpdateUserModalIsOpen] = useState(false);
-  const [isDeleted, setIsDeleted] = useState(false);
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const [petIsDeleted, setPetIsDeleted] = useState(false);
   const [formData, setFormData] = useState({
     email: user?.email || (user && user.email) || "",
     first_name: user?.first_name || (user && user.first_name) || "",
@@ -32,6 +34,7 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
     attending_events:
       user?.attending_events || (user && user.attending_events) || [],
   });
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -60,6 +63,31 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
     } else {
       console.log(data.detail);
     }
+  };
+
+  const handleDeleteClick = () => {
+    setDeleteModalIsOpen(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    const requestOptions = {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    };
+    const response = await fetch(
+      `${process.env.REACT_APP_API_HOST}/api/accounts/${user.email}`,
+      requestOptions
+    );
+    if (response.ok) {
+      setDeleteModalIsOpen(false);
+      navigate("/");
+    } else {
+      console.log("Error deleting account");
+    }
+  };
+
+  const handleDeleteCancel = () => {
+    setDeleteModalIsOpen(false);
   };
 
   function ProfilePagePetCard() {
@@ -103,7 +131,7 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
             </div>
           );
         })}
-        {isDeleted === true && (
+        {petIsDeleted === true && (
           <div
             className="alert alert-success d-flex justify-content-center"
             id="success-message"
@@ -129,7 +157,7 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
       },
     });
     if (response.ok) {
-      setIsDeleted(true);
+      setPetIsDeleted(true);
     }
   }
 
@@ -198,6 +226,62 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
                       <button onClick={() => setUpdateUserModalIsOpen(true)}>
                         Edit Profile
                       </button>
+                      <Modal
+                        isOpen={updateUserModalIsOpen}
+                        onRequestClose={() => setUpdateUserModalIsOpen(false)}
+                      >
+                        <h2>Edit Profile</h2>
+                        <form onSubmit={handleSubmit}>
+                          <label>
+                            First Name:
+                            <input
+                              type="text"
+                              name="first_name"
+                              value={formData.first_name}
+                              onChange={handleInputChange}
+                              placeholder={user && user.first_name}
+                            />
+                          </label>
+                          <label>
+                            Last Name:
+                            <input
+                              type="text"
+                              name="last_name"
+                              value={formData.last_name}
+                              onChange={handleInputChange}
+                              placeholder={user && user.last_name}
+                            />
+                          </label>
+                          <label>
+                            Zipcode:
+                            <input
+                              type="text"
+                              name="zipcode"
+                              value={formData.zipcode}
+                              onChange={handleInputChange}
+                              placeholder={user && user.zipcode}
+                            />
+                          </label>
+                          <label>
+                            Profile Picture URL:
+                            <input
+                              type="text"
+                              name="picture_url"
+                              value={formData.picture_url}
+                              onChange={handleInputChange}
+                              placeholder={user && user.picture_url}
+                            />
+                          </label>
+                          {formData.picture_url && (
+                            <img
+                              className="profile-picture-preview"
+                              src={formData.picture_url}
+                              alt=""
+                            />
+                          )}
+                          <button type="submit">Save Changes</button>
+                        </form>
+                      </Modal>
                     </div>
                   </div>
                 </div>
@@ -228,61 +312,15 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
             </div>
           </div>
         </div>
-        <Modal
-          isOpen={updateUserModalIsOpen}
-          onRequestClose={() => setUpdateUserModalIsOpen(false)}
-        >
-          <h2>Edit Profile</h2>
-          <form onSubmit={handleSubmit}>
-            <label>
-              First Name:
-              <input
-                type="text"
-                name="first_name"
-                value={formData.first_name}
-                onChange={handleInputChange}
-                placeholder={user && user.first_name}
-              />
-            </label>
-            <label>
-              Last Name:
-              <input
-                type="text"
-                name="last_name"
-                value={formData.last_name}
-                onChange={handleInputChange}
-                placeholder={user && user.last_name}
-              />
-            </label>
-            <label>
-              Zipcode:
-              <input
-                type="text"
-                name="zipcode"
-                value={formData.zipcode}
-                onChange={handleInputChange}
-                placeholder={user && user.zipcode}
-              />
-            </label>
-            <label>
-              Profile Picture URL:
-              <input
-                type="text"
-                name="picture_url"
-                value={formData.picture_url}
-                onChange={handleInputChange}
-                placeholder={user && user.picture_url}
-              />
-            </label>
-            {formData.picture_url && (
-              <img
-                className="profile-picture-preview"
-                src={formData.picture_url}
-                alt=""
-              />
-            )}
-            <button type="submit">Save Changes</button>
-          </form>
+        <button onClick={handleDeleteClick}>Delete Account</button>
+        <Modal isOpen={deleteModalIsOpen} onRequestClose={handleDeleteCancel}>
+          <h2>Confirm Account Deletion</h2>
+          <p>
+            Are you sure you want to delete your account? This action cannot be
+            undone.
+          </p>
+          <button onClick={handleDeleteConfirm}>Yes, delete my account</button>
+          <button onClick={handleDeleteCancel}>Cancel</button>
         </Modal>
       </div>
     </>
