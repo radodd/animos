@@ -46,7 +46,7 @@ class AccountOut(BaseModel):
     last_name: str
     email: str
     password: str
-    zipcode: Optional[str]
+    zipcode: str
     picture_url: Optional[str]
     follower_list: Optional[List[str]]
     following_list: Optional[List[str]]

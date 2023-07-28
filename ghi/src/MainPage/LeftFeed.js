@@ -1,13 +1,13 @@
 import "./MainPage.css";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import CalendarIcon from "../assets/icons/calendar.png";
 import LocationsIcon from "../assets/icons/locations.png";
 
 function LeftFeed() {
-    const user = useSelector((state) => state.user);
-    const pets = useSelector((state) => state.pets);
-    const userPets = pets.filter((pet) => pet.user_id === user.id);
+  const user = useSelector((state) => state.user);
+  const pets = useSelector((state) => state.pets);
+  const userPets = pets.filter((pet) => pet.user_id === user.id);
 
   function ProfileCard() {
     return (
@@ -20,7 +20,7 @@ function LeftFeed() {
               className="rounded-circle profile-card-image"
               width="150"
               height="150"
-              style={{ objectFit: 'cover', borderRadius: '50%' }}
+              style={{ objectFit: "cover", borderRadius: "50%" }}
             />
 
             {user && (
@@ -30,11 +30,11 @@ function LeftFeed() {
             )}
 
             <div className="h7 home-profile-card-links">
-              <Link to="/profile">My Profile</Link>
+              <Link to={`/profile/${user.email}`}>My Profile</Link>
             </div>
           </div>
         </div>
-        <br/>
+        <br />
         <div className="card home-pets-card">
           <h5 className="my-pets-title">
             <Link to="/pets" className="card-my-pets-title">
@@ -48,7 +48,7 @@ function LeftFeed() {
                 <>
                   <div
                     className="card align-items-center"
-                    style={{ width: 'fit', border: 'none' }}
+                    style={{ width: "fit", border: "none" }}
                   >
                     <img
                       className="rounded-circle "
@@ -57,7 +57,7 @@ function LeftFeed() {
                       width="50"
                       height="50"
                       key={pets.id}
-                      style={{ objectFit: 'cover' }}
+                      style={{ objectFit: "cover" }}
                     />
                     <p className="card-text">{pets.pet_name}</p>
                   </div>
@@ -70,48 +70,48 @@ function LeftFeed() {
         </div>
       </>
     );
-    }
+  }
 
-    function MyLinksCard() {
-        return (
-            <div className="card">
-                <div className="card-body">
-                    <ul className="list-group events-friends list-group-flush">
-                        <li className="list-group-item" key="events">
-                            <Link to="/events">
-                                <img
-                                    className="left-main-icon"
-                                    src={CalendarIcon}
-                                    width="35px"
-                                    alt="calendar"
-                                />
-                                My Events
-                            </Link>
-                        </li>
-                        <li className="list-group-item" key="location">
-                            <Link to="/locations">
-                                <img
-                                    className="left-main-icon"
-                                    src={LocationsIcon}
-                                    width="35px"
-                                    alt="Location icon"
-                                />
-                                Locations
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        );
-    }
-
+  function MyLinksCard() {
     return (
-      <>
-        <ProfileCard />
-        <br />
-        <MyLinksCard />
-      </>
+      <div className="card">
+        <div className="card-body">
+          <ul className="list-group events-friends list-group-flush">
+            <li className="list-group-item" key="events">
+              <Link to="/events">
+                <img
+                  className="left-main-icon"
+                  src={CalendarIcon}
+                  width="35px"
+                  alt="calendar"
+                />
+                My Events
+              </Link>
+            </li>
+            <li className="list-group-item" key="location">
+              <Link to="/locations">
+                <img
+                  className="left-main-icon"
+                  src={LocationsIcon}
+                  width="35px"
+                  alt="Location icon"
+                />
+                Locations
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
     );
+  }
+
+  return (
+    <>
+      <ProfileCard />
+      <br />
+      <MyLinksCard />
+    </>
+  );
 }
 
 export default LeftFeed;

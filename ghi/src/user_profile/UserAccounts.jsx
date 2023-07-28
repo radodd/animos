@@ -1,8 +1,5 @@
-// import useToken from '@galvanize-inc/jwtdown-for-react';
 import { useSelector } from "react-redux";
 function UserAccounts() {
-  // const { token } = useToken();
-
   const userDataTest = useSelector((state) => state.users);
 
   return (
