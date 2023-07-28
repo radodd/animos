@@ -44,6 +44,7 @@ class MockAccountQueries:
                 first_name="Cat",
                 last_name="Nip",
                 password="highcats",
+                zipcode="62150",
             )
         return None
 
@@ -56,6 +57,7 @@ def test_get_account_by_email():
         first_name="Cat",
         last_name="Nip",
         password="highcats",
+        zipcode="62150",
     )
 
     mock_get_by_email = MagicMock(return_value=mock_account)
