@@ -108,8 +108,9 @@ class AccountQueries(Queries):
         result["id"] = str(result["_id"])
         return Account(**result)
 
-    def add_hosting(self, event: EventIn) -> Account:
+    def add_hosting(self, event: EventIn) -> bool:
         props = event.dict()
+        print("props from query", props)
         filter = {"_id": ObjectId(props["account_id"])}
         new_values = {"$push": {"hosted_events": props["id"]}}
         result = self.collection.find_one_and_update(
@@ -118,7 +119,7 @@ class AccountQueries(Queries):
         if result is None:
             return Exception("User Not Found")
         result["id"] = str(result["_id"])
-        return Account(**result)
+        return True
 
     def remove_hosted_event(self, event: AttendEvent) -> Account:
         props = event.dict()
