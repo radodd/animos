@@ -81,7 +81,7 @@ function CreatePet() {
       setIsSubmitted(true);
       dispatch(fetchPets());
     }
-    navigate(`/profile/${user && user.email}`);
+    navigate("/profile");
   };
 
   function covertToBase64(e) {

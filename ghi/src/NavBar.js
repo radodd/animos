@@ -51,11 +51,7 @@ export default function NavBar() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link
-                    className="nav-link"
-                    aria-current="page"
-                    to={`/profile/${user && user.email}`}
-                  >
+                  <Link className="nav-link" aria-current="page" to="/profile">
                     My Profile
                   </Link>
                 </li>

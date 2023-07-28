@@ -2,15 +2,17 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "./ProfilePage.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import NavBar from "../NavBar";
 import Modal from "react-modal";
 import EventButtonModal from "../MainPage/CreateEventButtonModal";
 import PetButtonModal from "../MainPage/CreatePetButtonModal";
+import { fetchUser, fetchUsers } from "../actions/userAction.js";
 
 export default function ProfilePage() {
+  const dispatch = useDispatch();
   const { userEmail } = useParams();
   const [tokenUser, setUserToken] = useState(null);
   const users = useSelector((state) => state.users);
@@ -84,6 +86,8 @@ export default function ProfilePage() {
     );
     const data = await response.json();
     if (response.ok) {
+      dispatch(fetchUser());
+      dispatch(fetchUsers());
       setUpdateUserModalIsOpen(false);
     } else {
       console.log(data.detail);
