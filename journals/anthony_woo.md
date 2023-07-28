@@ -77,3 +77,17 @@ I also spent a significant amount of time helping PA try to get redux state impl
 ## 7/26/2023
 
 Today, we spent the entire morning going through merge request and writing unit tests. I made a unit test to test the functionality of get(api/accounts) endpoint. Additionally, I began working on trying to protect some the endpoints to ensure that only a logged in user will be able to access the data. By the end of the day, I re-deployed our backend and as a group we began working on debugging the deployed front end. It appears that there are quite a few issues we need to work out prior to presenting tomorrow. This includes, user doesn't actually seem logged in until a page refresh. Clicking create an event actually does not create an event and same goes with creating a pet. I suspect that it has to do with trailing slashes on the fetch urls.
+
+## 7/27/2023
+
+Today was a hard day, I spent much of the day trying to figure out how to protect the back end points and felt that I got to a great solution. When it came time to run the unit-test, I realized protecting the backend endpoints caused everyone's unit tests to fail. I quickly came up with a solution to implement an app.override to simulate a fake user being logged in. Basically, I forced account to return true. This solved the issue we were having. Awesome! Then came a final MR before presenting to Paul. The presentation was disastrous. Everything was very buggy and it all seemed like it was due to my protecting of the backend. We as a group decided to walk back those changes which got everything back to working properly just no longer protected. Another set back was that my unit tests were written solely to test those protected backend endpoints and so it essentially nullified my tests.
+
+I spent the remainder of the evening trying to get a new unit test working perhaps to test the editing of an event. No solution to this before the end of the night.
+
+## 7/28/2023
+
+This morning started off very productive, I was able to write unit tests that test the put(api/event/id) to update a event by id. The key to this was to be able to first mock a phoney query that will return either the default EventOut which would be the EventIn with the id provided or if successful also return the EventOut. Perhaps better error handling should be that the query should return none and that there should be a test case for it. For now I will take what I can get and move on to trying to resolve additional bugs that effect the group.
+
+Also, this morning, I was able to solve the issue with a not smooth. I was able to implement a solution that uses a setTimeout call back function that provides some dwell time for the login and signup functions to run from the jwtdwn library. I also was able to implement functionality to the logout button from the homepage.
+
+By the time the day officially started I was pretty successful in what I set out to do. Once again, it seems that my attend_event has broken down again. It is weird because as soon as I rewrite the endpoint verbatim under a different url, the new one works. As soon as I merge main on, it breaks again. Really don't know what to do but I will put a pin in it. I spent some time working with Erick and PA to help them resolve some blockers. Both of them I was able to assist and come up with a solution. We will spend the rest of the day bug hunting our deployment.

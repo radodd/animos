@@ -19,12 +19,6 @@ export const fetchUsers = () => async (dispatch) => {
 
 export const fetchUser = () => async (dispatch) => {
     try {
-        const response = await fetch(
-            `${process.env.REACT_APP_API_HOST}/token`,
-            {
-                credentials: 'include',
-            }
-        );
         const userResponse = await fetch(
             `${process.env.REACT_APP_API_HOST}/token`,
             {
@@ -37,12 +31,13 @@ export const fetchUser = () => async (dispatch) => {
 
         const usersData = await usersResponse.json();
         const tokenUserData = await userResponse.json();
-        const tokenUser = tokenUserData.account;
-        const tokenUserId = tokenUser.id;
-        const currUser = usersData.filter((user) => user.id === tokenUserId);
-        const data = await response.json();
 
-        if (data && data.account) {
+        if (tokenUserData && tokenUserData.account) {
+            const tokenUser = tokenUserData.account;
+            const tokenUserId = tokenUser.id;
+            const currUser = usersData.filter(
+                (user) => user.id === tokenUserId
+            );
             dispatch(setUser(currUser[0]));
         } else {
             console.warn(
