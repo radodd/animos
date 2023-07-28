@@ -1,40 +1,67 @@
-/* eslint react-hooks/exhaustive-deps: 0 */
-import { useState } from "react";
-import "./ProfilePage.css";
-import Modal from "react-modal";
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import "react-confirm-alert/src/react-confirm-alert.css";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import "./ProfilePage.css";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import NavBar from "../NavBar";
+import Modal from "react-modal";
 import EventButtonModal from "../MainPage/CreateEventButtonModal";
 import PetButtonModal from "../MainPage/CreatePetButtonModal";
-import NavBar from "../NavBar";
-import "../PetsList/PetsList.css";
 
-export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
+export default function ProfilePage() {
+  const { userEmail } = useParams();
+  const [tokenUser, setUserToken] = useState(null);
+  const users = useSelector((state) => state.users);
+  const userProfile = users.find((user) => user.email === userEmail);
   const pets = useSelector((state) => state.pets);
-  const userPets = pets.filter((pet) => pet.user_id === user.id);
+  const userPets = pets.filter((pet) => pet.user_id === userProfile.id);
   const events = useSelector((state) => state.events);
-  const userEvents = events.filter((event) => event.account_id === user.id);
+  const userEvents = events.filter(
+    (event) => event.account_id === userProfile.id
+  );
   const [updateUserModalIsOpen, setUpdateUserModalIsOpen] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [petIsDeleted, setPetIsDeleted] = useState(false);
   const [formData, setFormData] = useState({
-    email: user?.email || (user && user.email) || "",
-    first_name: user?.first_name || (user && user.first_name) || "",
-    last_name: user?.last_name || (user && user.last_name) || "",
-    password: user?.password || (user && user.password) || "",
-    zipcode: user?.zipcode || (user && user.zipcode) || "",
-    picture_url: user?.picture_url || (user && user.picture_url) || "",
-    friend_list: user?.friend_list || (user && user.friend_list) || [],
-    follower_list: user?.follower_list || (user && user.follower_list) || [],
-    following_list: user?.following_list || (user && user.following_list) || [],
-    pets: user?.pets || (user && user.pets) || [],
-    hosted_events: user?.hosted_events || (user && user.hosted_events) || [],
+    email: userProfile?.email || (userProfile && userProfile.email) || "",
+    first_name:
+      userProfile?.first_name || (userProfile && userProfile.first_name) || "",
+    last_name:
+      userProfile?.last_name || (userProfile && userProfile.last_name) || "",
+    password:
+      userProfile?.password || (userProfile && userProfile.password) || "",
+    zipcode: userProfile?.zipcode || (userProfile && userProfile.zipcode) || "",
+    picture_url:
+      userProfile?.picture_url ||
+      (userProfile && userProfile.picture_url) ||
+      "",
+    friend_list:
+      userProfile?.friend_list ||
+      (userProfile && userProfile.friend_list) ||
+      [],
+    follower_list:
+      userProfile?.follower_list ||
+      (userProfile && userProfile.follower_list) ||
+      [],
+    following_list:
+      userProfile?.following_list ||
+      (userProfile && userProfile.following_list) ||
+      [],
+    pets: userProfile?.pets || (userProfile && userProfile.pets) || [],
+    hosted_events:
+      userProfile?.hosted_events ||
+      (userProfile && userProfile.hosted_events) ||
+      [],
     attending_events:
-      user?.attending_events || (user && user.attending_events) || [],
+      userProfile?.attending_events ||
+      (userProfile && userProfile.attending_events) ||
+      [],
   });
   const navigate = useNavigate();
+
+  Modal.setAppElement("#root");
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -42,7 +69,6 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
       ...prevFormData,
       [name]: value,
     }));
-    Modal.setAppElement("#root");
   };
 
   const handleSubmit = async (event) => {
@@ -53,12 +79,11 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
       body: JSON.stringify(formData),
     };
     const response = await fetch(
-      `${process.env.REACT_APP_API_HOST}/api/accounts/${user.email}`,
+      `${process.env.REACT_APP_API_HOST}/api/accounts/${userProfile.email}`,
       requestOptions
     );
     const data = await response.json();
     if (response.ok) {
-      updateLoadAccount();
       setUpdateUserModalIsOpen(false);
     } else {
       console.log(data.detail);
@@ -75,7 +100,7 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
       headers: { "Content-Type": "application/json" },
     };
     const response = await fetch(
-      `${process.env.REACT_APP_API_HOST}/api/accounts/${user.email}`,
+      `${process.env.REACT_APP_API_HOST}/api/accounts/${userProfile.email}`,
       requestOptions
     );
     if (response.ok) {
@@ -89,6 +114,17 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
   const handleDeleteCancel = () => {
     setDeleteModalIsOpen(false);
   };
+
+  async function loadAccountTokenInfo() {
+    const response = await fetch(`${process.env.REACT_APP_API_HOST}/token`, {
+      credentials: "include",
+      method: "get",
+    });
+    const data = await response.json();
+    if (data.account) {
+      setUserToken(data.account);
+    }
+  }
 
   function ProfilePagePetCard() {
     return (
@@ -119,14 +155,16 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
                 </div>
               </div>
               <div className="d-flex justify-content-center">
-                <button
-                  className="card-button"
-                  onClick={() => {
-                    handleDeletePet(pet.id);
-                  }}
-                >
-                  Remove
-                </button>
+                {tokenUser && tokenUser.email === userProfile?.email && (
+                  <button
+                    className="card-button"
+                    onClick={() => {
+                      handleDeletePet(pet.id);
+                    }}
+                  >
+                    Remove
+                  </button>
+                )}
               </div>
             </div>
           );
@@ -147,7 +185,7 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
     const url = `${process.env.REACT_APP_API_HOST}/api/pets/${id}`;
     const data = {
       pet_id: pets.id,
-      user_id: user.id,
+      user_id: userProfile.id,
     };
     const response = await fetch(url, {
       method: "DELETE",
@@ -193,9 +231,8 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
   }
 
   useEffect(() => {
-    loadAccount();
-    updateLoadAccount();
-  }, []);
+    loadAccountTokenInfo();
+  }, [userProfile]);
 
   return (
     <>
@@ -209,7 +246,7 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
                 <div className="card-body">
                   <div className="d-flex flex-column align-items-center text-center">
                     <img
-                      src={user && user.picture_url}
+                      src={userProfile && userProfile.picture_url}
                       alt=""
                       className="rounded"
                       width="150"
@@ -218,14 +255,20 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
                     />
                     <div className="mt-3">
                       <h2>
-                        {user && user.first_name} {user && user.last_name}
+                        {userProfile && userProfile.first_name}{" "}
+                        {userProfile && userProfile.last_name}
                       </h2>
                       <p className="text-muted font-size-sm">
-                        {user && user.zipcode}
+                        {userProfile && userProfile.zipcode}
                       </p>
-                      <button onClick={() => setUpdateUserModalIsOpen(true)}>
-                        Edit Profile
-                      </button>
+                      {tokenUser && tokenUser.email === userProfile?.email && (
+                        <button
+                          className="btn btn-primary btn-sm"
+                          onClick={() => setUpdateUserModalIsOpen(true)}
+                        >
+                          Edit Profile
+                        </button>
+                      )}
                       <Modal
                         isOpen={updateUserModalIsOpen}
                         onRequestClose={() => setUpdateUserModalIsOpen(false)}
@@ -239,7 +282,9 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
                               name="first_name"
                               value={formData.first_name}
                               onChange={handleInputChange}
-                              placeholder={user && user.first_name}
+                              placeholder={
+                                userProfile && userProfile.first_name
+                              }
                             />
                           </label>
                           <label>
@@ -249,7 +294,7 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
                               name="last_name"
                               value={formData.last_name}
                               onChange={handleInputChange}
-                              placeholder={user && user.last_name}
+                              placeholder={userProfile && userProfile.last_name}
                             />
                           </label>
                           <label>
@@ -259,7 +304,7 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
                               name="zipcode"
                               value={formData.zipcode}
                               onChange={handleInputChange}
-                              placeholder={user && user.zipcode}
+                              placeholder={userProfile && userProfile.zipcode}
                             />
                           </label>
                           <label>
@@ -269,7 +314,9 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
                               name="picture_url"
                               value={formData.picture_url}
                               onChange={handleInputChange}
-                              placeholder={user && user.picture_url}
+                              placeholder={
+                                userProfile && userProfile.picture_url
+                              }
                             />
                           </label>
                           {formData.picture_url && (
@@ -290,38 +337,65 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
             <div className="col-md-8">
               <div className="card">
                 <div className="card-body">
-                  <h4>{user && user.first_name}'s Pet(s)</h4>
+                  <h4>My Pet(s)</h4>
                   <div className="card-container">
                     <ProfilePagePetCard />
                   </div>
                   <br />
                   <div className="d-flex justify-content-center">
-                    <PetButtonModal />
+                    {tokenUser && tokenUser.email === userProfile?.email && (
+                      <PetButtonModal />
+                    )}
                   </div>
                 </div>
               </div>
               <br />
               <div className="card">
                 <div className="card-body">
-                  <h4>{user && user.first_name}'s Event(s)</h4>
+                  <h4>My Event(s)</h4>
                   <ProfilePageEventCard />
                   <br />
-                  <EventButtonModal />
+                  {tokenUser && tokenUser.email === userProfile?.email && (
+                    <EventButtonModal />
+                  )}
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <button onClick={handleDeleteClick}>Delete Account</button>
-        <Modal isOpen={deleteModalIsOpen} onRequestClose={handleDeleteCancel}>
-          <h2>Confirm Account Deletion</h2>
-          <p>
-            Are you sure you want to delete your account? This action cannot be
-            undone.
-          </p>
-          <button onClick={handleDeleteConfirm}>Yes, delete my account</button>
-          <button onClick={handleDeleteCancel}>Cancel</button>
-        </Modal>
+        <div className="d-flex justify-content-center">
+          {tokenUser && tokenUser.email === userProfile?.email && (
+            <button
+              className="btn btn-danger btn-sm"
+              onClick={handleDeleteClick}
+            >
+              Delete Account
+            </button>
+          )}
+          <Modal isOpen={deleteModalIsOpen} onRequestClose={handleDeleteCancel}>
+            <div className="text-center">
+              <h2>Confirm Account Deletion</h2>
+              <p>
+                Are you sure you want to delete your account? This action cannot
+                be undone.
+              </p>
+              <div className="d-flex justify-content-center">
+                <button
+                  className="btn btn-danger mr-2"
+                  onClick={handleDeleteConfirm}
+                >
+                  Yes, delete my account
+                </button>
+                <button
+                  className="btn btn-secondary ml-2"
+                  onClick={handleDeleteCancel}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </Modal>
+        </div>
       </div>
     </>
   );

@@ -26,33 +26,6 @@ function App() {
   const basename = process.env.PUBLIC_URL.replace(domain, "");
   const dispatch = useDispatch();
 
-  const [user, setUser] = useState(null);
-
-  async function loadAccount() {
-    const response = await fetch(`${process.env.REACT_APP_API_HOST}/token`, {
-      credentials: "include",
-      method: "get",
-    });
-    const data = await response.json();
-    if (data.account) {
-      setUser(data.account);
-    }
-  }
-
-  async function updateLoadAccount() {
-    try {
-      if (user) {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_HOST}/api/accounts/${user.email}`
-        );
-        const data = await response.json();
-        setUser(data);
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  }
-
   useEffect(() => {
     dispatch(fetchUser());
     dispatch(fetchLocations());
@@ -81,25 +54,9 @@ function App() {
               <Route path="events" element={<EventsList />}>
                 <Route path="create" />
               </Route>
-              <Route path="profile">
-                <Route
-                  path="all"
-                  element={
-                    <UserAccounts
-                    // userDataTest={userDataTest}
-                    />
-                  }
-                />
-                <Route
-                  path=""
-                  element={
-                    <ProfilePage
-                      user={user}
-                      loadAccount={loadAccount}
-                      updateLoadAccount={updateLoadAccount}
-                    />
-                  }
-                />
+              <Route path="profile/:userEmail">
+                <Route index element={<ProfilePage />} />
+                <Route path="all" element={<UserAccounts />} />
               </Route>
               <Route path="users">
                 <Route index element={<FindFriend />} />

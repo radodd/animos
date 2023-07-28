@@ -54,7 +54,7 @@ export default function NavBar() {
                   <Link
                     className="nav-link"
                     aria-current="page"
-                    to={`/users/${user && user.id}`}
+                    to={`/profile/${user && user.email}`}
                   >
                     My Profile
                   </Link>
