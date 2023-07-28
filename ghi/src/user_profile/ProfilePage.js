@@ -18,11 +18,7 @@ export default function ProfilePage() {
   const users = useSelector((state) => state.users);
   const userProfile = users.find((user) => user.email === userEmail);
   const pets = useSelector((state) => state.pets);
-  const userPets = pets.filter((pet) => pet.user_id === userProfile.id);
   const events = useSelector((state) => state.events);
-  const userEvents = events.filter(
-    (event) => event.account_id === userProfile.id
-  );
   const [updateUserModalIsOpen, setUpdateUserModalIsOpen] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [petIsDeleted, setPetIsDeleted] = useState(false);
@@ -133,46 +129,48 @@ export default function ProfilePage() {
   function ProfilePagePetCard() {
     return (
       <div className="pets-card align-items-center">
-        {userPets.map((pet) => {
-          return (
-            <div
-              className="user-profile-pet-card align-items-center"
-              key={pet.id}
-            >
-              <div className="user-profile-pet-card-body d-flex flex-column align-items-center">
-                <img
-                  className="rounded-circle user-profile-pet-card-image"
-                  src={pet.pet_picture_url}
-                  alt=""
-                  width="100px"
-                  height="100px"
-                  style={{ objectFit: "cover" }}
-                ></img>
-                <h5 className="user-profile-pet-card-title">
-                  {pet && pet.pet_name}
-                </h5>
-                <div className="user-profile-pet-card-birthday">
-                  🎂: {pet.birth_adoption_date}
+        {pets
+          .filter((pet) => pet.user_id === userProfile.id)
+          .map((pet) => {
+            return (
+              <div
+                className="user-profile-pet-card align-items-center"
+                key={pet.id}
+              >
+                <div className="user-profile-pet-card-body d-flex flex-column align-items-center">
+                  <img
+                    className="rounded-circle user-profile-pet-card-image"
+                    src={pet.pet_picture_url}
+                    alt=""
+                    width="100px"
+                    height="100px"
+                    style={{ objectFit: "cover" }}
+                  ></img>
+                  <h5 className="user-profile-pet-card-title">
+                    {pet && pet.pet_name}
+                  </h5>
+                  <div className="user-profile-pet-card-birthday">
+                    🎂: {pet.birth_adoption_date}
+                  </div>
+                  <div className="size-vibe-breed">
+                    {pet.breed} | {pet.size} | {pet.vibe}
+                  </div>
                 </div>
-                <div className="size-vibe-breed">
-                  {pet.breed} | {pet.size} | {pet.vibe}
+                <div className="d-flex justify-content-center">
+                  {tokenUser && tokenUser.email === userProfile?.email && (
+                    <button
+                      className="card-button"
+                      onClick={() => {
+                        handleDeletePet(pet.id);
+                      }}
+                    >
+                      Remove
+                    </button>
+                  )}
                 </div>
               </div>
-              <div className="d-flex justify-content-center">
-                {tokenUser && tokenUser.email === userProfile?.email && (
-                  <button
-                    className="card-button"
-                    onClick={() => {
-                      handleDeletePet(pet.id);
-                    }}
-                  >
-                    Remove
-                  </button>
-                )}
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
         {petIsDeleted === true && (
           <div
             className="alert alert-success d-flex justify-content-center"
@@ -206,61 +204,32 @@ export default function ProfilePage() {
   function ProfilePageEventCard() {
     return (
       <div className="events-card align-items-center">
-        {userEvents.map((event) => {
-          return (
-            <div
-              className="user-profile-event-card align-items-center"
-              key={event.id}
-            >
-              <div className="user-profile-event-card-body d-flex flex-column align-items-center">
-                <img
-                  className="rounded user-profile-event-card-image"
-                  src={event.picture_url}
-                  alt=""
-                  height="100px"
-                  style={{ objectFit: "cover" }}
-                ></img>
-                <h5 className="user-profile-event-card-title">
-                  {event && event.name}
-                </h5>
-                <div className="user-profile-event-card-date">
-                  {event.date_start}
+        {events
+          .filter((event) => event.account_id === userProfile.id)
+          .map((event) => {
+            return (
+              <div
+                className="user-profile-event-card align-items-center"
+                key={event.id}
+              >
+                <div className="user-profile-event-card-body d-flex flex-column align-items-center">
+                  <img
+                    className="rounded user-profile-event-card-image"
+                    src={event.picture_url}
+                    alt=""
+                    height="100px"
+                    style={{ objectFit: "cover" }}
+                  ></img>
+                  <h5 className="user-profile-event-card-title">
+                    {event && event.name}
+                  </h5>
+                  <div className="user-profile-event-card-date">
+                    {event.date_start}
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
-    );
-  }
-
-  function ProfilePageEventCard() {
-    return (
-      <div className="events-card align-items-center">
-        {userEvents.map((event) => {
-          return (
-            <div
-              className="user-profile-event-card align-items-center"
-              key={event.id}
-            >
-              <div className="user-profile-event-card-body d-flex flex-column align-items-center">
-                <img
-                  className="rounded user-profile-event-card-image"
-                  src={event.picture_url}
-                  alt=""
-                  height="100px"
-                  style={{ objectFit: "cover" }}
-                ></img>
-                <h5 className="user-profile-event-card-title">
-                  {event && event.name}
-                </h5>
-                <div className="user-profile-event-card-date">
-                  {event.date_start}
-                </div>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     );
   }
