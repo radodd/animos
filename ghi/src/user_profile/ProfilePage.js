@@ -157,10 +157,11 @@ export default function ProfilePage() {
                       {pet.breed} | {pet.size} | {pet.vibe}
                     </div>
                   </div>
+                  <br></br>
                   <div className="d-flex justify-content-center">
                     {tokenUser && tokenUser.email === userProfile?.email && (
                       <button
-                        className="card-button"
+                        className="btn btn-danger mr-2"
                         onClick={() => {
                           handleDeletePet(pet.id);
                         }}

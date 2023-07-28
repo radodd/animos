@@ -88,17 +88,6 @@ function LeftFeed() {
                 My Events
               </Link>
             </li>
-            <li className="list-group-item" key="friends">
-              <Link to="/friends">
-                <img
-                  className="left-main-icon"
-                  src={FriendsIcon}
-                  width="35px"
-                  alt="friends icon"
-                />
-                Friends
-              </Link>
-            </li>
             <li className="list-group-item" key="location">
               <Link to="/locations">
                 <img
