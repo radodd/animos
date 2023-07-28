@@ -69,7 +69,7 @@ def test_get_account_by_email():
         "first_name": "Cat",
         "last_name": "Nip",
         "password": "highcats",
-        "zipcode": None,
+        "zipcode": "62150",
         "picture_url": None,
         "follower_list": None,
         "following_list": None,
