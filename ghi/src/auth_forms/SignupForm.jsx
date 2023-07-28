@@ -39,89 +39,97 @@ const SignupForm = () => {
     await register(
       accountData,
       `${process.env.REACT_APP_API_HOST}/api/accounts`
-    ).then(() => {
-      setTimeout(() => {
-        dispatch(fetchUser());
-        navigate(`/profile/${email}`);
-      }, 1500);
-    })
+    )
+      .then(() => {
+        setTimeout(() => {
+          dispatch(fetchUser());
+          navigate(`/profile/${email}`);
+        }, 1500);
+      })
 
-            .catch((error) => {
-                console.error('Registration failed:', error);
-            });
-    };
+      .catch((error) => {
+        console.error("Registration failed:", error);
+      });
+  };
 
-    return (
-        <div className="card text-bg-light mb-3">
-            <h5 className="card-header">Signup</h5>
-            <div className="card-body">
-                <form onSubmit={(e) => handleRegistration(e)}>
-                    <div className="mb-3">
-                        <label className="form-label">email</label>
-                        <input
-                            name="email"
-                            type="text"
-                            className="form-control"
-                            onChange={(e) => {
-                                setEmail(e.target.value);
-                            }}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">password</label>
-                        <input
-                            name="password"
-                            type="password"
-                            className="form-control"
-                            onChange={(e) => {
-                                setPassword(e.target.value);
-                            }}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">confirm password</label>
-                        <input
-                            name="confirmPassword"
-                            type="password"
-                            className="form-control"
-                            onChange={(e) => {
-                                setConfirmPassword(e.target.value);
-                            }}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">first</label>
-                        <input
-                            name="first"
-                            type="text"
-                            className="form-control"
-                            onChange={(e) => {
-                                setFirst(e.target.value);
-                            }}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">last</label>
-                        <input
-                            name="last"
-                            type="text"
-                            className="form-control"
-                            onChange={(e) => {
-                                setLast(e.target.value);
-                            }}
-                        />
-                    </div>
-                    <div>
-                        <input
-                            className="btn btn-primary"
-                            type="submit"
-                            value="Register"
-                        />
-                    </div>
-                </form>
-            </div>
-        </div>
-    );
+  return (
+    <div className="card text-bg-light mb-3">
+      <h5 className="card-header">Signup</h5>
+      <div className="card-body">
+        <form onSubmit={(e) => handleRegistration(e)}>
+          <div className="mb-3">
+            <label className="form-label">email</label>
+            <input
+              name="email"
+              type="text"
+              className="form-control"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">password</label>
+            <input
+              name="password"
+              type="password"
+              className="form-control"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">confirm password</label>
+            <input
+              name="confirmPassword"
+              type="password"
+              className="form-control"
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+              }}
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">first</label>
+            <input
+              name="first"
+              type="text"
+              className="form-control"
+              onChange={(e) => {
+                setFirst(e.target.value);
+              }}
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">last</label>
+            <input
+              name="last"
+              type="text"
+              className="form-control"
+              onChange={(e) => {
+                setLast(e.target.value);
+              }}
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">zipcode</label>
+            <input
+              name="zipcode"
+              type="text"
+              className="form-control"
+              onChange={(e) => {
+                setZipcode(e.target.value);
+              }}
+            />
+          </div>
+          <div>
+            <input className="btn btn-primary" type="submit" value="Register" />
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 };
 
 export default SignupForm;
