@@ -1,10 +1,14 @@
 import NavBar from '../NavBar';
 import './UsersProfilePage.css';
 import {useParams} from 'react-router-dom'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchUsers } from '../actions/userAction.js';
+
+
 
 function UsersProfilePage() {
     const { userId } = useParams();
+    const dispatch = useDispatch();
     const users = useSelector((state) => state.users);
     const userProfile = users.find((user) => user.id === userId)
     const pets = useSelector((state) => state.pets);
@@ -34,7 +38,7 @@ function UsersProfilePage() {
       };
       const response = await fetch(url, fetchOptions);
       if (response.ok) {
-        window.location.reload();
+        dispatch(fetchUsers());
       }
     };
 

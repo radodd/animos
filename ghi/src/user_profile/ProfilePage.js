@@ -1,14 +1,14 @@
 /* eslint react-hooks/exhaustive-deps: 0 */
-import { useState } from "react";
-import "./ProfilePage.css";
-import Modal from "react-modal";
-import { useEffect } from "react";
-import "react-confirm-alert/src/react-confirm-alert.css";
-import { useSelector } from "react-redux";
-import EventButtonModal from "../MainPage/CreateEventButtonModal";
-import PetButtonModal from "../MainPage/CreatePetButtonModal";
-import NavBar from "../NavBar";
-import "../PetsList/PetsList.css";
+import { useState } from 'react';
+import './ProfilePage.css';
+import Modal from 'react-modal';
+import { useEffect } from 'react';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import { useSelector } from 'react-redux';
+import EventButtonModal from '../MainPage/CreateEventButtonModal';
+import PetButtonModal from '../MainPage/CreatePetButtonModal';
+import NavBar from '../NavBar';
+import '../PetsList/PetsList.css';
 
 export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
   const pets = useSelector((state) => state.pets);
@@ -18,25 +18,25 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
   const [updateUserModalIsOpen, setUpdateUserModalIsOpen] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
   const [formData, setFormData] = useState({
-    email: user?.email || (user && user.email) || "",
-    first_name: user?.first_name || (user && user.first_name) || "",
-    last_name: user?.last_name || (user && user.last_name) || "",
-    password: user?.password || (user && user.password) || "",
-    zipcode: user?.zipcode || (user && user.zipcode) || "",
-    picture_url: user?.picture_url || (user && user.picture_url) || "",
+    email: user?.email || (user && user.email) || '',
+    first_name: user?.first_name || (user && user.first_name) || '',
+    last_name: user?.last_name || (user && user.last_name) || '',
+    password: user?.password || (user && user.password) || '',
+    zipcode: user?.zipcode || (user && user.zipcode) || '',
+    picture_url: user?.picture_url || (user && user.picture_url) || '',
     friend_list: user?.friend_list || (user && user.friend_list) || [],
     pets: user?.pets || (user && user.pets) || [],
     hosted_events: user?.hosted_events || (user && user.hosted_events) || [],
     attending_events:
       user?.attending_events || (user && user.attending_events) || [],
-    pet_name: "",
-    birth_adoption_date: "",
-    breed: "",
-    dietary_restrictions: "",
-    vibe: "",
-    size: "",
-    pet_picture_url: "",
-    user_id: user?.id || (user && user.id) || "",
+    pet_name: '',
+    birth_adoption_date: '',
+    breed: '',
+    dietary_restrictions: '',
+    vibe: '',
+    size: '',
+    pet_picture_url: '',
+    user_id: user?.id || (user && user.id) || '',
   });
 
   const handleInputChange = (event) => {
@@ -45,14 +45,14 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
       ...prevFormData,
       [name]: value,
     }));
-    Modal.setAppElement("#root");
+    Modal.setAppElement('#root');
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const requestOptions = {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
     };
     const response = await fetch(
@@ -84,7 +84,7 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
                   alt=""
                   width="100px"
                   height="100px"
-                  style={{ objectFit: "cover" }}
+                  style={{ objectFit: 'cover' }}
                 ></img>
                 <h5 className="user-profile-pet-card-title">
                   {pet && pet.pet_name}
@@ -128,10 +128,10 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
       user_id: user.id,
     };
     const response = await fetch(url, {
-      method: "DELETE",
+      method: 'DELETE',
       body: JSON.stringify(data),
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
     if (response.ok) {
@@ -154,7 +154,7 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
                   src={event.picture_url}
                   alt=""
                   height="100px"
-                  style={{ objectFit: "cover" }}
+                  style={{ objectFit: 'cover' }}
                 ></img>
                 <h5 className="user-profile-event-card-title">
                   {event && event.name}
@@ -192,7 +192,7 @@ export default function ProfilePage({ user, updateLoadAccount, loadAccount }) {
                       className="rounded"
                       width="150"
                       height="150"
-                      style={{ objectFit: "cover" }}
+                      style={{ objectFit: 'cover' }}
                     />
                     <div className="mt-3">
                       <h2>

@@ -2,7 +2,6 @@ import "./MainPage.css";
 import { Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import CalendarIcon from "../assets/icons/calendar.png";
-import FriendsIcon from "../assets/icons/friends.png";
 import LocationsIcon from "../assets/icons/locations.png";
 
 function LeftFeed() {
@@ -25,14 +24,13 @@ function LeftFeed() {
             />
 
             {user && (
-              <div className="h5" key={user.id}>
+              <div className="h4" key={user.id}>
                 {user.first_name} {user.last_name}
               </div>
             )}
 
             <div className="h7 home-profile-card-links">
-              <Link to={`/users/${user.id}`}>Profile Page</Link> |{' '}
-              <Link to="/profile">Edit Profile</Link>
+              <Link to="/profile">My Profile</Link>
             </div>
           </div>
         </div>
@@ -88,17 +86,6 @@ function LeftFeed() {
                                     alt="calendar"
                                 />
                                 My Events
-                            </Link>
-                        </li>
-                        <li className="list-group-item" key="friends">
-                            <Link to="/friends">
-                                <img
-                                    className="left-main-icon"
-                                    src={FriendsIcon}
-                                    width="35px"
-                                    alt="friends icon"
-                                />
-                                Friends
                             </Link>
                         </li>
                         <li className="list-group-item" key="location">
