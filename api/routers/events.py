@@ -41,6 +41,17 @@ def delete_event(
     return deleted_event
 
 
+@router.put("/api/events/attending")
+async def attend_this_event(
+    attend_info: AttendEvent,
+    event_repo: EventQueries = Depends(),
+    account_repo: AccountQueries = Depends(),
+):
+    event_repo.add_attendee(attend_info)
+    account_repo.add_attending(attend_info)
+    return True
+
+
 @router.put("/api/events/{id}", response_model=EventOut)
 async def update_event(
     id: str, event: EventIn, repo: EventQueries = Depends()
@@ -49,12 +60,13 @@ async def update_event(
     return updated_event
 
 
-@router.put("/api/events/attend", response_model=EventOut)
+@router.put("/api/events/attend")
 async def attend_event(
     attend: AttendEvent,
     event_repo: EventQueries = Depends(),
     account_repo: AccountQueries = Depends(),
 ):
-    updated_event = event_repo.add_attendee(attend)
-    account_repo.add_attending(attend)
-    return updated_event
+    print("attendTHIS EVENT")
+    # updated_event = event_repo.add_attendee(attend)
+    # account_repo.add_attending(attend)
+    return print("lame")

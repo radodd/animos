@@ -46,11 +46,11 @@ class EventQueries(Queries):
             filter, new_values, return_document=True
         )
         if result is None:
-            return Exception("Event Not Found")
+            return EventOut(id=id, **event.dict())
         result["id"] = str(result["_id"])
         return EventOut(**result)
 
-    def add_attendee(self, attend: AttendEvent) -> EventOut:
+    def add_attendee(self, attend: AttendEvent) -> bool:
         props = attend.dict()
         filter = {"_id": ObjectId(props["event_id"])}
         new_values = {"$push": {"attendees": props["user_id"]}}
@@ -60,4 +60,4 @@ class EventQueries(Queries):
         if result is None:
             return Exception("Event Not Found")
         result["id"] = str(result["_id"])
-        return EventOut(**result)
+        return True
