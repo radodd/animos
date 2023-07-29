@@ -16,7 +16,6 @@ function CreateEvent() {
   const locations = useSelector((state) => state.locations);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  // console.log('USER RIGHT HERE', user);
 
   const handleNameChange = (e) => {
     const value = e.target.value;
@@ -94,7 +93,6 @@ function CreateEvent() {
       setPicture("");
       setIsSubmitted(true);
       dispatch(fetchEvents());
-      // window.location.reload();
     }
   };
 

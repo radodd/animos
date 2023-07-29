@@ -9,6 +9,7 @@ import Modal from 'react-modal';
 import EventButtonModal from '../MainPage/CreateEventButtonModal';
 import PetButtonModal from '../MainPage/CreatePetButtonModal';
 import { fetchUser, fetchUsers } from '../actions/userAction.js';
+import { fetchPets } from '../actions/petAction.js';
 
 export default function ProfilePage() {
     const dispatch = useDispatch();
@@ -18,7 +19,6 @@ export default function ProfilePage() {
     const events = useSelector((state) => state.events);
     const [updateUserModalIsOpen, setUpdateUserModalIsOpen] = useState(false);
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
-    const [petIsDeleted, setPetIsDeleted] = useState(false);
     const [formData, setFormData] = useState({
         email: userProfile?.email || (userProfile && userProfile.email) || '',
         first_name:
@@ -183,14 +183,6 @@ export default function ProfilePage() {
                                 </div>
                             );
                         })}
-                {petIsDeleted === true && (
-                    <div
-                        className="alert alert-success d-flex justify-content-center"
-                        id="success-message"
-                    >
-                        Pet removed
-                    </div>
-                )}
             </div>
         );
     }
@@ -198,7 +190,7 @@ export default function ProfilePage() {
     async function handleDeletePet(id) {
         const url = `${process.env.REACT_APP_API_HOST}/api/pets/${id}`;
         const data = {
-            pet_id: pets.id,
+            pet_id: id,
             user_id: userProfile.id,
         };
         const response = await fetch(url, {
@@ -209,7 +201,9 @@ export default function ProfilePage() {
             },
         });
         if (response.ok) {
-            setPetIsDeleted(true);
+            dispatch(fetchUser());
+            dispatch(fetchUsers());
+            dispatch(fetchPets());
         }
     }
 
