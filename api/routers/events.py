@@ -41,7 +41,7 @@ def delete_event(
     return deleted_event
 
 
-@router.put("api/events/attend_event")
+@router.put("api/events/attend_events")
 async def attend_event(
     attending_info: AttendEvent,
     event_repo: EventQueries = Depends(),

@@ -44,7 +44,7 @@ const SignupForm = () => {
         setTimeout(() => {
           dispatch(fetchUser());
           navigate(`/profile/${email}`);
-        }, 1500);
+        }, 2250);
       })
 
       .catch((error) => {
@@ -91,7 +91,7 @@ const SignupForm = () => {
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">first</label>
+            <label className="form-label">first name</label>
             <input
               name="first"
               type="text"
@@ -102,7 +102,7 @@ const SignupForm = () => {
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">last</label>
+            <label className="form-label">last name</label>
             <input
               name="last"
               type="text"

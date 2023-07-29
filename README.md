@@ -51,7 +51,56 @@ DOCKER_DEFAULT_PLATFORM=linux/amd64 docker-compose build
 </li>
 
 <li>Once the Docker volume, images and containers have been built, you will be able to access the webpage on your browser at http://localhost:3000/ </li>
+
+
+
+<li>In order for an event to be created, locations will need to be added in the backend at http://localhost:8000/docs, Create Location. Following the API Design below for Create Location, once one is set up, you will be able to create an event. </li>
+
+<br>
+  <details open>
+  <summary>Location examples</summary>
+  <br>
+
+  ```json
+  {
+     "name": "Pine Lake Dog Park",
+     "zipcode": "94116",
+     "description": "Pine Lake Park Dog Play Area is a recreational space for Fido in San Francisco, CA. Adjacent to Pine Lake, you'll find a spacious grassy off-leash area for dogs to play.",
+     "capacity": "200",
+     "picture_url": "https://trailhiker.files.wordpress.com/2013/08/pine-lake-park_7175.jpg"
+  }
+
+  ```
+
+<br>
+
+  ```json
+{
+     "name": "Crissy Field",
+     "zipcode": "94123",
+     "description": "Your dog will love strolling on the pet-friendly promenade, catching a frisbee in the grassy field, and playing in the sand and surf at the designated off-leash beach at Crissy Field in San Francisco, CA. A dog water fountain and washing station are available.",
+     "capacity": "200",
+     "picture_url": "https://photos.bringfido.com/photo/2016/08/29/United_States_San_Fransico_CA_Baker_Beach__Crissy_Field_4_Melissa_Hall_Q2vBB7M.jpg?size=slide&density=2x"
+}
+  ```
+
+<br>
+
+  ```json
+{
+     "name": "Pacifica State Beach",
+     "zipcode": "95814",
+     "description": "Leashed dogs are welcome at Pacifica State Beach (Linda Mar), a popular, pet-friendly beach in Pacifica, CA. This beautiful stretch of beach offers stunning ocean views and a recreation trail along the ocean. Dog guardians are reminded to clean up any mess that is left behind by their pups to preserve the cleanliness of the beach.",
+     "capacity": "300",
+     "picture_url": "https://photos.bringfido.com/attractions/8/7/0/1078/1078_76093.jpg?size=tile&density=2x"
+}
+
+  ```
+
+  </details>
 </ol>
+
+
 
 <br>
 
