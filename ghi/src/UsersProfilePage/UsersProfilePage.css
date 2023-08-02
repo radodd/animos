@@ -11,6 +11,151 @@ body {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
+.user-pets-title,
+.name-title,
+.user-events-title {
+  font-family: Konkhmer Sleokchher;
+}
+
+.user-profile-pet-card,
+.user-profile-event-card,
+.card {
+  position: relative;
+  flex-direction: column;
+  min-width: 0;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 0 solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
+.card-body {
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 1rem;
+}
+
+.gutters-sm {
+  margin-right: -8px;
+  margin-left: -8px;
+}
+
+.gutters-sm > .col,
+.gutters-sm > [class*="col-"] {
+  padding-right: 8px;
+  padding-left: 8px;
+}
+.mb-3,
+.my-3 {
+  margin-bottom: 1rem !important;
+}
+
+.bg-gray-300 {
+  background-color: #e2e8f0;
+}
+.h-100 {
+  height: 100% !important;
+}
+.shadow-none {
+  box-shadow: none !important;
+}
+
+.user-profile-event-card,
+.user-profile-pet-card {
+  background-color: #f4f4f4;
+  width: 225px;
+  height: 225px;
+  border-radius: 12px;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  justify-content: center;
+}
+
+.user-profile-pet-card-image,
+.user-profile-event-card-image {
+  padding: 15px 15px 15px 15px;
+}
+
+.follow-btn {
+  background-color: #5574c8;
+  border-radius: 8px;
+  color: white;
+  font-weight: 700;
+  border: none;
+  padding: 8px 20px 8px 20px;
+}
+
+.following-btn {
+  background-color: #22c99e;
+  border-radius: 8px;
+  color: white;
+  font-weight: 700;
+  border: none;
+  padding: 4px;
+  cursor: none;
+}
+
+.follow-btn:hover,
+.view-profile-btn:hover {
+  background-color: #2400c6;
+  color: white;
+  border-color: white;
+}
+
+.user-profile-pet-card {
+  width:200px;
+  height: 250px;
+  justify-content: center;
+  align-items: center;
+  align-self:center;
+  padding:0px 0px 0px 0px;
+}
+
+.remove-btn {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+
+.profile-page-btn-holder {
+  width: 275px;
+  margin-bottom: -35px;
+}
+
+.my-events-title,
+.name-title,
+.my-pets-title {
+  font-family: Konkhmer Sleokchher;
+}
+
+
+.user-profile-event-card-image {
+  margin-top:10px;
+  border-radius:10px;
+}
+
+.navbar,
+.nav-name {
+  font-family: Inter;
+}
+
+body {
+  margin-top: 20px;
+  color: #1a202c;
+  text-align: left;
+  background-color: white;
+}
+.main-body {
+  padding: 15px;
+}
+.card {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
 .card {
   position: relative;
   display: flex;
@@ -65,7 +210,7 @@ body {
 .card-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 5px;
   justify-content: center;
 }
 
@@ -98,4 +243,27 @@ body {
   background-color: #2400c6;
   color: white;
   border-color: white;
+}
+
+
+.navbar,
+.nav-name {
+  font-family: Inter;
+}
+
+.user-profile-event-card,
+.user-profile-pet-card {
+  background-color: #f4f4f4;
+  width: 225px;
+  height: 225px;
+  border-radius: 12px;
+}
+
+.user-profile-pet-card-image,
+.user-profile-event-card-image {
+  padding: 15px 15px 15px 15px;
+}
+
+.card {
+  font-family: Inter;
 }

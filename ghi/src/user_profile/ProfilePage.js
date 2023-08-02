@@ -132,11 +132,11 @@ export default function ProfilePage() {
             .filter((pet) => pet.user_id === userProfile.id)
             .map((pet) => {
               return (
-                <div className="user-profile-pet-card align-items-center">
-                  <div
-                    key={pet.id}
-                    className="user-profile-pet-card-body d-flex flex-column align-items-center"
-                  >
+                <div
+                  className="user-profile-pet-card align-items-center"
+                  key={pet.id}
+                >
+                  <div className="user-profile-pet-card-body d-flex flex-column align-items-center">
                     <img
                       className="rounded-circle user-profile-pet-card-image"
                       src={pet.pet_picture_url}
@@ -363,6 +363,8 @@ export default function ProfilePage() {
                     <ProfilePagePetCard />
                   </div>
                   <br />
+                  <br />
+
                   <div className="justify-content-center profile-page-btn-holder">
                     {tokenUser && tokenUser.email === userProfile?.email && (
                       <PetButtonModal />
@@ -374,7 +376,7 @@ export default function ProfilePage() {
               <div className="card">
                 <div className="card-body">
                   <h4 className="my-events-title">My Event(s)</h4>
-                  <br/>
+                  <br />
                   <div className="card-container">
                     <ProfilePageEventCard />
                   </div>
@@ -389,6 +391,7 @@ export default function ProfilePage() {
             </div>
           </div>
         </div>
+        <br />
         <div className="d-flex justify-content-center">
           {tokenUser && tokenUser.email === userProfile?.email && (
             <button

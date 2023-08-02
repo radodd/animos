@@ -7,6 +7,7 @@ body {
 .main-body {
   padding: 15px;
 }
+
 .card {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
@@ -54,14 +55,6 @@ body {
   box-shadow: none !important;
 }
 
-.user-profile-event-card,
-.user-profile-pet-card {
-  background-color: #f4f4f4;
-  width: 225px;
-  height: 225px;
-  border-radius: 12px;
-}
-
 .card-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -100,13 +93,15 @@ body {
   border-color: white;
 }
 
+.user-profile-event-card,
 .user-profile-pet-card {
   width:200px;
-  height: 250px;
+  height: 800px;
   justify-content: center;
   align-items: center;
   align-self:center;
   padding:0px 0px 0px 0px;
+  margin-right: 5px;
 }
 
 .remove-btn {
@@ -125,7 +120,6 @@ body {
 .my-pets-title {
   font-family: Konkhmer Sleokchher;
 }
-
 
 .user-profile-event-card-image {
   margin-top:10px;

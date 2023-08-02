@@ -20,6 +20,7 @@ function UsersProfilePage() {
   const databaseUser = users.filter((user) => user.email === userEmail);
   const followingUsersList =
     databaseUser[0] && databaseUser[0]["following_list"];
+  const locations = useSelector((state) => state.locations);
 
   const handleFollow = async (userProfile, requestingUserId) => {
     const url = `${process.env.REACT_APP_API_HOST}/api/users/addfriend`;
@@ -42,7 +43,7 @@ function UsersProfilePage() {
 
   function PetCard() {
     return (
-      <div className="pets-card align-items-center">
+      <>
         {userPets.map((pet) => {
           return (
             <div
@@ -56,7 +57,7 @@ function UsersProfilePage() {
                   alt=""
                   width="100px"
                   height="100px"
-                  style={{ objectFit: "cover" }}
+                  style={{ objectFit: 'cover' }}
                 ></img>
                 <h5 className="user-profile-pet-card-title">
                   {pet && pet.pet_name}
@@ -71,38 +72,45 @@ function UsersProfilePage() {
             </div>
           );
         })}
-      </div>
+      </>
     );
   }
 
   function EventCard() {
     return (
-      <div className="events-card align-items-center">
+      <>
         {userEvents.map((event) => {
-          return (
-            <div
-              className="user-profile-event-card align-items-center"
-              key={event.id}
-            >
-              <div className="user-profile-event-card-body d-flex flex-column align-items-center">
-                <img
-                  className="rounded user-profile-event-card-image"
-                  src={event.picture_url}
-                  alt=""
-                  height="100px"
-                  style={{ objectFit: "cover" }}
-                ></img>
-                <h5 className="user-profile-event-card-title">
-                  {event && event.name}
-                </h5>
-                <div className="user-profile-event-card-date">
-                  {event.date_start}
-                </div>
-              </div>
-            </div>
-          );
+const start_date = new Date(event.date_start).toLocaleDateString([], {
+  weekday: 'long',
+  month: 'short',
+  day: 'numeric',
+});
+let locationName;
+locations.map((location) => {
+  if (event.location_id === location.id) {
+    locationName = location.name;
+  }
+  return locationName;
+});
+
+return (
+  <div className="user-profile-event-card align-items-center" key={event.id}>
+    <div className="user-profile-event-card-body d-flex flex-column align-items-center">
+      <img
+        className="rounded user-profile-event-card-image"
+        src={event.picture_url}
+        alt=""
+        height="100px"
+        style={{ objectFit: 'cover' }}
+      ></img>
+      <h5 className="user-profile-event-card-title">{event && event.name}</h5>
+      <div className="user-profile-event-card-location">{locationName}</div>
+      <div className="user-profile-event-card-date">{start_date}</div>
+    </div>
+  </div>
+);
         })}
-      </div>
+      </>
     );
   }
 
@@ -123,11 +131,11 @@ function UsersProfilePage() {
                       className="rounded"
                       width="150"
                       height="150"
-                      style={{ objectFit: "cover" }}
+                      style={{ objectFit: 'cover' }}
                     />
                     <div className="mt-3">
-                      <h2>
-                        {userProfile && userProfile.first_name}{" "}
+                      <h2 className="name-title">
+                        {userProfile && userProfile.first_name}{' '}
                         {userProfile && userProfile.last_name}
                       </h2>
                       <p className="text-secondary mb-1">
@@ -163,7 +171,9 @@ function UsersProfilePage() {
             <div className="col-md-8">
               <div className="card">
                 <div className="card-body">
-                  <h4>{userProfile && userProfile.first_name}'s Pet(s)</h4>
+                  <h4 className="user-pets-title">{userProfile && userProfile.first_name}'s Pet(s)</h4>
+                  <br />
+
                   <div className="card-container">
                     <PetCard />
                   </div>
@@ -172,8 +182,14 @@ function UsersProfilePage() {
               <br />
               <div className="card">
                 <div className="card-body">
-                  <h4>{userProfile && userProfile.first_name}'s Event(s)</h4>
-                  <EventCard />
+                  <h4 className="user-events-title">
+                    {userProfile && userProfile.first_name}'s Event(s)
+                  </h4>
+                  <br />
+
+                  <div className="card-container">
+                    <EventCard />
+                  </div>
                 </div>
               </div>
             </div>
