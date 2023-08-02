@@ -21,7 +21,30 @@ body {
   align-content: center;
 }
 
+.card-new-friends,
+.card-upcoming-events,
+.list-group-item,
+.card-my-pets-title,
+.profile-card-first-last-name{
+  font-family: Konkhmer Sleokchher;
+}
 
+a:link:hover {
+  color:orange;
+}
+
+a:link {
+  text-decoration: none;
+  color: black;
+}
+
+.home-profile-card-links {
+  font-family: Inter;
+  font-size: 15px;
+  text-decoration: none;
+
+
+}
 
 @media (min-width: 992px) {
   .gedf-main {
@@ -129,7 +152,6 @@ body {
   padding:12px;
   margin-left: auto;
   font-weight:700;
-
 }
 
 .submit-btn:hover {
@@ -173,30 +195,37 @@ body {
 .event-card-header-name {
   padding: 0px 0px 0px 10px;
   font-weight: 600;
-  font-size: 20px
+  font-size: 20px;
+  font-family: Inter;
 }
 
 .event-card-name {
   font-size: 25px;
   font-weight: 600;
   color: #28307F;
+  font-family: Inter;
+  font-weight:800;
 }
 
 .event-card-datetime {
   font-size:20px;
   font-weight: 600;
-
+  font-family: Inter;
 }
 
 .event-card-location {
   font-size:18px;
   color: #595C5E;
   font-weight: 500;
+  font-family: Inter;
+
 }
 
 .event-card-description {
   font-size:15px;
   color: #7B7D7F;
+  font-family: Inter;
+
 }
 
 .event-card-footer {

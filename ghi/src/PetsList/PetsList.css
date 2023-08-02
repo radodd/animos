@@ -12,16 +12,24 @@
   border-radius: 12px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   cursor: pointer;
   transition: 20ms ease-in;
   width: 100%;
   flex: 1;
+  font-family: Inter;
+}
+
+.pet-card-body {
+  justify-content: center;
+  text-align: center;
 }
 
 .pet-card-title {
-  padding: 1rem;
+  padding: 10px 0px 5px 0px;
   font-size: 800;
+  font-family: Konkhmer Sleokchher;
+  align-items: center;
 }
 
 .pet-card-description {
@@ -46,65 +54,9 @@
   background-color: #EE5828;
 }
 
-.event_modal-close-button {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
 
-.pet_modal {
-  display: flex;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-  display: flex;
-  justify-content: center;
-  justify-self: center;
-  align-items: center;
-  padding: 0 1rem;
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.3s;
-  border-radius: 12px;
-}
-
-.pet-card_modal-content {
-  width: 500px;
-  position: relative;
-  padding: 3.5rem 2.5rem 2.5rem;
-  border-radius: 1.5rem;
-  background-color: beige;
-}
-
-.event_modal-close-button {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  font-size: 1.5rem;
-  color: black;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0px 0px 20px 0px;
-}
-
-.card-image {
-  border-radius: 12px;
-  padding: 2px;
+.pet-card-image {
+  margin: 2px 0px 12px 0px;
   top: 15rem;
   width: 100%;
-}
-
-.add-pet-button-holder {
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  align-self: center;
-  width: 00px;
 }

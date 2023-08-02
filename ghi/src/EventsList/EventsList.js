@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchEvents } from "../actions/eventAction.js";
 import NavBar from "../NavBar";
 import DiscoverEvents from "../../src/assets/images/discover_events.png";
-import EventButtonModal from "../MainPage/CreateEventButtonModal.js";
+import EventButtonModal from '../MainPage/EventButton';
 
 function EventsList() {
   const events = useSelector((state) => state.events);
@@ -19,8 +19,20 @@ function EventsList() {
     return (
       <>
         {events.map((event, index) => {
-          const date = new Date(event.date_start).toLocaleDateString();
-          const time = new Date(event.date_start).toLocaleTimeString();
+          const start_date = new Date(
+            event.date_start
+          ).toLocaleDateString([], {
+            weekday: 'long',
+            month: 'short',
+            day: 'numeric',
+          });
+          const start_time = new Date(
+            event.date_start
+          ).toLocaleTimeString([], {
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true,
+          });
           let locationName;
           locations.map((location) => {
             if (event.location_id === location.id) {
@@ -35,14 +47,16 @@ function EventsList() {
                 className="event-card-image"
                 height="200px"
                 src={event.picture_url}
-                style={{ objectFit: "cover" }}
+                style={{ objectFit: 'cover' }}
                 alt="event"
               ></img>
               <div className="event-card-body">
                 <h5 className="event-card-title">{event.name}</h5>
                 <h6 className="event-card-location">{locationName}</h6>
-                <div className="event-card-date-start">Date: {date}</div>
-                <div className="event-card-time-start">Start time: {time}</div>
+                <div className="event-card-date-start">Date: {start_date}</div>
+                <div className="event-card-time-start">
+                  Time: {start_time}
+                </div>
                 <button
                   className="event-card-button"
                   onClick={() => {

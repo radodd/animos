@@ -14,15 +14,19 @@
   justify-content: space-between;
   cursor: pointer;
   transition: 20ms ease-in;
+  font-family: Inter;
 }
 
+.event-card-title {
+  font-family: Konkhmer Sleokchher;
+
+}
 .event-card:hover {
   transform: scale(1.02);
 }
 
 
 .event-card-description {
-  padding: 1rem;
   font-size: 800;
 }
 
@@ -78,6 +82,7 @@
     padding: 3.5rem 2.5rem 2.5rem;
     border-radius: 1.5rem;
     background-color: #f0f2f5;
+    font-family: Inter;
 }
 
 .event_modal-close-button {
@@ -102,11 +107,14 @@
 .event-modal-title{
     text-align: center;
     padding: 5px;
+    font-family: Konkhmer Sleokchher;
+    font-size: 30px;
 }
 
 .event-modal-description {
     text-align: center;
-    padding-top: 5px;
+    font-family: Inter;
+    font-size: 50px;
 }
 
 .event-modal-capacity,
@@ -116,11 +124,14 @@
     text-align: center;
     margin-bottom: 1rem;
     font-size: 15px;
+    font-family: Inter;
+
 }
 
 .event-modal-description {
     font-size: var(--smaller-font-size);
     margin-bottom: 20px;
+    font-family: Inter;
 }
 
 .event-modal-title {
@@ -129,6 +140,8 @@
     text-align: center;
     margin-bottom: 1rem;
     font-size: 25px;
+    font-family: Konkhmer Sleokchher;
+    font-size: 30px;
 }
 
 /*Active Modal*/

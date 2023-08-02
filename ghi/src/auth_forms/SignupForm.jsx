@@ -58,7 +58,7 @@ const SignupForm = () => {
       <div className="card-body">
         <form onSubmit={(e) => handleRegistration(e)}>
           <div className="mb-3">
-            <label className="form-label">email</label>
+            <label className="form-label">Email</label>
             <input
               name="email"
               type="text"
@@ -69,7 +69,7 @@ const SignupForm = () => {
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">password</label>
+            <label className="form-label">Password</label>
             <input
               name="password"
               type="password"
@@ -80,7 +80,7 @@ const SignupForm = () => {
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">confirm password</label>
+            <label className="form-label">Confirm Password</label>
             <input
               name="confirmPassword"
               type="password"
@@ -91,7 +91,7 @@ const SignupForm = () => {
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">first name</label>
+            <label className="form-label">First Name</label>
             <input
               name="first"
               type="text"
@@ -102,7 +102,7 @@ const SignupForm = () => {
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">last name</label>
+            <label className="form-label">Last Name</label>
             <input
               name="last"
               type="text"
@@ -113,7 +113,7 @@ const SignupForm = () => {
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">zipcode</label>
+            <label className="form-label">Zipcode</label>
             <input
               name="zipcode"
               type="text"

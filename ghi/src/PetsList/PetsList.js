@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./PetsList.css";
 import NavBar from "../NavBar";
 import AddPetButton from "../assets/images/add_pet_button.png";
+import MyPets from '../assets/images/my_pets.png';
 import { Link } from "react-router-dom";
 import { fetchPets } from "../actions/petAction";
 
@@ -40,25 +41,25 @@ function PetsList() {
 
   function Card() {
     return (
-      <div className="pets-list">
+      <>
         {userPets.map((pet, index) => {
           return (
             <div className="pet-card" key={pet.id}>
               <div className="pet-card-body">
-                <h5 className="pet-card-title">{pet.pet_name}</h5>
+                <h4 className="pet-card-title">{pet.pet_name}</h4>
                 <img
                   className="pet-card-image"
                   src={pet.pet_picture_url}
                   alt="list pets"
-                  style={{ objectFit: "cover" }}
+                  style={{ objectFit: 'cover' }}
                   height="200px"
                   width="300px"
                 ></img>
-                <div className="pet-card-breed">{pet.breed}</div>
-                <div className="pet-card-vibe">{pet.vibe}</div>
-                <div className="pet-card-size">{pet.size}</div>
+                <div className="size-vibe-breed">
+                  {pet.breed} | {pet.size} | {pet.vibe}
+                </div>
                 <div className="pet-card-birthday">
-                  {pet.birth_adoption_date}
+                  🎂: {pet.birth_adoption_date}
                 </div>
                 <button
                   className="pet-card-button"
@@ -83,7 +84,7 @@ function PetsList() {
             Zero pets are in your profile :(((
           </div>
         )}
-      </div>
+      </>
     );
   }
 
@@ -91,14 +92,22 @@ function PetsList() {
     <>
       <NavBar />
       <br />
-      <h1>My Pets</h1>
+      <div className="image-title-holder">
+        <img
+          className="pets-image-title"
+          src={MyPets}
+          alt=""
+          width="500px"
+          height="100px"
+        />
+      </div>
       <br />
       <div className="add-pet-button-holder">
         <Link className="nav-link" aria-current="page" to="create">
           <img
             className="add-pet-button"
             src={AddPetButton}
-            width="300"
+            width="200"
             alt=""
           />
         </Link>

@@ -35,26 +35,34 @@ export default function EventDetail({ event, location }) {
       </div>
       <img
         className="event-modal-image"
-        style={{ objectFit: "cover" }}
+        style={{ objectFit: 'cover' }}
         height="300"
         width="415"
         src={event.picture_url}
         alt="event"
       ></img>
       <div className="event-modal-description"></div>
-      <h5>
-        Start Date: {new Date(event.date_start).toLocaleDateString()} @{" "}
-        {new Date(event.date_start).toLocaleTimeString()}
-      </h5>
-      <h5>
-        End Date: {new Date(event.date_end).toLocaleDateString()} @{" "}
-        {new Date(event.date_end).toLocaleTimeString()}
-      </h5>
+      <h6>
+        Start Date: {new Date(event.date_start).toLocaleDateString()} at{' '}
+        {new Date(event.date_start).toLocaleTimeString([], {
+          hour: 'numeric',
+          minute: 'numeric',
+          hour12: true,
+        })}
+      </h6>
+      <h6>
+        End Date: {new Date(event.date_end).toLocaleDateString()} at{' '}
+        {new Date(event.date_end).toLocaleTimeString([], {
+          hour: 'numeric',
+          minute: 'numeric',
+          hour12: true,
+        })}
+      </h6>
       <p>
-        <b>Capacity:</b> {event.capacity}
+       Capacity: {event.capacity}
       </p>
       <p>
-        <b>Description:</b> {event.description}
+        Description: {event.description}
       </p>
       {user && user.id && event.account_id === user.id && (
         <div>

@@ -9,8 +9,7 @@ function RightFeed() {
         return (
             <div className="card gedf-card right-card">
                 <div className="card-body">
-                    <h5 className="card-subtitle">Sniff out new friends</h5>
-                    <br />
+                    <h5 className="card-new-friends">Sniff out new friends</h5>
                     {users.slice(0, 4).map((user) => {
                         return (
                             <img
@@ -25,7 +24,7 @@ function RightFeed() {
                         );
                     })}
                     <br />
-                    <br />
+                    <br/>
                     <Link to="/users" className="card-link float-right">
                         View more
                     </Link>
@@ -41,7 +40,7 @@ function RightFeed() {
             <>
                 <div className="card gedf-card right-card">
                     <div className="card-body">
-                        <h5 className="card-subtitle">Upcoming Events</h5>
+                        <h5 className="card-upcoming-events">Upcoming Events</h5>
                         <p className="card-subtitle text-muted">
                             Check out events near you
                         </p>
